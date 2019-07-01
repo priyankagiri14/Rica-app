@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ubits.payflow.payflow_network.Agent_Login.Agent_Login_Activity;
 import com.ubits.payflow.payflow_network.Driver.Driverlogin;
 import com.ubits.payflow.payflow_network.General.Login;
 import com.ubits.payflow.payflow_network.R;
@@ -30,7 +31,7 @@ public class Login_Activity extends TabActivity {
 
         spec=tabHost.newTabSpec("Agent");
         spec.setIndicator("AGENT");
-        intent=new Intent(this,Login.class);
+        intent=new Intent(this, Agent_Login_Activity.class);
         spec.setContent(intent);
         tabHost.addTab(spec);
 

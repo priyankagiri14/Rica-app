@@ -1,68 +1,70 @@
+apply plugin: 'com.android.application'
 
-    apply plugin: 'com.android.application'
-
-    android {
-        splits {
-            abi {
-                enable true
-                reset()
-                include 'x86', 'armeabi-v7a'
-                universalApk true
-            }
-        }
-        compileSdkVersion 28
-        useLibrary 'org.apache.http.legacy'
-        defaultConfig {
-            applicationId "com.tms.ontrack"
-            minSdkVersion 21
-            targetSdkVersion 28
-            versionCode 1
-            versionName "1.0"
-        }
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+android {
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
         }
     }
-    repositories {
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    compileSdkVersion 28
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.tms.ontrack"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
     }
-    dependencies {
-        //noinspection GradleCompatible
-        implementation 'androidx.appcompat:appcompat:1.0.0'
-        implementation 'com.google.android.material:material:1.0.0'
-        implementation 'com.byteshaft.requests:requests:0.5.2'
-        implementation 'com.google.zxing:core:3.2.1'
-        implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
-        implementation fileTree(include: ['*.jar'], dir: 'libs')
-        implementation('org.apache.httpcomponents:httpcore:4.3') {
-            exclude module: "httpclient"
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        implementation('org.apache.httpcomponents:httpmime:4.3') {
-            exclude module: "httpclient"
-        }
-        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-        implementation 'org.apache.commons:commons-io:1.3.2'
-        implementation 'id.zelory:compressor:2.1.0'
-        implementation 'com.github.maayyaannkk:ImagePicker:1.0.0'
-
-        implementation 'com.jakewharton:butterknife:10.0.0'
-         implementation 'info.androidhive:fontawesome:0.0.5'
     }
 
-    android {
-        packagingOptions {
-            exclude 'META-INF/DEPENDENCIES'
-            exclude 'META-INF/NOTICE'
-            exclude 'META-INF/LICENSE'
-            exclude 'META-INF/LICENSE.txt'
-            exclude 'META-INF/NOTICE.txt'
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+dependencies {
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.byteshaft.requests:requests:0.5.2'
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation('org.apache.httpcomponents:httpcore:4.3') {
+        exclude module: "httpclient"
+    }
+    implementation('org.apache.httpcomponents:httpmime:4.3') {
+        exclude module: "httpclient"
+    }
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'org.apache.commons:commons-io:1.3.2'
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.github.maayyaannkk:ImagePicker:1.0.0'
+
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    implementation 'info.androidhive:fontawesome:0.0.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+}
+
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}

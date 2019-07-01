@@ -16,15 +16,17 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="whateverString"
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
         android:icon="@mipmap/on_track_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/on_track_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".Agent_Login.Agent_Login_Activity"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_ley" />
@@ -38,10 +40,11 @@
             android:icon="@mipmap/on_track_logo"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/on_track_logo"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Driver.Driverlogin" />
- <activity android:name=".Login.Login_Activity"
-     android:label="@string/app_name">
+        <activity
+            android:name=".Login.Login_Activity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -158,8 +161,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubits.payflow.payflow_network.Kits.MySimsn" />
-        </activity>
-        <!-- android:label="@string/title_activity_individual_simn" -->
+        </activity> <!-- android:label="@string/title_activity_individual_simn" -->
         <activity
             android:name=".Kits.MySimListn"
             android:label="@string/title_activity_my_sim_listn"
@@ -447,7 +449,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ubits.payflow.payflow_network.General.MainActivity" />
         </activity>
-
         <activity
             android:name=".Airtime.Printer"
             android:label="@string/title_activity_printer"
@@ -557,13 +558,13 @@
                 android:value="com.ubits.payflow.payflow_network.General.MainActivity" />
         </activity>
         <activity android:name=".Airtime.UserHistoryActivity" />
-        <activity android:name=".Driver.Stock_allocate.Assign_agent"/>
+        <activity android:name=".Driver.Stock_allocate.Assign_agent" />
         <activity android:name=".General.RicaAgentRegisterActivty" />
-        <activity android:name=".General.Login"></activity>
-        <activity android:name=".Driver.Stock_allocate.Stock_allocate"/>
-        <activity android:name=".Driver.Driver_Dashboard.Driver_Dashboard"/>
-        <activity android:name=".Driver.Stock_allocate.Tab_Stock_Activity"/>
-        <activity android:name=".Driver.Stock_allocate.Pending_Box_List"/>
+        <activity android:name=".General.Login" />
+        <activity android:name=".Driver.Stock_allocate.Stock_allocate" />
+        <activity android:name=".Driver.Driver_Dashboard.Driver_Dashboard" />
+        <activity android:name=".Driver.Stock_allocate.Tab_Stock_Activity" />
+        <activity android:name=".Driver.Stock_allocate.Pending_Box_List" />
     </application>
 
 </manifest>

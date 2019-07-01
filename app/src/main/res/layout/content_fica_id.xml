@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bg_register">
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_register">
+
+    <TextView
+        android:layout_marginTop="90dp"
+        android:id="@+id/txtinfosid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/bg_login"
+        android:textSize="18dp"/>
+
+
+
+    <ImageView
+        android:layout_marginTop="70dp"
+        android:id="@+id/Imageprev"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <Button
+        android:id="@+id/cpic"
+        android:text="Take Pic of ID"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_login_bg"
+        android:layout_below="@+id/Imageprev" />
+
+    <Button
+        android:id="@+id/up"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Image to Application "
+        android:layout_below="@+id/cpic"
+        android:background="@color/btn_login_bg"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bg_register">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="@color/bg_register"
+android:gravity="center"
+android:orientation="vertical"
+android:padding="10dp" >
+
+
+<TextView
+    android:layout_marginTop="70dp"
+    android:id="@+id/txttransferTopUpBalance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="My Balance"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:textSize="25dp"/>
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp" >
+
+    <EditText
+        android:id="@+id/txttopamounts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="Amount"
+        android:inputType="phone"
+
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_register"
+
+        android:textColorHint="@color/input_register_hint" />
+
+
+    <EditText
+        android:id="@+id/txttopamount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint=""
+
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
+
+    <EditText
+        android:id="@+id/txtFundsTo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="Cell Number"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint" />
+
+
+
+
+    <!-- Login Button -->
+
+    <Button
+        android:id="@+id/btnSendMoney"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="#ea4c88"
+        android:text="Send Money"
+        android:textColor="@color/white" />
+
+    <!-- Link to Login Screen -->
+
+    <Button
+        android:id="@+id/btnCancelTopup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:background="@null"
+        android:text="Cancel Transfer"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+</LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>

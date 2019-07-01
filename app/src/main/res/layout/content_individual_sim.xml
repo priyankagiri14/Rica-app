@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_register"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+
+    <Spinner
+        android:id="@+id/spinnetwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="20dp">
+
+        <RelativeLayout
+            android:layout_marginTop="50dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/measure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/product_description"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="50dp"
+            android:background="#ff669900"
+            android:orientation="horizontal"
+            android:padding="1px"
+            android:textColor="#fff"
+            android:weightSum="2">
+
+
+            <Button
+
+                android:id="@+id/scan_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/btn_login_bg"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:padding="5dp"
+
+
+                android:scrollHorizontally="true"
+                android:text="Scan Barcode"
+                android:textColor="@color/btn_login" />
+
+            <EditText
+                android:id="@+id/scan_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center"
+
+                android:hint=""
+                android:padding="10dp"
+                android:textColor="#ff669900"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnricaindiidual"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@color/btn_login_bg"
+            android:text="Rica"
+            android:textColor="@color/btn_login" />
+
+        <!-- Login Button -->
+
+
+        <!-- Link to Login Screen -->
+
+
+    </LinearLayout>
+
+</LinearLayout>

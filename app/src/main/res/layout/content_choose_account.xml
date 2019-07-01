@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Banking.ChooseAccount"
+    tools:showIn="@layout/activity_choose_account"
+    android:background="@color/bg_register">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+
+
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="1">
+
+
+
+        <TextView
+            android:layout_marginTop="60dp"
+            android:id="@+id/txtsellairtimebalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose an account your client would like:"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="25dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+
+        >
+
+
+
+        <Button
+            android:id="@+id/btnZagaEezi"
+            android:layout_width="3dip"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0.94"
+            android:text="Zaga EEzi Account"
+            android:background="@drawable/customborder"
+            android:textColor="@color/white"
+            android:textSize="38px"
+            />
+
+        <Button
+            android:id="@+id/btnZagaTop"
+            android:layout_width="1dip"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0.94"
+            android:text="Zaga Top Account"
+            android:background="@drawable/customborder"
+            android:textColor="@color/white"
+            android:textSize="38px"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

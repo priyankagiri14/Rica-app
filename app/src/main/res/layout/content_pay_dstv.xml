@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/bg_register">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ubits.payflow.payflow_network.BillPayments.PayDSTV"
+    tools:showIn="@layout/activity_pay_dstv"
+    android:background="@color/bg_register"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/txtbalanceDSTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Balance:"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25dp"/>
+
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:id="@+id/txtNetworks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="P.S. It will take 10 min to process"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:textSize="12dp"/>
+
+    <EditText
+        android:id="@+id/txtAccountDSTV"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/input_register_bg"
+        android:hint="Customer ID/Account Number"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+
+
+
+        <EditText
+            android:id="@+id/txtAmountDSTV"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@color/input_register_bg"
+            android:hint="Amount"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+
+        <!-- Login Button -->
+
+        <Button
+            android:id="@+id/btnPurchaseDSTV"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#fbd202"
+            android:text="Pay"
+            android:textColor="@color/white" />
+
+        <!-- Link to Login Screen -->
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>

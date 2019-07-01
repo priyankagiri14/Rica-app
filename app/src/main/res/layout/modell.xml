@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_register"
+
+    >
+
+    <ImageView
+        android:id="@+id/imgnetworks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        app:srcCompat="@drawable/mtn"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/txtNetworks"
+        android:layout_toStartOf="@+id/txtNetworks"
+        android:layout_marginRight="115dp"
+        android:layout_marginEnd="115dp" />
+
+    <TextView
+        android:id="@+id/txtNetworks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:textColor="@color/bg_register"
+        android:textSize="10dp"
+        android:text="Network"
+        android:layout_alignTop="@+id/imgnetworks"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp" />
+</RelativeLayout>

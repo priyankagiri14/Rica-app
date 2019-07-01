@@ -1,0 +1,236 @@
+<resources>
+    <string name="app_name">On Track Mobile</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_rica">Rica</string>
+    <string name="title_activity_airtime">Airtime</string>
+
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Full Name</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">Logout</string>
+    <string name="name">Full Name</string>
+    <string name="rica_title">Rica</string>
+    <string name="title_activity_transfer_funds">Transfer Funds</string>
+    <string name="title_activity_payments_main">Payments</string>
+    <string name="title_activity_send_money">Send Money</string>
+    <string name="title_activity_my_sims">My Sims</string>
+    <string name="title_activity_individual_sim">Process Individual Sim</string>
+    <string name="title_activity_allocate_sims">Allocated Sims</string>
+    <string name="title_activity_my_sims_list">My Sim List</string>
+    <string name="title_activity_top_up_info">Top Up Info</string>
+    <string name="title_activity_forgot_password">Forgot Password</string>
+    <string name="title_activity_process_batch">Process Batch</string>
+    <string name="title_activity_batch_list">Batch List</string>
+    <string name="title_activity_buy_electricity">Sell Electricity</string>
+    <string name="title_activity_airtime_statement">Transaction Statement</string>
+    <string name="title_activity_buy_bundle">Sell Bundle</string>
+    <string name="title_activity_register_client">RegisterClient</string>
+    <string name="title_activity_withdraw_money">Withdraw Cash</string>
+    <string name="title_activity_query">Query</string>
+    <string name="title_activity_client_statement">My Statement</string>
+    <string name="title_activity_buy_airtimen">Sell Airtime</string>
+    <string name="title_activity_buy_electricityn">Sell Electricityn</string>
+    <string name="title_activity_airtimen">Airtimen</string>
+    <string name="title_activity_sell_sim">Sell a Sim</string>
+    <string name="title_activity_sell_simn">Sell a Sim</string>
+    <string name="title_activity_individual_simn">Individual Sim</string>
+    <string name="title_activity_batch_listn">My Batch List</string>
+    <string name="title_activity_allocate_simsn">Allocate a Sims</string>
+    <string name="title_activity_my_sim_listn">My Sim List</string>
+    <string name="title_activity_cash">Cash Central</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_activity_cash_withdraw">Withdraw Cash</string>
+    <string name="title_activity_my_simsn">My Sim Menu</string>
+    <string name="title_activity_sella_sim">Sell a Sim</string>
+    <string name="title_activity_rican">Rica a Sim</string>
+    <string name="title_activity_process_batchn">Process a Batch</string>
+    <string name="title_activity_aoolcate_batchn">Allocate a Batch</string>
+    <string name="title_activity_sell_airtime">Sell Airtime</string>
+    <string name="title_activity_top_up_infon">Top Up Info</string>
+    <string name="title_activity_registera_client">Register a Client</string>
+    <string name="title_activity_fica_client">Fica Client</string>
+    <string name="title_activity_fica_id">Fica ID</string>
+    <string name="title_activity_cash_deposit">Cash Deposit</string>
+    <string name="title_activity_withdraw_moneyn">Withdraw Cash</string>
+    <string name="title_activity_deposit_money">Deposit Cash</string>
+    <string name="title_activity_fica_pop">Fica Proof of Address</string>
+    <string name="title_activity_fica_person">Fica Person with ID PIC</string>
+    <string name="title_activity_bill_payment_main">Bill Payment</string>
+    <string name="title_activity_pay_dstv">Pay DSTV</string>
+    <string name="title_activity_pay_utilities">Pay Utilities</string>
+    <string name="title_activity_main_print">Main Activity Print</string>
+    <string name="title_activity_main_menu_client">Ezaga Main Menu</string>
+    <string name="title_activity_main3">EzagaTransfer</string>
+    <string name="title_activity_ezaga_transfer">Zaga Transfer</string>
+    <string name="title_activity_ezaga_receive">EzagaReceive</string>
+    <string name="title_activity_main_menu_client_payments">MainMenuClientPayments</string>
+    <string name="title_activity_main_menu_stokvel">MainMenuStokvel</string>
+    <string name="title_activity_sell_airtimev">SellAirtimev</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_sell_airtime_new">Sell Airtime</string>
+    <string name="title_activity_sell_airtime_new1">Sell Airtime</string>
+    <string name="title_activity_sell_airtime_printed">Sell Airtime Printed</string>
+    <string name="title_activity_sell_bundle_printed">Sell Bundle Printed</string>
+    <string name="title_activity_sell_electricity_printed">Sell Electricity Printed</string>
+    <string name="title_activity_printer">Printer</string>
+    <string name="title_activity_view_statement_details">Statement Details</string>
+    <string name="business">Business Registration Number</string>
+    <string name="id_Number">Id Number</string>
+    <string name="passport">Passport</string>
+
+    <!--main_activity-->
+    <string name="connect">Search for and connect a Bluetooth printer</string>
+    <string name="txt_content">&quot;&quot;</string>
+    <string name="choose_paper_width">Paper width:</string>
+    <string name="width1">58mm</string>
+    <string name="width2">80mm</string>
+    <string name="printhex">HEX</string>
+    <string name="btnSend">Send Data</string>
+    <string name="btn_test">Print Test</string>
+    <string name="btn_prtbmp">Print Picture</string>
+    <string name="printpicture">Graphical Print</string>
+    <string name="chosecommand">Please select instruction</string>
+    <string name="btnClose">Close</string>
+    <string name="contentdescription"></string>
+    <string name="btn_prttable">Print Form</string>
+    <string name="Smallticketprinting">Small Ticket Printing</string>
+    <string name="btn_prtcode">Print 1D/2D Codebar</string>
+    <string name="btn_scqr">Generate QR Code Print</string>
+    <string name="btn_dyca">Turn on the camera</string>
+    <string name="input">Please enter a print!</string>
+    <string name="choose_printcoding"> &#8230; </string>
+    <string name="big5">BIG5</string>
+    <string name="thai">Thai</string>
+    <string name="kor">Korean</string>
+    <string name="gbk12">Simplified</string>
+    <string name="arabic">Arabic</string>
+    <string name="westeurope">CP1252</string>
+
+    <!--  DeviceListActivity -->
+    <string name="scanning">Scanning Device&#8230;</string>
+    <string name="select_device">Select the connected device</string>
+    <string name="none_paired">No matching devices</string>
+    <string name="none_found">No device found</string>
+    <string name="title_paired_devices">Match equipment</string>
+    <string name="title_other_devices">Other useful equipment</string>
+    <string name="button_scan">Scanning device</string>
+
+    <string name="personal_info">Personal Info</string>
+    <string name="tv_address">Address</string>
+
+    <string name="et_streetno">Street No</string>
+    <string name="et_street_name">Street Name</string>
+    <string name="et_provinace">Province</string>
+    <string name="et_suburb">Suburb</string>
+    <string name="et_city">City</string>
+    <string name="et_postal_code">Postal Code</string>
+
+    <string name="lbl_Group_name">Group Name</string>
+    <string name="permission">Permission Granted</string>
+
+    <!-- Status-->
+    <array name="select_Status">
+        <item>Select Status</item>
+        <item>Active</item>
+        <item>InActive</item>
+    </array>
+    <array name="select_network">
+        <item>Vodacom</item>
+        <item>MTN</item>
+        <item>Cell C</item>
+        <item>Telkom</item>
+    </array>
+
+    <array name="spn_id_password">
+        <item>ID</item>
+        <item>Passport No</item>
+        <item>Business Registration</item>
+    </array>
+
+    <array name="spn_yes">
+        <item>Yes</item>
+        <item>No</item>
+    </array>
+
+    <array name="spn_countery">
+        <item>South Africa</item>
+        <item>India</item>
+        <item>America</item>
+        <item>China</item>
+    </array>
+
+
+    <array name="spn_id_type">
+        <item>Id Number</item>
+        <item>Business Registration Number</item>
+        <item>Passport</item>dd
+    </array>
+
+    <!--  Message -->
+    <string name="msg_state">Input Error!</string>
+    <string name="empty1">Input is empty, in the text box to enter the content to be converted &#8230;</string>
+    <string name="empty">Input is empty</string>
+    <string name="not_connected">Please connect a Bluetooth printer</string>
+    <string name="bt_not_enabled_leaving">Bluetooth does not start, quit the program</string>
+    <string name="title_connecting">connecting…</string>
+    <string name="title_connected_to">connected: </string>
+    <string name="title_not_connected">Is not connected</string>
+    <string name="Connecting">It is connected to a Bluetooth printer</string>
+    <string name="msg_statev1">Without a picture</string>
+    <string name="strLang">en</string>
+    <string name="camer">No pictures</string>
+    <string name="msg_error">Input errors, please check!</string>
+    <string name="title_activity_select_upload">Select Type of Upload</string>
+    <string name="title_activity_upload_fica_id">Upload Fica ID</string>
+    <string name="title_activity_upload_fica_pop">Upload Fica POP</string>
+    <string name="title_activity_upload_fica_person">Upload Fica Person</string>
+    <string name="title_activity_banking_main">Banking</string>
+    <string name="title_activity_add_customer">Add a Customer</string>
+    <string name="title_activity_banking_my_pending_customers">Allocate Welcome Pack</string>
+    <string name="title_activity_choose_account">Choose Account</string>
+    <string name="title_activity_banking_eezi_add_customer">Banking EEzi Account</string>
+    <string name="title_activity_register__agent">Agent Attendance Register</string>
+
+    <string name="google_api_ley">AIzaSyBugvq-_Rr98Fna8E6M_8JcL12uHhxKJN4</string>
+    <string name="rica_agent_register">Rica Agent Register</string>
+    <string name="tv_register">Register</string>
+    <string name="fill_form">Please fill in the form and click Register*</string>
+    <string name="no_file_chosen">No file choosen</string>
+    <string name="choose_file">Choose File</string>
+    <string name="proff_add">Proof Residence</string>
+    <string name="id_doc">Id document</string>
+    <string name="passport_doc">Passport Document</string>
+    <string name="proof_documets">Proof Documents</string>
+    <string name="id_nationality">ID Nationality</string>
+    <string name="address_one">Address1</string>
+    <string name="tv_address_agent">Address</string>
+    <string name="dialing_no">Dialing No</string>
+    <string name="area_code">Area Code</string>
+    <string name="country_code">Country Code</string>
+    <string name="sub_agent">Sub Agent</string>
+    <string name="passport_exp">Passport Expiry</string>
+    <string name="cell_no">Phone Number</string>
+    <string name="name_user">Name</string>
+    <string name="surname">Surname</string>
+    <string name="identification_type">Identification Type</string>
+    <string name="tv_rica_rigister">Rica Agent Register</string>
+    <string name="title_activity_login_">Login_Activity</string>
+
+</resources>

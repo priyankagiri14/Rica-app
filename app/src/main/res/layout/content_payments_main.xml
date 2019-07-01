@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp" >
+
+    <TextView
+        android:id="@+id/txtPaymentsBalance"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="60dp"
+        android:layout_weight="0.20"
+
+        android:gravity="center"
+        android:text="Balance R0.00"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:background="@drawable/custombordertransfer"
+        android:textSize="18dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/btnPaymentsRegisterAccount"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_weight="0.98"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/btn_register" />
+
+        <ImageButton
+            android:id="@+id/btnPaymentSendMoney"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+
+            android:layout_weight="1"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/send_money_btn" />
+
+        />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnezagapay"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/zaga_transfer_btn" />
+
+        <ImageButton
+            android:id="@+id/btnezagareceive"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/zaga_receive_btn" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        />
+
+        <ImageButton
+            android:id="@+id/btnPaymentsWithdrawal"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/withdrawl_money_btn6" />
+
+
+
+
+
+
+
+        <ImageButton
+            android:id="@+id/btnPaymentsDeposit"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/custombordertransfer"
+            app:srcCompat="@drawable/deposit_money_btn5" />
+
+
+
+
+        />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

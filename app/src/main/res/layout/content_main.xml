@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".General.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/txtBalancesMain"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:layout_weight="0.05"
+            android:gravity="center"
+            android:text="My Balance"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnRicasm"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/main_rica_btn4" />
+
+
+            <ImageButton
+                android:id="@+id/btnSellaSim"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/sellasim_btn2" />
+
+            <ImageButton
+                android:id="@+id/btnMyStatements"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="01"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/statement_btn2" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnBundles"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/pinless_bundles_btn" />
+
+
+            <ImageButton
+                android:id="@+id/btnTransfers"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/pinless_electricity_btn" />
+
+            <ImageButton
+                android:id="@+id/btnBuyAirtime"
+                android:layout_width="3dip"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/customebordermain"
+                app:srcCompat="@drawable/pinless_airtime_btn" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/customebordermain"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/agent_register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                app:srcCompat="@drawable/rica_agent_register" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:text="@string/rica_agent_register"
+                android:textColor="@color/btnprocessSims" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

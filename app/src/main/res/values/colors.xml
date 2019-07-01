@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#088EBA</color>
+
+    <color name="colorPrimaryDark">#0DAFEC</color>
+
+    <color name="colorAccent">#088EBA</color>
+
+    <color name="color_lite_sky">#A9DCEF</color>
+    <color name="color_sky_bule">#088EBA</color>
+
+    <color name="color_drak_blue">#054D64</color>
+
+    <color name="rand">#C99C34</color>
+
+
+
+    <color name="colorSpinner">#36ffffff</color>
+    <color name="bck">#088EBA</color>
+    <color name="orange">#F5761B</color>
+
+    <color name="light_black">#504f4f</color>
+    <color name="black">#000000</color>
+    <color name="blue">#088EBA</color>
+
+    <color name="bg_login">#26ae90</color>
+    <color name="bg_register">#2f3134</color>
+    <color name="bg_main">#088EBA</color>
+    <color name="white">#ffffff</color>
+    <color name="input_login">#222222</color>
+    <color name="input_login_hint">#000000</color>
+    <color name="input_register">#ff4043</color>
+
+    <color name="input_register_bg">#3b4148</color>
+    <color name="input_register_hint">#5e6266</color>
+    <color name="btn_login">#26ae90</color>
+    <color name="btn_login_bg">#eceef1</color>
+    <color name="lbl_name">#333333</color>
+
+    <color name="main_btn_payments">#ff3c00</color>
+
+    <color name="btn_transfers">#32b709</color>
+
+    <color name="btn_bundles">#138668</color>
+
+    <color name="btn_airtime">#175a5c</color>
+
+    <color name="btn_rica">#ff7105</color>
+
+    <color name="btn_statement">#088EBA</color>
+
+    <color name="btn_sendmoney">#eb590b</color>
+
+    <color name="btn_deposit">#f1e20a</color>
+
+
+    <color name="btn_withdraw">#59b806</color>
+
+    <color name="btn_register">#0afcd8</color>
+
+    <color name="btn_query">#2c4ac7</color>
+
+    <color name="btn_mystatements">#ec0a65</color>
+    <color name="image_color">#F4CC18</color>
+
+    <color name="btn_mtn">#ffea02</color>
+    <color name="lightgray">#ededed</color>
+    <color name="pink">#fe104d</color>
+
+    <color name="deepurple">#7c4dff</color>
+    <color name="green">#00bfa5</color>
+    <color name="btn_vodacom">#ff0008</color>
+
+    <color name="btn_cellc">#000000</color>
+
+    <color name="btn_telkom">#088EBA</color>
+
+    <color name="btnprocessSims">#fff700</color>
+
+    <color name="btnProcessIndv">#0af16e</color>
+
+
+    <color name="btnAllocates">#576ab7</color>
+
+    <color name="btnMysims">#be02df</color>
+
+    <color name="btnMyEarnings">#ff8d03</color>
+
+    <color name="btnMySSimsBatches">#ec0a55</color>
+    <color name="red">#FF0000</color>
+
+
+</resources>

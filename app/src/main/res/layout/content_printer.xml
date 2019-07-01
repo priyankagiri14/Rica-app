@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/on_track_logo" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Type here:" />
+
+        <EditText
+            android:id="@+id/entry"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_layout" />
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/entry">
+
+            <Button
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:id="@+id/open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="Open" />
+
+            <Button
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send" />
+
+            <Button
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@color/blue"
+                android:textColor="@color/white"
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

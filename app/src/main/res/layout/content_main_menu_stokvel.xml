@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_register"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp" >
+
+    <TextView
+        android:id="@+id/txtStokvelBalance"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="60dp"
+        android:layout_weight="0.20"
+        android:background="#2eadf6"
+        android:gravity="center"
+        android:text="Contributions: R0.00"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.7"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/btnPaymentsRegisterAccount"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+            android:layout_weight="0.98"
+            android:background="@drawable/customborder"
+            app:srcCompat="@drawable/btn_stokvels" />
+
+
+        <ImageButton
+            android:id="@+id/btnPaymentSendMoney"
+            android:layout_width="3dip"
+            android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
+
+            android:layout_weight="1"
+            android:background="@drawable/customborder"
+            app:srcCompat="@drawable/btn_newstokvel" />
+
+        />
+
+
+    </LinearLayout>
+
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/spinnerStockvel"/>
+
+
+
+
+</LinearLayout>

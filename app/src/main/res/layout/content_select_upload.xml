@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ubits.payflow.payflow_network.Payments.SelectUpload"
+    tools:showIn="@layout/activity_select_upload"
+    android:background="@color/bg_register"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btnTakeaPics"
+            android:layout_width="3dip"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0.94"
+            android:text="Take a Pic"
+            android:background="@drawable/customborder"
+            android:textSize="38px"
+            />
+
+        <Button
+            android:id="@+id/btnUploadaPic"
+            android:layout_width="1dip"
+            android:layout_height="90dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0.94"
+            android:text="Upload a Pic"
+            android:background="@drawable/customborder"
+            android:textSize="38px"
+            />
+    </LinearLayout>
+
+</LinearLayout>

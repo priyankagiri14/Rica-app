@@ -5,38 +5,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3">
+
+    <SearchView
+        android:id="@+id/searchview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false">
+
+    <requestFocus/>
+    </SearchView>
    <LinearLayout
-       android:layout_weight="2"
+       android:layout_below="@id/searchview"
+       android:layout_weight="1"
     android:id="@+id/linearcheck"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/listview_with_checkbox"
+        android:id="@+id/Stock_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="?actionBarSize"
         />
 </LinearLayout>
         <Button
             android:layout_weight="1"
-            android:layout_below="@id/linearcheck"
+            android:layout_alignBottom="@id/linearcheck"
             android:id="@+id/send"
             android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_height="?actionBarSize"
             android:background="@color/pink"
             android:textColor="@color/white"
-            android:text="Alloacte"
+            android:text="Allocate"
             android:textSize="25sp"
-            android:layout_margin="20dp"
             android:gravity="center"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+</RelativeLayout>
 
 </RelativeLayout>

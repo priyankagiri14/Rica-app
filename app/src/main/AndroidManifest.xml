@@ -558,7 +558,8 @@
                 android:value="com.ubits.payflow.payflow_network.General.MainActivity" />
         </activity>
         <activity android:name=".Airtime.UserHistoryActivity" />
-        <activity android:name=".Driver.Stock_allocate.Assign_agent" />
+        <activity android:name=".Driver.Stock_allocate.Assign_agent"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".General.RicaAgentRegisterActivty" />
         <activity android:name=".General.Login" />
         <activity android:name=".Driver.Stock_allocate.Stock_allocate" />

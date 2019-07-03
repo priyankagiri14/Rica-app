@@ -6,6 +6,9 @@ public class ListViewItemDTO {
 
     private String itemText = "";
 
+    public ListViewItemDTO() {
+    }
+
     public boolean isChecked() {
         return checked;
     }

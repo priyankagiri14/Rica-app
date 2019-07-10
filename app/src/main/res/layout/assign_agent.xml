@@ -11,11 +11,17 @@
         android:id="@+id/toolbar"
         app:titleTextColor="@color/white"
         android:gravity="center_horizontal"/>
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_below="@id/toolbar"
+        android:id="@+id/searchview"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/searchview"
         android:weightSum="3">
         <LinearLayout
             android:layout_weight="2"
@@ -25,7 +31,7 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/listview_with_checkbox"
+                android:id="@+id/agent_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -37,7 +43,7 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:background="@color/pink"
-            android:textColor="#f4cc18"
+            android:textColor="@color/white"
             android:text="Send"
             android:textSize="25sp"
             android:layout_margin="20dp"

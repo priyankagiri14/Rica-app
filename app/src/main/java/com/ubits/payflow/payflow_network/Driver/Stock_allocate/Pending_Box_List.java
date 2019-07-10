@@ -1,16 +1,7 @@
 package com.ubits.payflow.payflow_network.Driver.Stock_allocate;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -35,7 +26,7 @@ public class Pending_Box_List extends AppCompatActivity {
         final List<ListViewItemDTO> initItemList = this.getInitViewItemDtoList();
 
         // Create a custom list view adapter with checkbox control.
-        final ListViewItemCheckboxBaseAdapter listViewDataAdapter = new ListViewItemCheckboxBaseAdapter(getApplicationContext(), initItemList);
+        final Stockallocate_listadapter listViewDataAdapter = new Stockallocate_listadapter(getApplicationContext(), initItemList);
 
         listViewDataAdapter.notifyDataSetChanged();
 
@@ -51,7 +42,7 @@ public class Pending_Box_List extends AppCompatActivity {
 
         int length = itemTextArr.length;
 
-        for(int i=0;i<length;i++)
+        /*for(int i=0;i<length;i++)
         {
             String itemText = itemTextArr[i];
 
@@ -60,7 +51,7 @@ public class Pending_Box_List extends AppCompatActivity {
             dto.setItemText(itemText);
 
             ret.add(dto);
-        }
+        }*/
 
         return ret;
     }

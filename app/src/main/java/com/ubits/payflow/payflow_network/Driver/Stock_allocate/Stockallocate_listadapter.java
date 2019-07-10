@@ -11,13 +11,13 @@ import com.ubits.payflow.payflow_network.R;
 
 import java.util.List;
 
-public class ListViewItemCheckboxBaseAdapter extends BaseAdapter {
+public class Stockallocate_listadapter extends BaseAdapter {
 
     private List<ListViewItemDTO> listViewItemDtoList = null;
 
     private Context ctx = null;
 
-    public ListViewItemCheckboxBaseAdapter(Context ctx, List<ListViewItemDTO> listViewItemDtoList) {
+    public Stockallocate_listadapter(Context ctx, List<ListViewItemDTO> listViewItemDtoList) {
         this.ctx = ctx;
         this.listViewItemDtoList = listViewItemDtoList;
     }

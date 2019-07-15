@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="#C94071"
+            tools:ignore="MissingConstraints"
+            >
+            <TextView
+                android:id="@+id/Date"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:text="DATE"
+                />
+
+            <TextView
+                android:id="@+id/Time"
+                android:layout_marginLeft="100dp"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:text="Time"/>
+
+
+        </Toolbar>
+<LinearLayout
+    android:id="@+id/linear1"
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:weightSum="2"
+    android:orientation="horizontal">
+        <TextView
+            android:id="@+id/picture"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Click Picture"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
+
+        <info.androidhive.fontawesome.FontTextView
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            app:solid_icon="true"
+            android:textColor="@color/black"
+            android:text="@string/fa_camera_solid"/>
+</LinearLayout>
+        <LinearLayout
+            android:layout_below="@id/linear1"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:id="@+id/linearcheck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/Agent_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?actionBarSize"
+                />
+        </LinearLayout>
+<EditText
+    android:layout_margin="20dp"
+    android:id="@+id/location"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="15sp"
+    android:textColor="@color/margenta"
+    android:editable="false"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
+    android:textColorHint="@color/margenta"
+    android:layout_above="@id/driver_button"/>
+        <Button
+
+            android:layout_weight="1"
+            android:layout_alignBottom="@id/linearcheck"
+            android:id="@+id/driver_button"
+            android:layout_width="150dp"
+            android:layout_height="?actionBarSize"
+            android:textColor="@color/margenta"
+            android:text="Allocate"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    </RelativeLayout>

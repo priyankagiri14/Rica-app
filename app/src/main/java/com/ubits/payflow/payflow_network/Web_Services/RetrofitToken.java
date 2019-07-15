@@ -1,5 +1,7 @@
 package com.ubits.payflow.payflow_network.Web_Services;
 
+import android.content.Intent;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -16,6 +18,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import static com.ubits.payflow.payflow_network.Web_Services.IBaseURL.BASE_URL_GET;
 
 public class RetrofitToken {
+    public static String token;
     private static Retrofit retrofit = null;
     public static Retrofit getClient()
     {   if(retrofit== null)
@@ -47,8 +50,13 @@ public class RetrofitToken {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .client(client)
                 .build();
+
+        token=Pref.getUserToken(MyApp.getContext());
+
+
     }
         return retrofit;
+
 
     }
 }

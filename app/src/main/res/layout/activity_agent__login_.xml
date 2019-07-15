@@ -3,22 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="LOGIN"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="@color/white"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/login_grey"/>
+    <TextView
+        android:layout_below="@id/toolbar"
+        android:text="LOGIN"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
         android:id="@+id/logintext"/>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
         android:orientation="vertical"
-        android:padding="10dp"
         android:layout_below="@id/logintext">
 
         <LinearLayout
@@ -26,7 +32,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -64,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/login_grey"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:text="@string/btn_login"

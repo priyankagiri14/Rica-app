@@ -8,7 +8,6 @@ import com.ubits.payflow.payflow_network.AllocationGet.AllocationGetResponse;
 import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
 import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetResponse;
 import com.ubits.payflow.payflow_network.BatchesGet.Pojo;
-import com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedResponse;
 import com.ubits.payflow.payflow_network.CredentialsCheck.CredentailsCheckResponse;
 import com.ubits.payflow.payflow_network.FetchStocks.FetchStocksResponse;
 
@@ -54,7 +53,7 @@ public interface Web_Interface {
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST("allocations/{userId}")
-    Call<AllocationCreate> requestAllocationCreate(@Path("userId") String id, @Body String[] batches);
+    Call<AllocationCreate> requestAllocationCreate(@Path("userId") String id);
 
     @Headers("Accept: application/json")
     @GET("allocations?size=size&page=page/")
@@ -65,8 +64,4 @@ public interface Web_Interface {
    // @Headers("Accept: application/json");
     @PUT("allocations")
     Call<AllocationStatusResponse> requestAllocationStatus(@Body Pojo pojo);
-
-    @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
-    Call<BatchesReceivedResponse> requestBatchesReceived(@Query("size") int size, @Query("page") int page);
 }

@@ -8,6 +8,7 @@
 
     <color name="color_lite_sky">#A9DCEF</color>
     <color name="color_sky_bule">#088EBA</color>
+    <color name="greenontrack">#125D3E</color>
 
     <color name="color_drak_blue">#054D64</color>
 
@@ -33,6 +34,8 @@
 
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
+    <color name="login_grey">#85888B</color>
+    <color name="light_grey">#E7E4E4</color>
     <color name="btn_login">#26ae90</color>
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
@@ -60,7 +63,7 @@
 
     <color name="btn_query">#2c4ac7</color>
 
-    <color name="btn_mystatements">#ec0a65</color>
+    <color name="btn_mystatements">#C94071</color>
     <color name="image_color">#F4CC18</color>
 
     <color name="btn_mtn">#ffea02</color>
@@ -88,6 +91,7 @@
 
     <color name="btnMySSimsBatches">#ec0a55</color>
     <color name="red">#FF0000</color>
+    <color name="margenta">#C94071</color>
 
 
 </resources>

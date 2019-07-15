@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,7 +20,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.location.aravind.getlocation.GeoLocator;
 import com.ubits.payflow.payflow_network.Agent_Login.AgentLoginResponse;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.DayStart;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.StoreId;
@@ -56,6 +59,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+
 import es.dmoral.toasty.Toasty;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 import info.androidhive.fontawesome.FontTextView;
@@ -73,6 +77,7 @@ private static final String TAG="HomeFragment";
 private int current_store_pos;
 private String filePath;
 Button buttonStartDay;
+private EditText location;
 FontTextView buttonCapture;
 
 TextView textViewDate,textViewTime;
@@ -121,12 +126,21 @@ protected void onCreate(Bundle savedInstanceState) {
         buttonStartDay.setOnClickListener(this);
         buttonCapture=findViewById(R.id.camera);
         buttonCapture.setOnClickListener(this);
-
+        location=findViewById(R.id.location);
+        getLocation();
         fetchagent();
         getGps();
 
         //listViewDataAdapter.notifyDataSetChanged();
         }
+
+    private void getLocation() {
+        GeoLocator geoLocator = new GeoLocator(getApplicationContext(),this);
+        Log.d("startbranding", "getLocation: "+geoLocator.getLattitude()+"\n"+ geoLocator.getLongitude());
+        location.setText(geoLocator.getAddress());
+        Log.d("locationda",location.toString());
+}
+
 
         private void fetchagent() {
                 Web_Interface webInterface = Ret.getClient().create(Web_Interface.class);
@@ -202,6 +216,7 @@ public void onClick(View v) {
 
         Toasty.warning(getApplicationContext(),"please capture the image").show();
         }
+
         else {
                 userid=agentid.toString();
 
@@ -210,10 +225,11 @@ public void onClick(View v) {
                         jsonObject.put("id",imageid);
                 } catch (JSONException e) {
                         e.printStackTrace();
+
                 }
 
-                markattendance(userid, latitude, longitude,status,imageid);
-                Log.d("dataa",userid + "\n" +latitude +"\n" +longitude +"\n" +status +"\n" +imageid);
+                markattendance(userid, latitude, longitude,status,jsonObject);
+
         }
 
         }
@@ -227,15 +243,16 @@ public void onClick(View v) {
 
         }
 
-        private void markattendance(String userid, Double latitude, Double longitude,String status, int imageid) {
+        private void markattendance(String userid, Double latitude, Double longitude,String status, JSONObject imageid) {
                 Web_Interface webInterface = Ret.getClient().create(Web_Interface.class);
                 try {
+                    JsonArray jsonArray=new JsonArray();
                         JSONObject paramObject = new JSONObject();
                         paramObject.put("userId", userid);
                         paramObject.put("lat", latitude);
                         paramObject.put("lon", longitude);
                         paramObject.put("status", status);
-                        paramObject.put("attachments",jsonObject);
+                        paramObject.put("attachments",imageid);
                         Log.d("uploadeimage data",userid+"\n"+latitude +"\n" +longitude+"\n"+status+"\n"+jsonObject);
                         RequestBody body = RequestBody.create(MediaType.parse("application/json"),(paramObject).toString());
                         Call<GetDriverAttendanceResponse> call= webInterface.markAgentattendance(body,RetrofitToken.token);

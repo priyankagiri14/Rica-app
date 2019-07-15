@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"/>
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical"
+            android:id="@+id/linearTextView"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/tv_hourly_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="44dp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="8dp"
+                    android:text="Sim Activation"
+                    android:textSize="@dimen/_20sdp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvHowManyPersons"
+                    android:textColorHint="@color/colorPrimary">
+
+                    <EditText
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="First Name"
+                        android:id="@+id/firstname"
+                        android:textColor="#000"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvHowManyActivations"
+                    android:textColorHint="@color/colorPrimary">
+
+                    <EditText
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Last Name"
+                        android:id="@+id/lastname"
+                        android:textColor="#000"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWhyNetwork1"
+                    android:textColorHint="@color/colorPrimary">
+
+                    <EditText
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Sim Serial Number"
+                        android:id="@+id/serialnum"
+                        android:textColor="#000"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCustomerEmail"
+                    android:visibility="visible"
+                    android:textColorHint="@color/colorPrimary">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Id number"
+                        android:id="@+id/idnum"
+                        android:textColor="#000"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- Age Group -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvNerk"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/colorPrimary">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:text="Network"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <RadioGroup
+                    style="@style/MyRadioButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/netwrokrg"
+                    android:layout_gravity="center_horizontal">
+
+                    <RadioButton
+                        android:id="@+id/vodacom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vodacom" />
+
+                    <RadioButton
+                        android:id="@+id/cellc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CellC" />
+
+                    <RadioButton
+                        android:id="@+id/telkom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Telkom" />
+                    <RadioButton
+                        android:id="@+id/mtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MTN" />
+
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvaddress"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/colorPrimary">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:text="Address"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/address"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvpostalcode"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/colorPrimary">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:text="Postal Code"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <EditText
+                    android:id="@+id/postal_code"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp"
+                    android:gravity="left"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvsubhurb"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/colorPrimary">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:text="Subhurb"
+                        android:inputType="textPersonName"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/subhurb"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvcity"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/colorPrimary">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:text="City"
+                        android:inputType="textPersonName"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/city"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_12sdp"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/activate_sim"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="68dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bt_bg"
+                    android:text="SAVE"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

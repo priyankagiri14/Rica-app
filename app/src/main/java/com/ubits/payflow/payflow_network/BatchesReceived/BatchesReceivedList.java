@@ -89,7 +89,6 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                     }
                     else
                     {
-
                         btnstatus.setVisibility(View.INVISIBLE);
                         Toast.makeText(BatchesReceivedList.this, "No Data are received by You!", Toast.LENGTH_SHORT).show();
                     }

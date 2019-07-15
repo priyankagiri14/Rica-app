@@ -1,5 +1,6 @@
 package com.ubits.payflow.payflow_network.Web_Services;
 
+import com.ubits.payflow.payflow_network.Agent.model.Simallocatemodel;
 import com.ubits.payflow.payflow_network.Agent_Login.AgentLoginResponse;
 import com.ubits.payflow.payflow_network.AgentsGetResponse.AgentsGetResponse;
 import com.ubits.payflow.payflow_network.AgentsList.AgentsListResponse;
@@ -87,6 +88,11 @@ public interface Web_Interface {
     @POST("attachments")
     Call<UploadedFile> requestUpdateProfilePic(@Part MultipartBody.Part[] files,@Header("Authorization") String auth);
 
+
+    //Sim allocation
+    @Headers("Accept: application/json")
+    @POST("sims")
+    Call<Simallocatemodel> simallocate(@Body RequestBody simallocate, @Header("Authorization") String auth);
 
 
 

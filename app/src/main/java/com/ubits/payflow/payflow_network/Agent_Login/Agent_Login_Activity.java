@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ubits.payflow.payflow_network.Agent.Agent_Mainactivity;
+import com.ubits.payflow.payflow_network.Agent.Sim_allocation;
 import com.ubits.payflow.payflow_network.CredentialsCheck.CredentailsCheckResponse;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
@@ -136,7 +138,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                             Toast.makeText(Agent_Login_Activity.this, "Login Successful for Agent", Toast.LENGTH_SHORT).show();
                             String Id = response.body().getBody().getId().toString();
                             Pref.putId(MyApp.getContext(),Id);
-                            Intent intent = new Intent(Agent_Login_Activity.this, MainActivity.class);
+                            Intent intent = new Intent(Agent_Login_Activity.this, Agent_Mainactivity.class);
                             startActivity(intent);
                         }
                     }

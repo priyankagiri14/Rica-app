@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
 import com.ubits.payflow.payflow_network.CredentialsCheck.CredentailsCheckResponse;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
@@ -117,9 +118,9 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                 if (response.isSuccessful() && response.code() == 200) {
                     if (response.body() != null) {
                         String authority = response.body().getBody().getAuthority().getAuthority();
-                        if(authority.equals("ADMIN") && authority.equals("DRIVER"))
+                        if(authority.equals("ADMIN"))
                         {
-                            Toast.makeText(Agent_Login_Activity.this, "You are logging in with ADMIN or DRIVER Credentials", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Agent_Login_Activity.this, "You are logging in with ADMIN Credentials", Toast.LENGTH_SHORT).show();
                         }
                         else if(authority.equals("DRIVER"))
                         {
@@ -136,7 +137,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                             Toast.makeText(Agent_Login_Activity.this, "Login Successful for Agent", Toast.LENGTH_SHORT).show();
                             String Id = response.body().getBody().getId().toString();
                             Pref.putId(MyApp.getContext(),Id);
-                            Intent intent = new Intent(Agent_Login_Activity.this, MainActivity.class);
+                            Intent intent = new Intent(Agent_Login_Activity.this, BatchesGetList.class);
                             startActivity(intent);
                         }
                     }

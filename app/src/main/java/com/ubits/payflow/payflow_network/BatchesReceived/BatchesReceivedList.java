@@ -12,15 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.ubits.payflow.payflow_network.AgentsGetResponse.AgentsGetList;
 import com.ubits.payflow.payflow_network.AgentsList.AgentsList;
-import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetListAdapter;
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetResponse;
-import com.ubits.payflow.payflow_network.BatchesGet.Body;
-import com.ubits.payflow.payflow_network.BatchesGet.Pojo;
 import com.ubits.payflow.payflow_network.General.MainActivity;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
@@ -33,24 +25,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BatchesReceivedList extends AppCompatActivity implements View.OnClickListener {
+public class BatchesReceivedList extends AppCompatActivity implements View.OnClickListener{
 
-    private BatchesGetListAdapter adapter;
-    List<BatchesGetResponse> list1 = new ArrayList<>();
+    private BatchesReceivedListAdapter adapter;
+    List<BatchesReceivedResponse> list1 = new ArrayList<>();
     ArrayList<Body> bodyArrayList = new ArrayList<>();
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
-    Button btnstatus;
+    Button btnstts;
 
-    private void populateListView(List<Body> batchesGetResponseList)
+    private void populateListView(List<Body> batchesReceivedResponseList)
     {
         Log.d("PNK", "POPULATELIST");
         Log.d("PNK", list1.toString());
-
-        bodyArrayList1 = batchesGetResponseList;
-        adapter = new BatchesGetListAdapter(this,bodyArrayList1);
+        bodyArrayList1 = batchesReceivedResponseList;
+        adapter = new BatchesReceivedListAdapter(this,bodyArrayList1);
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
     }
@@ -62,19 +53,20 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
 
         listView = (ListView) findViewById(R.id.batches_received_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        btnstatus = (Button)findViewById(R.id.btnstatus);
+        btnstts = (Button)findViewById(R.id.btnreceive);
+        btnstts.setVisibility(View.INVISIBLE);
         batchesGet();
-        btnstatus.setOnClickListener(this);
+        btnstts.setOnClickListener(this);
     }
-    private void batchesGet(){
+    private void batchesGet() {
 
         Log.d("PNK", "BATCHES Received");
 
         Web_Interface web_interface1 = RetrofitToken.getClient().create(Web_Interface.class);
-        Call<BatchesGetResponse> batchesGetResponseCall = web_interface1.requestBatchesGet(0, 0);
-        batchesGetResponseCall.enqueue(new Callback<BatchesGetResponse>() {
+        Call<BatchesReceivedResponse> batchesGetResponseCall = web_interface1.requestBatchesReceived(0, 0);
+        batchesGetResponseCall.enqueue(new Callback<BatchesReceivedResponse>() {
             @Override
-            public void onResponse(Call<BatchesGetResponse> call, Response<BatchesGetResponse> response) {
+            public void onResponse(Call<BatchesReceivedResponse> call, Response<BatchesReceivedResponse> response) {
                 List<Body> list = new ArrayList<>();
                 assert response.body() != null;
                 list = response.body().getBody();
@@ -84,13 +76,12 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                     String status = response.body().getBody().get(i).getStatus();
                     if(status.equals("RECEIVED"))
                     {
-                        list1.add(response.body());
-                        populateListView(list1.get(0).getBody());
+                        bodyArrayList1.add(list.get(i));
+                        populateListView(bodyArrayList1);
+                        btnstts.setVisibility(View.VISIBLE);
                     }
                     else
                     {
-
-                        btnstatus.setVisibility(View.INVISIBLE);
                         Toast.makeText(BatchesReceivedList.this, "No Data are received by You!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -107,7 +98,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
             }
 
             @Override
-            public void onFailure(Call<BatchesGetResponse> call, Throwable t) {
+            public void onFailure(Call<BatchesReceivedResponse> call, Throwable t) {
                 Toast.makeText(BatchesReceivedList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -123,14 +114,10 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
         AlertDialog alertDialog = new AlertDialog.Builder(BatchesReceivedList.this).create();
         alertDialog.setMessage("Are you want to send this stock to the agent");
 
-        Pojo pojo = new Pojo();
-        String[] batches = new String[bodyArrayList1.size()];
         alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 
-//                String status = "RECEIVED";
-//                Log.d("PNK", "Here I am");
                 int size = listView.getCount();
                 bodybatchesstring = new String[size];
 
@@ -138,8 +125,14 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
 
                     if (bodyArrayList1.get(j).isIschecked()) {
                         bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                        batches[j] = bodyArrayList1.get(j).getBatchNo();
+                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
                     }
+                }
+                String[] batches = new String[bodyArrayListbatches.size()];
+
+                for(int j=0; j<bodyArrayListbatches.size();j++)
+                {
+                    batches[j] = bodyArrayListbatches.get(j);
                 }
 //                Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
 //                pojo.setStatus(status);

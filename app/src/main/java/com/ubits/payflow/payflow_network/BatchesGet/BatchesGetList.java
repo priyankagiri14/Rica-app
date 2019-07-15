@@ -42,7 +42,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 
 
     private BatchesGetListAdapter adapter;
-    List<BatchesGetResponse> list1 = new ArrayList<>();
+    List<BatchesGetResponse> list2 = new ArrayList<>();
     ArrayList<Body> bodyArrayList = new ArrayList<>();
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
@@ -54,7 +54,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         private void populateListView(List<Body> batchesGetResponseList)
         {
             Log.d("PNK", "POPULATELIST");
-            Log.d("PNK", list1.toString());
+            Log.d("PNK", list2.toString());
 
             bodyArrayList1 = batchesGetResponseList;
             adapter = new BatchesGetListAdapter(this,bodyArrayList1);
@@ -71,6 +71,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         listView = (ListView) findViewById(R.id.batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         btnstatus = (Button)findViewById(R.id.btnstatus);
+        btnstatus.setVisibility(View.INVISIBLE);
         batchesGet();
         btnstatus.setOnClickListener(this);
     }
@@ -83,35 +84,34 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         batchesGetResponseCall.enqueue(new Callback<BatchesGetResponse>() {
             @Override
             public void onResponse(Call<BatchesGetResponse> call, Response<BatchesGetResponse> response) {
-                List<Body> list = new ArrayList<>();
+                List<Body> list1 = new ArrayList<>();
                 assert response.body() != null;
-                list = response.body().getBody();
+                list1 = response.body().getBody();
 
-                for(int i=0;i<list.size();i++)
+                for(int i=0;i<list1.size();i++)
                 {
-                    String status = response.body().getBody().get(i).getStatus();
-                    if(status.equals("ASSIGNED"))
+                    String status = list1.get(i).getStatus();
+                    if(status.equals("PENDING"))
                     {
-                        list1.add(response.body());
-                        populateListView(list1.get(0).getBody());
+                        bodyArrayList1.add(list1.get(i));
+                        populateListView(bodyArrayList1);
+                        btnstatus.setVisibility(View.VISIBLE);
                     }
-                    else
-                        {
-
-                            btnstatus.setVisibility(View.INVISIBLE);
-                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
-                        }
+//                    else if(status.equals("RECEIVED"))
+//                        {
+//                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
+//                        }
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());
 //                }
 
                 Log.d("PNK", "LIST1");
-                Log.d("PNK",  list1.toString());
+                Log.d("PNK",  list2.toString());
 
 //                populateListView(list1.get(0).getBody());
 
-                Log.d("Batches", "onResponse: " + list1);
+                Log.d("Batches", "onResponse: " + list2);
             }
 
             @Override
@@ -128,7 +128,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         Log.d("PNK", ""+v.getId());
 
         AlertDialog alertDialog = new AlertDialog.Builder(BatchesGetList.this).create();
-        alertDialog.setMessage("Are you want to send this stock to the agent");
+        alertDialog.setMessage("Please Confirm..?");
 
         Pojo pojo = new Pojo();
         String[] batches = new String[bodyArrayList1.size()];
@@ -136,10 +136,8 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
 
-                String status = "RECEIVED";
+                String stts = "RECEIVED";
                 Log.d("PNK", "Here I am");
-                int size = listView.getCount();
-                bodybatchesstring = new String[size];
 
                     for (int j = 0; j <bodyArrayList1.size(); j++) {
 
@@ -149,7 +147,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-                pojo.setStatus(status);
+                pojo.setStatus(stts);
                 pojo.setBatches(batches);
                 Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
                 //exeuting the service

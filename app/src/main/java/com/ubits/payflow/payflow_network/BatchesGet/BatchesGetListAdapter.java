@@ -9,8 +9,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.ubits.payflow.payflow_network.Driver.Stock_allocate.ListViewItemDTO;
-import com.ubits.payflow.payflow_network.Driver.Stock_allocate.ListViewItemViewHolder;
 import com.ubits.payflow.payflow_network.R;
 
 import java.util.List;
@@ -45,7 +43,8 @@ public class BatchesGetListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int position)
+    {
         return bodyList.get(position);
     }
 

@@ -64,7 +64,7 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:text="Stock Received"/>
+                            android:text="Check New Stocks"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -74,7 +74,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Stock recevied by the driver"
+                            android:text="Hey..! Got a new Stock?"
                             android:padding="5dp"
                             android:textColor="@android:color/darker_gray"/>
 
@@ -107,7 +107,9 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:text="Stock Allocated"/>
+                            android:text="Stock Allocation
+                             to Agent"
+                            android:gravity="center"/>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -117,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Stock alloacted by the driver to the agent"
+                            android:text="Agents want Stock?"
                             android:padding="5dp"
                             android:textColor="@android:color/darker_gray"/>
 

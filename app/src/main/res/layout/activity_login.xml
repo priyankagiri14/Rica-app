@@ -6,21 +6,19 @@
     android:orientation="vertical"
     tools:context="com.ubits.payflow.payflow_network.General.Login">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary">
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Login"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
             android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:textColor="#ACACAC"
+            android:textSize="50sp"
+            android:textStyle="normal" />
 
     <!--
         <android.support.design.widget.AppBarLayout

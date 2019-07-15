@@ -42,7 +42,7 @@
     <Button
         android:layout_weight="1"
         android:layout_alignBottom="@id/linearlayout"
-        android:id="@+id/btnstatus"
+        android:id="@+id/btnreceive"
         android:layout_width="150dp"
         android:layout_height="?actionBarSize"
         android:background="@color/pink"

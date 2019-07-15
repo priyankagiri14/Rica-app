@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.ubits.payflow.payflow_network.AgentsGetResponse.AgentsGetList;
 import com.ubits.payflow.payflow_network.AllocationGet.AllocationGet;
 import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
+import com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedList;
 import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Stock_allocate;
 import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Tab_Stock_Activity;
 import com.ubits.payflow.payflow_network.R;
@@ -50,17 +51,22 @@ public class Stocks_dashboard extends Fragment implements View.OnClickListener {
         FontTextView assign_agent=(FontTextView) view.findViewById(R.id.stck_aloc);
         assign_agent.setOnClickListener(this);*/
         CardView stocks_received=(CardView)view.findViewById(R.id.sim_aloc);
+        CardView stocks_allcoated=(CardView)view.findViewById(R.id.stockReceived);
         stocks_received.setOnClickListener(this);
-
+        stocks_allcoated.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
         if(v.getId()==R.id.sim_aloc){
-            Intent i=new Intent(getContext(), BatchesGetList.class);
+            Intent i=new Intent(getContext(), BatchesReceivedList.class);
             startActivity(i);
         }
 
+        if(v.getId()==R.id.stockReceived){
+            Intent i=new Intent(getContext(), BatchesGetList.class);
+            startActivity(i);
+        }
     }
 }

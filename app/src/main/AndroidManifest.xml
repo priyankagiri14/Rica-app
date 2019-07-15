@@ -27,7 +27,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".AllocationGet.AllocationGet"></activity>
+        <activity android:name=".BatchesReceived.BatchesReceivedList"></activity>
+        <activity android:name=".AllocationGet.AllocationGet" />
+        <activity android:name=".AgentsList.AgentsList" />
         <activity android:name=".AgentsGetResponse.AgentsGetList" />
         <activity android:name=".BatchesGet.BatchesGetList" />
         <activity android:name=".ProcessingActivity" />
@@ -565,8 +567,9 @@
                 android:value="com.ubits.payflow.payflow_network.General.MainActivity" />
         </activity>
         <activity android:name=".Airtime.UserHistoryActivity" />
-        <activity android:name=".Driver.Stock_allocate.Assign_agent"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".Driver.Stock_allocate.Assign_agent"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".General.RicaAgentRegisterActivty" />
         <activity android:name=".General.Login" />
         <activity android:name=".Driver.Stock_allocate.Stock_allocate" />

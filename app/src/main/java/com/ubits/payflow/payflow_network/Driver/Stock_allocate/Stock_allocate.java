@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.ubits.payflow.payflow_network.General.MainActivity;
 import com.ubits.payflow.payflow_network.R;
 
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class Stock_allocate extends AppCompatActivity implements SearchView.OnQu
                            /* initItemList.remove(i);
                             i--;
                             size = initItemList.size();*/
-                                Intent intent=new Intent(Stock_allocate.this,Assign_agent.class);
+                                Intent intent=new Intent(Stock_allocate.this,MainActivity.class);
                                 startActivity(intent);
                             }
                             else if(!dto.isChecked()){
@@ -117,7 +118,7 @@ public class Stock_allocate extends AppCompatActivity implements SearchView.OnQu
                         }
 
                         listViewDataAdapter.notifyDataSetChanged();
-                        Intent intent=new Intent(Stock_allocate.this,Assign_agent.class);
+                        Intent intent=new Intent(Stock_allocate.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });

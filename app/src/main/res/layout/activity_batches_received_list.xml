@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList">
+    tools:context="com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedList">
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
@@ -13,30 +13,30 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:weightSum="4">
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Assigned Batches"
-        android:textSize="30dp"/>
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batches Received"
+            android:textSize="30dp"/>
 
-    <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="100dp"
-        android:layout_weight="2"
-        android:id="@+id/linearcheck"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <ListView
-        android:id="@+id/batches_get_listview"
-        android:divider="#000000"
-        android:dividerHeight="1dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="100dp"
+            android:layout_weight="2"
+            android:id="@+id/linearcheck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/batches_received_listview"
+                android:divider="#000000"
+                android:dividerHeight="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-        />
-    </LinearLayout>
+                />
+        </LinearLayout>
 
     </LinearLayout>
     <Button

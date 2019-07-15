@@ -7,9 +7,11 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BatchesGetListViewHolder extends RecyclerView.ViewHolder {
-    private CheckBox itemCheckbox;
+    public CheckBox itemCheckbox;
 
-    private TextView itemTextView;
+    public TextView itemTextView;
+
+    private boolean isSelected;
 
     public BatchesGetListViewHolder(View itemView) {
         super(itemView);
@@ -30,4 +32,14 @@ public class BatchesGetListViewHolder extends RecyclerView.ViewHolder {
     public void setItemTextView(TextView itemTextView) {
         this.itemTextView = itemTextView;
     }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+
 }

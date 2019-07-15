@@ -4,7 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ubits.payflow.payflow_network.BatchesGet.AssignedTo;
 
-public class Body {
+import java.io.Serializable;
+
+public class Body implements Serializable {
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -14,6 +17,18 @@ public class Body {
     @SerializedName("warehouseId")
     @Expose
     private Integer warehouseId;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("assignedToId")
     @Expose
     private Integer assignedToId;
@@ -93,5 +108,15 @@ public class Body {
     public void setAssignedTo(AssignedTo assignedTo) {
         this.assignedTo = assignedTo;
     }
+
+    public boolean isIschecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked) {
+        this.ischecked = ischecked;
+    }
+
+    public boolean ischecked = false;
 
 }

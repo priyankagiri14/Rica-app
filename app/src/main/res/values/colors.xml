@@ -8,6 +8,7 @@
 
     <color name="color_lite_sky">#A9DCEF</color>
     <color name="color_sky_bule">#088EBA</color>
+    <color name="greenontrack">#125D3E</color>
 
     <color name="color_drak_blue">#054D64</color>
 
@@ -88,6 +89,7 @@
 
     <color name="btnMySSimsBatches">#ec0a55</color>
     <color name="red">#FF0000</color>
+    <color name="margenta">#C94071</color>
 
 
 </resources>

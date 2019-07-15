@@ -52,18 +52,7 @@ public class Driverlogin extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-       /* if(cellno.length()==0 ||password.length()==0){
-            Toast.makeText(this,"Please enter your login details",Toast.LENGTH_SHORT).show();
-        }
-        else if(cellno.getText().toString().equals("1234567") && password.getText().toString().equals("opt123")){
-            Toast.makeText(this,"Login Successfull",Toast.LENGTH_SHORT).show();
-            Intent i=new Intent(this, Driver_Dashboard.class);
-            startActivity(i);
-            finish();
-        }
-        else{
-            Toast.makeText(this,"Invalid login details",Toast.LENGTH_SHORT).show();
-        }*/if(drivercellid.length() == 0 || pswrd.length() == 0)
+       if(drivercellid.length() == 0 || pswrd.length() == 0)
         {
             Toast.makeText(Driverlogin.this, "Enter the Required Fields", Toast.LENGTH_SHORT).show();
         }

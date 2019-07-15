@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="#C94071"
+            tools:ignore="MissingConstraints"
+            >
+            <TextView
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:text="Click Picture"
+                />
+
+            <info.androidhive.fontawesome.FontTextView
+                android:id="@+id/camera"
+                android:layout_marginLeft="100dp"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                app:solid_icon="true"
+                android:textColor="@color/white"
+                android:text="@string/fa_camera_solid"/>
+
+
+        </Toolbar>
+
+        <LinearLayout
+            android:layout_marginTop="?actionBarSize"
+            android:layout_weight="1"
+            android:id="@+id/linearcheck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/Agent_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?actionBarSize"
+                />
+        </LinearLayout>
+
+        <Button
+            android:layout_weight="1"
+            android:layout_alignBottom="@id/linearcheck"
+            android:id="@+id/driver_button"
+            android:layout_width="150dp"
+            android:layout_height="?actionBarSize"
+            android:textColor="@color/margenta"
+            android:text="Allocate"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    </RelativeLayout>

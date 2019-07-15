@@ -16,7 +16,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
+
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.DriverAttendance;
+
+import com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedList;
+import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Stock_allocate;
+import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Tab_Stock_Activity;
+
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.Ret;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
@@ -64,11 +70,17 @@ public class Stocks_dashboard extends Fragment implements View.OnClickListener{
         FontTextView assign_agent=(FontTextView) view.findViewById(R.id.stck_aloc);
         assign_agent.setOnClickListener(this);*/
         CardView stocks_received=(CardView)view.findViewById(R.id.sim_aloc);
+
         CardView attendance=(CardView)view.findViewById(R.id.Attendance);
         CardView call=(CardView)view.findViewById(R.id.Call);
         call.setOnClickListener(this);
         stocks_received.setOnClickListener(this);
         attendance.setOnClickListener(this);
+
+
+        CardView stocks_allcoated=(CardView)view.findViewById(R.id.stockReceived);
+        stocks_received.setOnClickListener(this);
+        stocks_allcoated.setOnClickListener(this);
 
     }
 
@@ -76,15 +88,22 @@ public class Stocks_dashboard extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
 
         if(v.getId()==R.id.sim_aloc){
-            Intent i=new Intent(getContext(), BatchesGetList.class);
+            Intent i=new Intent(getContext(), BatchesReceivedList.class);
             startActivity(i);
         }
+
 
         if(v.getId()==R.id.Attendance){
 
             Intent i=new Intent(getContext(),DriverAttendance.class);
             startActivity(i);
 
+        }
+
+
+        if(v.getId()==R.id.stockReceived){
+            Intent i=new Intent(getContext(), BatchesGetList.class);
+            startActivity(i);
         }
 
     }

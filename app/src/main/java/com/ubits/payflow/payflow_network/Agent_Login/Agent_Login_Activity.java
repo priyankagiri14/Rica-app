@@ -67,10 +67,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
 
     private void agentlogin(String cellid, String password) {
         Web_Interface webInterface= RetrofitClient.getClient().create(Web_Interface.class);
-//        Log.d("LoginActivity","retrofit initialised");
-
         //creating request body to parse form data
-
         try {
             JSONObject paramObject = new JSONObject();
             paramObject.put("username", cellid);

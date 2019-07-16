@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ubits.payflow.payflow_network.AllocationCreateResponse.AllocationCreate;
+import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
+import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
 import com.ubits.payflow.payflow_network.General.MainActivity;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
@@ -129,7 +131,7 @@ public class AgentsList extends AppCompatActivity implements View.OnClickListene
                 public void onResponse(Call<AllocationCreate> call, Response<AllocationCreate> response) {
                     String message = response.body().getMessage();
                     Toast.makeText(AgentsList.this, message, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AgentsList.this, MainActivity.class);
+                    Intent intent = new Intent(AgentsList.this, Driver_Dashboard.class);
                     startActivity(intent);
                 }
 

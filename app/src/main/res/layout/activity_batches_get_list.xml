@@ -47,7 +47,7 @@
         android:layout_height="?actionBarSize"
         android:background="@color/pink"
         android:textColor="@color/white"
-        android:text="Click to Proceed"
+        android:text="Proceed"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_centerHorizontal="true"/>

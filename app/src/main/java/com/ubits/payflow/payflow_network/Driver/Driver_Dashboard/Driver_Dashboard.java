@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ubits.payflow.payflow_network.Agent_Login.Agent_Login_Activity;
 import com.ubits.payflow.payflow_network.General.Dashboard;
 import com.ubits.payflow.payflow_network.Login.Login_Activity;
 import com.ubits.payflow.payflow_network.R;
@@ -68,7 +69,7 @@ public class Driver_Dashboard extends AppCompatActivity {
                         finish();*/
 
                     case R.id.signout:
-                        startActivity(new Intent(Driver_Dashboard.this, Login_Activity.class)
+                        startActivity(new Intent(Driver_Dashboard.this, Agent_Login_Activity.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                         finish();

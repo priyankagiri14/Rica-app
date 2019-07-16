@@ -17,6 +17,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
+import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
+import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
 import com.ubits.payflow.payflow_network.General.MainActivity;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
@@ -131,7 +133,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         alertDialog.setMessage("Please Confirm..?");
 
         Pojo pojo = new Pojo();
-        String[] batches = new String[bodyArrayList1.size()];
+
         alertDialog.setButton(Dialog.BUTTON_POSITIVE, "RECEIVED", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
@@ -143,8 +145,13 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 
                         if (bodyArrayList1.get(j).isIschecked()) {
                             bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                            batches[j] = bodyArrayList1.get(j).getBatchNo();
+                            //batches[j] = bodyArrayList1.get(j).getBatchNo();
                         }
+                    }
+                String[] batches = new String[bodyArrayListbatches.size()];
+                    for (int j=0;j<bodyArrayListbatches.size();j++)
+                    {
+                        batches[j] = bodyArrayListbatches.get(j);
                     }
                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
                 pojo.setStatus(stts);
@@ -165,7 +172,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-                Intent intent=new Intent(BatchesGetList.this, MainActivity.class);
+                Intent intent=new Intent(BatchesGetList.this, Driver_Dashboard.class);
                 startActivity(intent);
             }
         });
@@ -182,8 +189,13 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 
                     if (bodyArrayList1.get(j).isIschecked()) {
                         bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                        batches[j] = bodyArrayList1.get(j).getBatchNo();
+                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
                     }
+                }
+                String[] batches = new String[bodyArrayList1.size()];
+                for (int j=0;j<bodyArrayListbatches.size();j++)
+                {
+                    batches[j] = bodyArrayListbatches.get(j);
                 }
                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
                 pojo.setStatus(status);

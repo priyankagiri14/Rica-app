@@ -1,37 +1,10 @@
 package com.ubits.payflow.payflow_network.AllocationGet;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
-import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
 import com.ubits.payflow.payflow_network.R;
-import com.ubits.payflow.payflow_network.Web_Services.MyApp;
-import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
-import com.ubits.payflow.payflow_network.Web_Services.Utils.Pref;
-import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AllocationGet extends AppCompatActivity {
 

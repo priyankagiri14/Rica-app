@@ -7,8 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.google.android.material.card.MaterialCardView;
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
+import com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGet;
+import com.ubits.payflow.payflow_network.DriverBatchesGet.BatchesGetList;
 import com.ubits.payflow.payflow_network.R;
 
 public class Agent_Mainactivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +27,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.checkStock){
-            Intent i=new Intent(this, BatchesGetList.class);
+            Intent i=new Intent(this, AgentBatchesGet.class);
             startActivity(i);
         }
         else if(v.getId()==R.id.sim_activation){

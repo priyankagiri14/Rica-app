@@ -2,7 +2,6 @@ package com.ubits.payflow.payflow_network.Agent_Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,15 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ubits.payflow.payflow_network.BatchesGet.BatchesGetList;
+import com.ubits.payflow.payflow_network.Agent.Agent_Mainactivity;
+import com.ubits.payflow.payflow_network.DriverBatchesGet.BatchesGetList;
 import com.ubits.payflow.payflow_network.CredentialsCheck.CredentailsCheckResponse;
-import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
-import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Stock_allocate;
-import com.ubits.payflow.payflow_network.FetchStocks.ListStockData;
 import com.ubits.payflow.payflow_network.General.MainActivity;
-import com.ubits.payflow.payflow_network.Login.Login_Activity;
-import com.ubits.payflow.payflow_network.ProcessingActivity;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.MyApp;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitClient;
@@ -129,7 +124,10 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                             String Id = response.body().getBody().getId().toString();
                             Pref.putId(MyApp.getContext(),Id);
                             Toast.makeText(Agent_Login_Activity.this, "Login Successful for Driver", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Agent_Login_Activity.this, Driver_Dashboard.class);
+                            Intent intent = (new Intent(Agent_Login_Activity.this, Stocks_dashboard.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
                             startActivity(intent);
 
                         }
@@ -137,7 +135,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                             Toast.makeText(Agent_Login_Activity.this, "Login Successful for Agent", Toast.LENGTH_SHORT).show();
                             String Id = response.body().getBody().getId().toString();
                             Pref.putId(MyApp.getContext(),Id);
-                            Intent intent = new Intent(Agent_Login_Activity.this, BatchesGetList.class);
+                            Intent intent = new Intent(Agent_Login_Activity.this, Agent_Mainactivity.class);
                             startActivity(intent);
                         }
                     }

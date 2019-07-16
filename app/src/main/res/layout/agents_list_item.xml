@@ -7,7 +7,7 @@
         android:id="@+id/agent_list_checkbox"
         android:width="5dp"
         android:padding="10dp"
-        android:buttonTint="@color/pink"
+        android:buttonTint="@color/driver_color"
         android:layout_weight="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

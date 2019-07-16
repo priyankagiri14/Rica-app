@@ -1,15 +1,18 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.DriverBatchesGet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class Warehouse {
+public class AssignedTo {
     @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("enabled")
+    @Expose
+    private Boolean enabled;
 
     public Integer getId() {
         return id;
@@ -25,6 +28,14 @@ class Warehouse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

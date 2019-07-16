@@ -5,30 +5,28 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#E4E0E0"
+    android:background="@color/driver_background"
     android:id="@+id/ll">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_marginTop="?actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/realtive">
-            <TextView
-                android:id="@+id/customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="?actionBarSize"
-                android:text="Driver Dashboard"
-                android:textColor="#7D4EFF"
-                android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/customer"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="?actionBarSize"-->
+                <!--android:text="Driver Dashboard"-->
+                <!--android:textColor="#7D4EFF"-->
+                <!--android:textSize="20sp" />-->
             <LinearLayout
                 android:layout_marginTop="40dp"
-                android:layout_below="@id/customer"
                 android:id="@+id/linear1"
                 android:clipToPadding="false"
                 android:gravity="center"
@@ -246,7 +244,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"

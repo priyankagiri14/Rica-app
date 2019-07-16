@@ -1,4 +1,4 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.DriverBatchesGet;
 
 import android.view.View;
 import android.widget.CheckBox;

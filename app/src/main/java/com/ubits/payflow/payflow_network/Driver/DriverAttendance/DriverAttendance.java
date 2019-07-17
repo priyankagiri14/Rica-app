@@ -154,23 +154,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 
     fetchagent();
-        //getGps();
-
-        //listViewDataAdapter.notifyDataSetChanged();
         }
-
-    /*private void getLocation() {
-
-        GeoLocator geoLocator = new GeoLocator(getApplicationContext(),this);
-        Log.d("startbranding", "getLocation: "+geoLocator.getLattitude()+"\n"+ geoLocator.getLongitude());
-        if(location.getText().toString()==null){
-        Toast.makeText(this,"Please turn on your GPS",Toast.LENGTH_SHORT).show();
-        }
-        else{
-        location.setText(geoLocator.getAddress());
-        Log.d("locationda",location.toString());
-        }
-    }*/
 
 
     void getLocation() {

@@ -2,12 +2,17 @@ package com.ubits.payflow.payflow_network.Driver.Driver_Dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.ubits.payflow.payflow_network.Agent.Agent_Mainactivity;
+import com.ubits.payflow.payflow_network.Agent_Login.Agent_Login_Activity;
 import com.ubits.payflow.payflow_network.DriverBatchesGet.BatchesGetList;
 
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.DriverAttendance;
@@ -26,6 +31,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     FontTextView stock_allocation;
 
     private List<String> performance;
+    Toolbar toolbar;
     private List<String> datearray;
     public static String storeid="1",date1="2019-06-26",date2="2019-07-04";
 
@@ -55,12 +61,51 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
         call.setOnClickListener(this);
         stocks_received.setOnClickListener(this);
         attendance.setOnClickListener(this);
+        toolbar=findViewById(R.id.toolbar);
 
 
         CardView stocks_allcoated=(CardView)findViewById(R.id.stockReceived);
         stocks_received.setOnClickListener(this);
         stocks_allcoated.setOnClickListener(this);
+        toolbar.setTitle("Driver Session");
+        setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
 
+                if (menuItem.getItemId() == R.id.logout) {
+
+                    Intent i = new Intent(Stocks_dashboard.this, Agent_Login_Activity.class);
+                    startActivity(i);
+                    finish();
+
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.logout:
+                Intent i=new Intent(this, Agent_Login_Activity.class);
+                startActivity(i);
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override

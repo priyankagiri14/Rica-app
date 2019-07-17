@@ -12,7 +12,7 @@
         android:layout_height="?actionBarSize"
         android:background="@color/driver_color"/>
     <LinearLayout
-        android:background="@color/driver_background"
+        android:background="@color/light_grey"
         android:id="@+id/linearlayout"
         android:layout_below="@+id/toolbar1"
         android:layout_width="match_parent"
@@ -50,12 +50,12 @@
     </LinearLayout>
     <Button
         android:layout_weight="1"
-        android:padding="@dimen/_10sdp"
+        android:padding="20dp"
         android:layout_alignBottom="@id/linearlayout"
         android:id="@+id/btnreceive"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="?actionBarSize"
-        android:background="@color/driver_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/driverbutton"
         android:textColor="@color/white"
         android:text="Proceed"
         android:textSize="25sp"

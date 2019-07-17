@@ -14,14 +14,7 @@
         android:background="@color/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <TextView
-            android:id="@+id/driveraccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="17sp"
-            android:textColor="@color/white"
-            android:text="Agent Session"/>
+
 
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout

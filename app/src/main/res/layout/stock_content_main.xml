@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/driver_background"
-    android:id="@+id/ll">
+    android:id="@+id/ll"
+    android:background="@color/light_grey">
 
     <ScrollView
         android:layout_width="match_parent"

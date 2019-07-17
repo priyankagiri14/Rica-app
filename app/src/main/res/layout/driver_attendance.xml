@@ -19,7 +19,7 @@
     >
         <CheckBox
             android:id="@+id/driver_checkbox"
-            android:buttonTint="@color/margenta"
+            android:buttonTint="@color/driver_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"

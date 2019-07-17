@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -46,7 +49,23 @@ public class Driver_Dashboard extends AppCompatActivity {
         setNavigationView();
 
     }
+    @Override
+public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.logout_menu,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.logout:
+                Intent i=new Intent(this,Agent_Login_Activity.class);
+                startActivity(i);
+                finish();
+        }
+        return true;
+    }
     private void setNavigationView() {
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

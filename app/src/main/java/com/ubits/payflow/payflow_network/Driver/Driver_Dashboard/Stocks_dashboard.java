@@ -67,7 +67,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
         CardView stocks_allcoated=(CardView)findViewById(R.id.stockReceived);
         stocks_received.setOnClickListener(this);
         stocks_allcoated.setOnClickListener(this);
-        toolbar.setTitle("Driver Session");
+        toolbar.setTitle("Driver Dashboard");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

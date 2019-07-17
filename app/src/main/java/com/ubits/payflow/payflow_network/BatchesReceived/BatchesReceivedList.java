@@ -35,7 +35,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
-    TextView batchesreceivedtext;
+    TextView batchesreceivedtext,nobatchesreceived;
     Button btnstts;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
@@ -55,9 +55,11 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
 
         listView = (ListView) findViewById(R.id.batches_received_listview);
         batchesreceivedtext = (TextView)findViewById(R.id.driver_batches_received);
+        nobatchesreceived = (TextView)findViewById(R.id.nobatchesrc);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         btnstts = (Button)findViewById(R.id.btnreceive);
         btnstts.setVisibility(View.INVISIBLE);
+        batchesreceivedtext.setVisibility(View.INVISIBLE);
         batchesGet();
         btnstts.setOnClickListener(this);
     }
@@ -82,13 +84,14 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);
                         btnstts.setVisibility(View.VISIBLE);
+                        batchesreceivedtext.setVisibility(View.VISIBLE);
                     }
                 }
 
                 if(listView.getCount() == 0)
                 {
-                    batchesreceivedtext.setVisibility(View.INVISIBLE);
-                    Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
+                    nobatchesreceived.setVisibility(View.VISIBLE);
+                   // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());

@@ -20,6 +20,8 @@ import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
-    TextView agentbatchesassigned;
+    TextView agentbatchesassigned,noagentbatchesget;
     Button agentbtnstatus;
 
 
@@ -59,7 +61,9 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
         listView = (ListView) findViewById(R.id.agent_batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         agentbtnstatus = (Button)findViewById(R.id.agentbtnstatus);
+        noagentbatchesget = (TextView)findViewById(R.id.noagentbatchesget);
         agentbtnstatus.setVisibility(View.INVISIBLE);
+        agentbatchesassigned.setVisibility(View.INVISIBLE);
         batchesGet();
         agentbtnstatus.setOnClickListener(this);
     }
@@ -84,6 +88,8 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
                         agentbtnstatus.setVisibility(View.VISIBLE);
+                        agentbatchesassigned.setVisibility(View.VISIBLE);
+
                     }
 //                    else if(status.equals("RECEIVED"))
 //                        {
@@ -92,8 +98,7 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
                 }
                 if(listView.getCount() == 0)
                 {
-                    agentbatchesassigned.setVisibility(View.INVISIBLE);
-                    Toast.makeText(AgentBatchesGet.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
+                    noagentbatchesget.setVisibility(View.VISIBLE);
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());

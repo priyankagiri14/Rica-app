@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +33,7 @@ public class AgentsList extends AppCompatActivity implements View.OnClickListene
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
+    TextView assignagents,noagentslist;
     public ListView listView;
     Button btnstatus;
 
@@ -53,6 +55,10 @@ public class AgentsList extends AppCompatActivity implements View.OnClickListene
         listView = (ListView) findViewById(R.id.batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         btnstatus = (Button) findViewById(R.id.btnstatus);
+        assignagents = (TextView)findViewById(R.id.assign_agents);
+        noagentslist = (TextView)findViewById(R.id.noagentslist);
+        btnstatus.setVisibility(View.INVISIBLE);
+        assignagents.setVisibility(View.INVISIBLE);
         agentsGet();
         btnstatus.setOnClickListener(this);
     }
@@ -72,8 +78,17 @@ public class AgentsList extends AppCompatActivity implements View.OnClickListene
                     String[] id = new String[bodyArrayList1.size()];
 
                     for (int i = 0; i < list.size(); i++) {
-                        list1.add(response.body());
-                        populateListView(list1.get(0).getBody());
+                        bodyArrayList1.add(list.get(i));
+                        populateListView(bodyArrayList1);
+                        assignagents.setVisibility(View.VISIBLE);
+                        btnstatus.setVisibility(View.VISIBLE);
+//                        list1.add(response.body());
+//                        populateListView(list1.get(0).getBody());
+                    }
+                    if(listView.getCount() == 0)
+                    {
+                        noagentslist.setVisibility(View.VISIBLE);
+                        //Toast.makeText(AgentsList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                     }
                 }
 //                for (int i =0; i <list.size(); i++) {

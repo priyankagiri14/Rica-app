@@ -28,4 +28,27 @@ public class AgentLoginResponse {
         this.expiresIn = expiresIn;
     }
 
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+
+    @SerializedName("success")
+    @Expose
+    private String success;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @SerializedName("message")
+    @Expose
+    private String message;
 }

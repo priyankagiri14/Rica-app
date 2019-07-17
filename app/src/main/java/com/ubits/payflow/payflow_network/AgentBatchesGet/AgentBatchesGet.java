@@ -37,7 +37,7 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
     String bodybatchesstring[];
     public ListView listView;
     TextView agentbatchesassigned;
-    Button btnstatus;
+    Button agentbtnstatus;
 
 
     private void populateListView(List<Body> batchesGetResponseList)
@@ -58,10 +58,10 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
         agentbatchesassigned = (TextView) findViewById(R.id.agent_assigned_batches);
         listView = (ListView) findViewById(R.id.agent_batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        btnstatus = (Button)findViewById(R.id.btnstatus);
-        btnstatus.setVisibility(View.INVISIBLE);
+        agentbtnstatus = (Button)findViewById(R.id.agentbtnstatus);
+        agentbtnstatus.setVisibility(View.INVISIBLE);
         batchesGet();
-        btnstatus.setOnClickListener(this);
+        agentbtnstatus.setOnClickListener(this);
     }
     private void batchesGet(){
 
@@ -83,17 +83,17 @@ public class AgentBatchesGet extends AppCompatActivity implements View.OnClickLi
                     {
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
-                        btnstatus.setVisibility(View.VISIBLE);
-                    }
-                    if(listView.getCount() == 0)
-                    {
-                        agentbatchesassigned.setVisibility(View.INVISIBLE);
-                        Toast.makeText(AgentBatchesGet.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
+                        agentbtnstatus.setVisibility(View.VISIBLE);
                     }
 //                    else if(status.equals("RECEIVED"))
 //                        {
 //                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
 //                        }
+                }
+                if(listView.getCount() == 0)
+                {
+                    agentbatchesassigned.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AgentBatchesGet.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());

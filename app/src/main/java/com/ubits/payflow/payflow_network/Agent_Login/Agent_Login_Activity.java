@@ -2,6 +2,7 @@ package com.ubits.payflow.payflow_network.Agent_Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,10 @@ import retrofit2.Response;
 public class Agent_Login_Activity extends AppCompatActivity implements Callback<AgentLoginResponse> {
 
     EditText cellid,password;
+    String accessToken = "null";
     Button login;
+    ProgressDialog progressBar;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +50,17 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+
+                progressBar = new ProgressDialog(v.getContext());
+                progressBar.setCancelable(true);
+                progressBar.setMessage("Checking the Login Credentials...");
+                progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressBar.show();
                 Log.d("CellID : ",cellid.getText().toString());
                 Log.d( "Password : ",password.getText().toString());
                 if(cellid.length() == 0 || password.length() == 0)
                 {
+                    progressBar.cancel();
                     Toast.makeText(Agent_Login_Activity.this, "Enter the Required Fields", Toast.LENGTH_SHORT).show();
 
                 }
@@ -85,16 +96,37 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
     @Override
     public void onResponse(Call<AgentLoginResponse> call, Response<AgentLoginResponse> response) {
         if (response.isSuccessful() && response.code() == 200) {
-
-            String accessToken = response.body().getAccessToken();
-            String expirytime = response.body().getExpiresIn().toString();
-            String token = "Bearer "+accessToken;
-            Pref.putToken(MyApp.getContext(), token);
-            Log.d("onResponse: ",token);
-            Log.d("onResponse: ",expirytime);
-            agentLoginCheck();
-//            Intent intent = new Intent(Agent_Login_Activity.this, ProcessingActivity.class);
-//            startActivity(intent);
+            accessToken = response.body().getAccessToken();
+            if (response.body().getAccessToken() != null) {
+                String expirytime = response.body().getExpiresIn().toString();
+                String token = "Bearer " + accessToken;
+                Pref.putToken(MyApp.getContext(), token);
+                Log.d("onResponse: ", token);
+                Log.d("onResponse: ", expirytime);
+                agentLoginCheck();
+            }
+            else
+                {
+                    progressBar.cancel();
+                    Toast.makeText(this, "Enter Valid Details", Toast.LENGTH_SHORT).show();
+                }
+//            Log.d("Access 2: ",accessToken);
+//            if(accessToken.length() == 0)
+//            {
+//                String status = response.body().getSuccess();
+//                String message = response.body().getMessage();
+//                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//            }
+//            else if(response.body().getAccessToken().length()>0){
+//                String expirytime = response.body().getExpiresIn().toString();
+//                String token = "Bearer " + accessToken;
+//                Pref.putToken(MyApp.getContext(), token);
+//                Log.d("onResponse: ", token);
+//                Log.d("onResponse: ", expirytime);
+//                agentLoginCheck();
+////            Intent intent = new Intent(Agent_Login_Activity.this, ProcessingActivity.class);
+////            startActivity(intent);
+//            }
 
         }
     }
@@ -115,10 +147,12 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                         String authority = response.body().getBody().getAuthority().getAuthority();
                         if(authority.equals("ADMIN"))
                         {
+                            progressBar.cancel();
                             Toast.makeText(Agent_Login_Activity.this, "You are logging in with ADMIN Credentials", Toast.LENGTH_SHORT).show();
                         }
                         else if(authority.equals("DRIVER"))
                         {
+                            progressBar.cancel();
                             Log.d("Driver Login",response.body().getBody().getAuthority().getAuthority());
                             Log.d("Driver Login",response.body().getBody().getId().toString());
                             String Id = response.body().getBody().getId().toString();
@@ -132,6 +166,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
 
                         }
                         else{
+                            progressBar.cancel();
                             Toast.makeText(Agent_Login_Activity.this, "Login Successful for Agent", Toast.LENGTH_SHORT).show();
                             String Id = response.body().getBody().getId().toString();
                             Pref.putId(MyApp.getContext(),Id);

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
@@ -34,6 +35,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
+    TextView assignedbatches;
     public ListView listView;
     Button btnstatus;
 
@@ -57,6 +59,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_batches_get_list);
         listView = (ListView) findViewById(R.id.batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        assignedbatches = (TextView)findViewById(R.id.driver_assigned_batches);
         btnstatus = (Button)findViewById(R.id.btnstatus);
         btnstatus.setVisibility(View.INVISIBLE);
         batchesGet();
@@ -88,6 +91,11 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 //                        {
 //                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
 //                        }
+                }
+                if(listView.getCount() == 0)
+                {
+                    assignedbatches.setVisibility(View.INVISIBLE);
+                    Toast.makeText(BatchesGetList.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());

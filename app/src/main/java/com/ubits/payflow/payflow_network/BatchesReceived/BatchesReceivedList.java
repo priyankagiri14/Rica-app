@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.ubits.payflow.payflow_network.AgentsList.AgentsList;
 import com.ubits.payflow.payflow_network.General.MainActivity;
@@ -34,6 +35,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
+    TextView batchesreceivedtext;
     Button btnstts;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
@@ -52,6 +54,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_batches_received_list);
 
         listView = (ListView) findViewById(R.id.batches_received_listview);
+        batchesreceivedtext = (TextView)findViewById(R.id.driver_batches_received);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         btnstts = (Button)findViewById(R.id.btnreceive);
         btnstts.setVisibility(View.INVISIBLE);
@@ -80,10 +83,12 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                         populateListView(bodyArrayList1);
                         btnstts.setVisibility(View.VISIBLE);
                     }
-                    else
-                    {
-                        Toast.makeText(BatchesReceivedList.this, "No Data are received by You!", Toast.LENGTH_SHORT).show();
-                    }
+                }
+
+                if(listView.getCount() == 0)
+                {
+                    batchesreceivedtext.setVisibility(View.INVISIBLE);
+                    Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());

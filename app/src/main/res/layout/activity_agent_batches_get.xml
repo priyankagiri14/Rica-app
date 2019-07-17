@@ -51,7 +51,7 @@
     <Button
         android:layout_weight="1"
         android:layout_alignBottom="@id/linearlayout"
-        android:id="@+id/btnstatus"
+        android:id="@+id/agentbtnstatus"
         android:padding="@dimen/_10sdp"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="?actionBarSize"

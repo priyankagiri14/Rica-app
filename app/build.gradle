@@ -67,6 +67,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.github.smart-fun:Perm:1.1.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 android {

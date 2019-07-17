@@ -6,15 +6,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
+import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Stock_allocate;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
@@ -26,9 +30,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BatchesGetList extends AppCompatActivity implements View.OnClickListener{
+public class BatchesGetList extends AppCompatActivity implements View.OnClickListener ,SearchView.OnQueryTextListener{
 
 
+    SearchView searchView;
     private BatchesGetListAdapter adapter;
     List<BatchesGetResponse> list2 = new ArrayList<>();
     ArrayList<Body> bodyArrayList = new ArrayList<>();
@@ -37,6 +42,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
     String bodybatchesstring[];
     TextView assignedbatches;
     public ListView listView;
+
     Button btnstatus;
 
 
@@ -49,7 +55,36 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
             adapter = new BatchesGetListAdapter(this,bodyArrayList1);
             adapter.notifyDataSetChanged();
             listView.setAdapter(adapter);
+            /*searchView=findViewById(R.id.searchview);
+            searchView.setOnQueryTextListener(this);
+            setupSearchView();*/
         }
+
+    private void setupSearchView()
+    {
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Search Here");
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText)
+    {
+
+        if (TextUtils.isEmpty(newText)) {
+            listView.clearTextFilter();
+        } else {
+            listView.setFilterText(newText);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query)
+    {
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,4 +255,5 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 
         alertDialog.show();
     }
+
 }

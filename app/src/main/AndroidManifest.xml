@@ -28,7 +28,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".AgentBatchesGet.AgentBatchesGet"></activity>
+        <activity
+            android:name=".Agent_Login.Agent_Login_Activity"
+
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AgentBatchesGet.AgentBatchesGet" />
         <activity android:name=".BatchesReceived.BatchesReceivedList" />
         <activity android:name=".AllocationGet.AllocationGet" />
         <activity android:name=".AgentsList.AgentsList" />
@@ -52,8 +56,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Driver.Driverlogin" />
         <activity
-            android:name=".Agent_Login.Agent_Login_Activity"
-            android:label="@string/app_name">
+            android:name=".Navigation_main.Navigation_Main"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -580,6 +584,8 @@
         <activity android:name=".Driver.DriverAttendance.DriverAttendance" />
         <activity android:name=".Agent.Sim_allocation" />
         <activity android:name=".Agent.Agent_Mainactivity" />
+        <activity android:name=".Navigation_main.Contact_Ontrack"/>
+        <activity android:name=".Navigation_main.Address_Ontrack"/>
     </application>
 
 </manifest>

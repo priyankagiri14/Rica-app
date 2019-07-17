@@ -29,6 +29,17 @@
             android:text="Batches Received"
             android:textSize="25dp"/>
 
+        <TextView
+            android:id="@+id/nobatchesrc"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_200sdp"
+            android:text="No Batches are Received by You"
+            android:textColor="#000000"
+            android:textSize="@dimen/_15sdp"
+            android:gravity="center"/>
+
         <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_marginBottom="100dp"

@@ -29,7 +29,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         cardView1.setOnClickListener(this);
         cardView2.setOnClickListener(this);
         toolbar=findViewById(R.id.toolbar);
-        toolbar.setTitle("Agent Session");
+        toolbar.setTitle("Agent Dashboard");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

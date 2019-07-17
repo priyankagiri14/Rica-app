@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
 import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
+import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
@@ -35,7 +36,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
-    TextView assignedbatches;
+    TextView assignedbatches,nobatchesget;
     public ListView listView;
     Button btnstatus;
 
@@ -60,8 +61,10 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         listView = (ListView) findViewById(R.id.batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         assignedbatches = (TextView)findViewById(R.id.driver_assigned_batches);
+        nobatchesget = (TextView)findViewById(R.id.nobatchesget);
         btnstatus = (Button)findViewById(R.id.btnstatus);
         btnstatus.setVisibility(View.INVISIBLE);
+        assignedbatches.setVisibility(View.INVISIBLE);
         batchesGet();
         btnstatus.setOnClickListener(this);
     }
@@ -86,6 +89,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
                         btnstatus.setVisibility(View.VISIBLE);
+                        assignedbatches.setVisibility(View.VISIBLE);
                     }
 //                    else if(status.equals("RECEIVED"))
 //                        {
@@ -94,8 +98,8 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                 }
                 if(listView.getCount() == 0)
                 {
-                    assignedbatches.setVisibility(View.INVISIBLE);
-                    Toast.makeText(BatchesGetList.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
+                    nobatchesget.setVisibility(View.VISIBLE);
+                    //Toast.makeText(BatchesGetList.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());
@@ -165,8 +169,9 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-                Intent intent=new Intent(BatchesGetList.this, Driver_Dashboard.class);
+                Intent intent=new Intent(BatchesGetList.this, Stocks_dashboard.class);
                 startActivity(intent);
+                finish();
             }
         });
         alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "DECLINE", new DialogInterface.OnClickListener() {
@@ -203,6 +208,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
 
                         String message = response.body().getMessage();
                         Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override

@@ -1,9 +1,10 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.AgentBatchesGet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class AssignedTo {
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -37,5 +38,4 @@ public class AssignedTo {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
 }

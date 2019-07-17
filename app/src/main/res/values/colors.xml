@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#088EBA</color>
 
-    <color name="colorPrimaryDark">#0DAFEC</color>
+    <color name="colorPrimaryDark">#000000</color>
 
-    <color name="colorAccent">#088EBA</color>
+    <color name="colorAccent">#009688</color>
 
     <color name="color_lite_sky">#A9DCEF</color>
     <color name="color_sky_bule">#088EBA</color>
@@ -34,13 +34,16 @@
 
     <color name="input_register_bg">#3b4148</color>
     <color name="input_register_hint">#5e6266</color>
-    <color name="login_grey">#85888B</color>
+    <color name="login_grey">#5B6865</color>
     <color name="light_grey">#E7E4E4</color>
     <color name="btn_login">#26ae90</color>
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
 
     <color name="main_btn_payments">#ff3c00</color>
+
+    <color name="driver_color">#377A23</color>
+    <color name="driver_background">#DFF3DC</color>
 
     <color name="btn_transfers">#32b709</color>
 

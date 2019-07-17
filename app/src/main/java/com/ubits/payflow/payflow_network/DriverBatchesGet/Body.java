@@ -1,8 +1,7 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.DriverBatchesGet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.ubits.payflow.payflow_network.BatchesGet.AssignedTo;
 
 import java.io.Serializable;
 

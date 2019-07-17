@@ -1,6 +1,6 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.AgentBatchesGet;
 
-public class Pojo {
+public class MyPojo {
 
     String status = "";
 

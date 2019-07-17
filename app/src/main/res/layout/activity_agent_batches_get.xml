@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.AgentsList.AgentsList">
+    tools:context="com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGet">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_agent"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/driver_color"/>
-
+        android:background="@color/colorPrimary"/>
     <LinearLayout
         android:background="@color/driver_background"
-        android:layout_below="@id/toolbar_agent"
+        android:layout_below="@+id/toolbar"
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,12 +21,12 @@
         android:gravity="center"
         android:weightSum="4">
         <TextView
-            android:id="@+id/assign_agents"
+            android:id="@+id/agent_assigned_batches"
             android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agents"
             android:textColor="#000000"
+            android:text="Assigned Batches"
             android:textSize="25dp"/>
 
         <LinearLayout
@@ -39,7 +38,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ListView
-                android:id="@+id/batches_get_listview"
+                android:id="@+id/agent_batches_get_listview"
                 android:divider="#000000"
                 android:dividerHeight="1dp"
                 android:layout_width="match_parent"
@@ -52,15 +51,16 @@
     <Button
         android:layout_weight="1"
         android:layout_alignBottom="@id/linearlayout"
+        android:id="@+id/agentbtnstatus"
         android:padding="@dimen/_10sdp"
-        android:id="@+id/btnstatus"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="?actionBarSize"
-        android:background="@color/driver_color"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:text="Proceed"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_6sdp"
         android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

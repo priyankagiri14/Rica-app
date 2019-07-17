@@ -1,4 +1,4 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.DriverBatchesGet;
 
 import android.content.Context;
 import android.view.LayoutInflater;

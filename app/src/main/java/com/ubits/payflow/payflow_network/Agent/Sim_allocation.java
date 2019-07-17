@@ -1,5 +1,6 @@
 package com.ubits.payflow.payflow_network.Agent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.JsonArray;
 import com.location.aravind.getlocation.GeoLocator;
 import com.ubits.payflow.payflow_network.Agent.model.Simallocatemodel;
+import com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGet;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.GetDriverAttendanceResponse;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent.Body;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent.FetchAgent;
@@ -112,6 +114,8 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
                     if(response.isSuccessful()||response.code()==200){
                         String message=response.body().getMessage();
                         Toasty.success(getApplicationContext(),message).show();
+                        Intent intent = new Intent(Sim_allocation.this, Agent_Mainactivity.class);
+                        startActivity(intent);
 
                     }
                     else{

@@ -1,11 +1,11 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.AgentBatchesGet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BatchesGetResponse {
+public class AgentBatchesGetResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;

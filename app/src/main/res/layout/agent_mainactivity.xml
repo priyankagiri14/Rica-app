@@ -12,14 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/driveraccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:text="Agent Session"/>
+
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:ignore="UselessParent">
             <RelativeLayout
                 android:layout_marginTop="20dp"
@@ -38,24 +49,15 @@
                     android:layout_gravity="center"
                     android:foregroundGravity="right"
                     />
-                <TextView
-                    android:layout_below="@id/ontracklogo"
-                    android:id="@+id/customer"
-                    android:layout_marginTop="?actionBarSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Agent Dashboard"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
+
 
                 <LinearLayout
                     android:id="@+id/linear1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/customer"
+                    android:layout_below="@id/ontracklogo"
                     android:layout_centerVertical="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="25dp"
                     android:clipToPadding="false"
                     android:layout_centerHorizontal="true"
                     android:orientation="horizontal">

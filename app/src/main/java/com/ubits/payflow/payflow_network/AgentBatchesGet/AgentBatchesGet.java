@@ -1,7 +1,8 @@
-package com.ubits.payflow.payflow_network.BatchesGet;
+package com.ubits.payflow.payflow_network.AgentBatchesGet;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,82 +11,67 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.ubits.payflow.payflow_network.AllocationStatus.AllocationStatusResponse;
-import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Driver_Dashboard;
-import com.ubits.payflow.payflow_network.Driver.Driver_Dashboard.Stocks_dashboard;
-import com.ubits.payflow.payflow_network.General.MainActivity;
+import com.ubits.payflow.payflow_network.Agent.Agent_Mainactivity;
+import com.ubits.payflow.payflow_network.AllocationStatus.AgentAllocationStatusResponse;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BatchesGetList extends AppCompatActivity implements View.OnClickListener{
+public class AgentBatchesGet extends AppCompatActivity implements View.OnClickListener{
 
-
-    private BatchesGetListAdapter adapter;
-    List<BatchesGetResponse> list2 = new ArrayList<>();
+    private AgentBatchesGetListAdapter adapter;
+    List<AgentBatchesGetResponse> list2 = new ArrayList<>();
     ArrayList<Body> bodyArrayList = new ArrayList<>();
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
-    Button btnstatus;
+    TextView agentbatchesassigned;
+    Button agentbtnstatus;
 
 
-        private void populateListView(List<Body> batchesGetResponseList)
-        {
-            Log.d("PNK", "POPULATELIST");
-            Log.d("PNK", list2.toString());
+    private void populateListView(List<Body> batchesGetResponseList)
+    {
+        Log.d("PNK", "POPULATELIST");
+        Log.d("PNK", list2.toString());
 
-            bodyArrayList1 = batchesGetResponseList;
-            adapter = new BatchesGetListAdapter(this,bodyArrayList1);
-            adapter.notifyDataSetChanged();
-            listView.setAdapter(adapter);
-        }
+        bodyArrayList1 = batchesGetResponseList;
+        adapter = new AgentBatchesGetListAdapter(this,bodyArrayList1);
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-            Log.d("PNK", "ONCREATE");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_batches_get_list);
-        listView = (ListView) findViewById(R.id.batches_get_listview);
+        setContentView(R.layout.activity_agent_batches_get);
+        agentbatchesassigned = (TextView) findViewById(R.id.agent_assigned_batches);
+        listView = (ListView) findViewById(R.id.agent_batches_get_listview);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        btnstatus = (Button)findViewById(R.id.btnstatus);
-        btnstatus.setVisibility(View.INVISIBLE);
+        agentbtnstatus = (Button)findViewById(R.id.agentbtnstatus);
+        agentbtnstatus.setVisibility(View.INVISIBLE);
         batchesGet();
-        btnstatus.setOnClickListener(this);
+        agentbtnstatus.setOnClickListener(this);
     }
     private void batchesGet(){
 
         Log.d("PNK", "BATCHESGET");
 
         Web_Interface web_interface1 = RetrofitToken.getClient().create(Web_Interface.class);
-        Call<BatchesGetResponse> batchesGetResponseCall = web_interface1.requestBatchesGet(0, 0);
-        batchesGetResponseCall.enqueue(new Callback<BatchesGetResponse>() {
+        Call<AgentBatchesGetResponse> batchesGetResponseCall = web_interface1.requestAgentBatchesGet(0, 0);
+        batchesGetResponseCall.enqueue(new Callback<AgentBatchesGetResponse>() {
             @Override
-            public void onResponse(Call<BatchesGetResponse> call, Response<BatchesGetResponse> response) {
+            public void onResponse(Call<AgentBatchesGetResponse> call, Response<AgentBatchesGetResponse> response) {
                 List<Body> list1 = new ArrayList<>();
                 assert response.body() != null;
                 list1 = response.body().getBody();
@@ -97,12 +83,17 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     {
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
-                        btnstatus.setVisibility(View.VISIBLE);
+                        agentbtnstatus.setVisibility(View.VISIBLE);
                     }
 //                    else if(status.equals("RECEIVED"))
 //                        {
 //                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
 //                        }
+                }
+                if(listView.getCount() == 0)
+                {
+                    agentbatchesassigned.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AgentBatchesGet.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());
@@ -117,8 +108,8 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onFailure(Call<BatchesGetResponse> call, Throwable t) {
-                Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<AgentBatchesGetResponse> call, Throwable t) {
+                Toast.makeText(AgentBatchesGet.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -129,10 +120,10 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         Log.d("PNK", "ONCLICK");
         Log.d("PNK", ""+v.getId());
 
-        AlertDialog alertDialog = new AlertDialog.Builder(BatchesGetList.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(AgentBatchesGet.this).create();
         alertDialog.setMessage("Please Confirm..?");
 
-        Pojo pojo = new Pojo();
+        MyPojo myPojo1 = new MyPojo();
 
         alertDialog.setButton(Dialog.BUTTON_POSITIVE, "RECEIVED", new DialogInterface.OnClickListener() {
             @Override
@@ -141,38 +132,38 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                 String stts = "RECEIVED";
                 Log.d("PNK", "Here I am");
 
-                    for (int j = 0; j <bodyArrayList1.size(); j++) {
+                for (int j = 0; j <bodyArrayList1.size(); j++) {
 
-                        if (bodyArrayList1.get(j).isIschecked()) {
-                            bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                            //batches[j] = bodyArrayList1.get(j).getBatchNo();
-                        }
+                    if (bodyArrayList1.get(j).isIschecked()) {
+                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
+                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
                     }
+                }
                 String[] batches = new String[bodyArrayListbatches.size()];
-                    for (int j=0;j<bodyArrayListbatches.size();j++)
-                    {
-                        batches[j] = bodyArrayListbatches.get(j);
-                    }
+                for (int j=0;j<bodyArrayListbatches.size();j++)
+                {
+                    batches[j] = bodyArrayListbatches.get(j);
+                }
                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-                pojo.setStatus(stts);
-                pojo.setBatches(batches);
-                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
+                myPojo1.setStatus(stts);
+                myPojo1.setBatches(batches);
+                Call<AgentAllocationStatusResponse> callagent = web_interface.requestAgentAllocationStatus(myPojo1);
                 //exeuting the service
-                call.enqueue(new Callback<AllocationStatusResponse>() {
+                callagent.enqueue(new Callback<AgentAllocationStatusResponse>() {
                     @Override
-                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
+                    public void onResponse(Call<AgentAllocationStatusResponse> call, Response<AgentAllocationStatusResponse> response) {
 
                         String message = response.body().getMessage();
-                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AgentBatchesGet.this, message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<AgentAllocationStatusResponse> call, Throwable t) {
+                        Toast.makeText(AgentBatchesGet.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                Intent intent=new Intent(BatchesGetList.this, Driver_Dashboard.class);
+                Intent intent=new Intent(AgentBatchesGet.this, Agent_Mainactivity.class);
                 startActivity(intent);
             }
         });
@@ -198,23 +189,23 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     batches[j] = bodyArrayListbatches.get(j);
                 }
                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-                pojo.setStatus(status);
-                pojo.setBatches(batches);
-                pojo.setReason(reason);
-                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
+                myPojo1.setStatus(status);
+                myPojo1.setBatches(batches);
+                myPojo1.setReason(reason);
+                Call<AgentAllocationStatusResponse> callagent= web_interface.requestAgentAllocationStatus(myPojo1);
                 //exeuting the service
-                Log.d("agentlogin: ",call.toString());
-                call.enqueue(new Callback<AllocationStatusResponse>() {
+                Log.d("agentlogin: ",callagent.toString());
+                callagent.enqueue(new Callback<AgentAllocationStatusResponse>() {
                     @Override
-                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
+                    public void onResponse(Call<AgentAllocationStatusResponse> call, Response<AgentAllocationStatusResponse> response) {
 
                         String message = response.body().getMessage();
-                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AgentBatchesGet.this, message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<AgentAllocationStatusResponse> call, Throwable t) {
+                        Toast.makeText(AgentBatchesGet.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 

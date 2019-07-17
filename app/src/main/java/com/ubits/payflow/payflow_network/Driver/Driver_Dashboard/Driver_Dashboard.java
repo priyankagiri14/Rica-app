@@ -112,37 +112,22 @@ public class Driver_Dashboard extends AppCompatActivity {
             return;
         }
 
-        Runnable runnable=new Runnable() {
-            @Override
-            public void run() {
-                Fragment fragment=getDashboardFragment();
-                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_from_right,R.anim.slide_from_left);
-                fragmentTransaction.replace(R.id.frame1,fragment,CURRENT_TAG);
-                fragmentTransaction.commit();
-            }
-        };
-
-        if(runnable!=null){
-            mHandler.post(runnable);
-        }
+        //Runnable runnable=new Runnable() {
+//            @Override
+//            public void run() {
+//                Fragment fragment=getDashboardFragment();
+//                FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.setCustomAnimations(R.anim.slide_from_right,R.anim.slide_from_left);
+//                fragmentTransaction.replace(R.id.frame1,fragment,CURRENT_TAG);
+//                fragmentTransaction.commit();
+//            }
+//        };
+//
+//        if(runnable!=null){
+//            mHandler.post(runnable);
+//        }
         drawerLayout.closeDrawers();
         invalidateOptionsMenu();
-    }
-    private Fragment getDashboardFragment(){
-        switch (navItemIndex){
-            case 0:
-                Stocks_dashboard dashboard=new Stocks_dashboard();
-                return dashboard;
-
-            case 1:
-                Agent_Dashboard agent_dashboard=new Agent_Dashboard();
-                return agent_dashboard;
-            /*default:
-                return new Stocks_dashboard();*/
-            default:
-            return new Stocks_dashboard();
-        }
     }
     @Override
     public void onBackPressed() {

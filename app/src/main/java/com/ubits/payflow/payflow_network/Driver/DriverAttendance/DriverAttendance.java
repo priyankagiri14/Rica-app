@@ -1,10 +1,17 @@
 package com.ubits.payflow.payflow_network.Driver.DriverAttendance;
-
+import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,15 +24,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.places.Places;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.location.aravind.getlocation.GeoLocator;
-import com.ubits.payflow.payflow_network.Agent_Login.AgentLoginResponse;
-import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.DayStart;
-import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.StoreId;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.GetDriverAttendanceResponse;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.UploadedFile;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent.Agentattendance_Adapter;
@@ -35,7 +40,6 @@ import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Tab_Stock_Activit
 import com.ubits.payflow.payflow_network.General.GPStracker;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.Ret;
-import com.ubits.payflow.payflow_network.Web_Services.RetrofitClient;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
 import com.ubits.payflow.payflow_network.utils.Utils;
@@ -61,6 +65,7 @@ import java.util.TimeZone;
 
 
 import es.dmoral.toasty.Toasty;
+import fr.arnaudguyon.perm.Perm;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 import info.androidhive.fontawesome.FontTextView;
 import okhttp3.MediaType;
@@ -72,12 +77,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DriverAttendance  extends AppCompatActivity  implements View.OnClickListener, Callback<ResponseBody> {
+public class DriverAttendance  extends AppCompatActivity  implements View.OnClickListener, Callback<ResponseBody>, LocationListener {
 private static final String TAG="HomeFragment";
 private int current_store_pos;
 private String filePath;
 Button buttonStartDay;
-private EditText location;
+private EditText location1;
 FontTextView buttonCapture;
 
 TextView textViewDate,textViewTime;
@@ -95,28 +100,23 @@ private String imgPath = null;
 private final int PICK_IMAGE_CAMERA = 1;
 private String current_date_time;
 private Double Lat, Longs;
-private Double latitude=0.00, longitude=0.00;
+//private Double latitude=0.00, longitude=0.00;
 private String agentId;
 List<String> agentlist;
 ListView agentlistview;
 private int imageid;
+List<FetchAgent> list1;
 JSONObject jsonObject;
-
-
-
-
-
-
-/*@Override
-public View onCreate(LayoutInflater inflater, ViewGroup container,
-                         Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.driver_attendance, container, false);
-        ButterKnife.bind(this,view);
-        return view;
-
-        }*/
-
+    Location location;
+    double longitude;
+    double latitude;
+    protected LocationManager locationManager;
+    private String provider_info;
+    Perm perm;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private static final int PERMISSIONS_REQUEST = 1;
+    private static final String PERMISSIONS[] = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET};
 @Override
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState);
@@ -126,23 +126,96 @@ protected void onCreate(Bundle savedInstanceState) {
         buttonStartDay.setOnClickListener(this);
         buttonCapture=findViewById(R.id.camera);
         buttonCapture.setOnClickListener(this);
-        location=findViewById(R.id.location);
-        getLocation();
-        fetchagent();
-        getGps();
+        location1=findViewById(R.id.location);
+        //getLocation();
+    mGoogleApiClient = new GoogleApiClient
+            .Builder(this)
+            .addApi(Places.GEO_DATA_API)
+            .addApi(Places.PLACE_DETECTION_API)
+            .build();
+
+    mLocationRequest = LocationRequest.create()
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+            .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+            .setFastestInterval(1 * 1000);
+
+    perm = new Perm(this, PERMISSIONS);
+    if (perm.areGranted()) {
+        //   Toast.makeText(this, "All Permissions granted", Toast.LENGTH_LONG).show();
+    } else {
+        perm.askPermissions(PERMISSIONS_REQUEST);
+    }
+
+    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+    }
+    getLocation();
+
+
+    fetchagent();
+        //getGps();
 
         //listViewDataAdapter.notifyDataSetChanged();
         }
 
-    private void getLocation() {
+    /*private void getLocation() {
+
         GeoLocator geoLocator = new GeoLocator(getApplicationContext(),this);
         Log.d("startbranding", "getLocation: "+geoLocator.getLattitude()+"\n"+ geoLocator.getLongitude());
+        if(location.getText().toString()==null){
+        Toast.makeText(this,"Please turn on your GPS",Toast.LENGTH_SHORT).show();
+        }
+        else{
         location.setText(geoLocator.getAddress());
         Log.d("locationda",location.toString());
-}
+        }
+    }*/
 
 
-        private void fetchagent() {
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, (LocationListener) this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        location1.setText("Latitude: " + location.getLatitude() + "\n Longitude: " + location.getLongitude()  );
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            location1.setText(location1.getText()+ "\n"+addresses.get(0).getAddressLine(0));
+        }catch(Exception e)
+        {
+            Toast.makeText(this, "" +e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(DriverAttendance.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+
+
+
+    private void fetchagent() {
                 Web_Interface webInterface = Ret.getClient().create(Web_Interface.class);
                 Call<FetchAgent> call = webInterface.requestfetchagent(RetrofitToken.token);
                 call.enqueue(new Callback<FetchAgent>() {
@@ -154,7 +227,7 @@ protected void onCreate(Bundle savedInstanceState) {
                                         List<Body> agent =new ArrayList<>();
                                         assert response.body() != null;
                                         agent=response.body().getBody();
-                                        List<FetchAgent> list1=new ArrayList<>();
+                                        list1=new ArrayList<>();
                                         list = new ArrayList<>();
                                         agentid=new ArrayList<>();
                                         for (int i = 0; i < agent.size(); i++) {

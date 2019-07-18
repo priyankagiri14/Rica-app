@@ -8,7 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/greenontrack"
-        />
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ontrack Mobile"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:layout_below="@id/toolbar"

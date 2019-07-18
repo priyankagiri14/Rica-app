@@ -14,14 +14,40 @@
             android:text="Contact"
             android:textColor="@color/white"/>
     </androidx.appcompat.widget.Toolbar>
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/ontrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ontracklogo"
+        android:layout_below="@id/toolbar"/>
     <TextView
+        android:id="@+id/contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Contact Details"
         android:textColor="@color/black"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/ontrack"
+        android:layout_marginTop="50dp"
         android:textSize="20sp"
         android:gravity="center_horizontal"/>
 
+    <TextView
+        android:id="@+id/contact1"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact"
+        android:textColor="@color/rand"
+        android:text="Office: +27101107746"/>
+
+    <TextView
+        android:id="@+id/contact2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact1"
+        android:textColor="@color/rand"
+        android:text="http://www.ontrackmobile.co.za/"/>
 </RelativeLayout>

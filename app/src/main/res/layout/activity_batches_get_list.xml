@@ -12,6 +12,13 @@
         android:layout_height="?actionBarSize"
         android:background="@color/driver_color">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Assign Batches"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:background="@color/light_grey"
@@ -28,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Assigned Batches"
+        android:text="List of assign batches"
         android:textSize="25dp"/>
 
         <TextView

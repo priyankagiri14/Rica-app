@@ -10,7 +10,15 @@
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/driver_color"/>
+        android:background="@color/driver_color">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Received Batches"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        />
+    </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:background="@color/light_grey"
         android:id="@+id/linearlayout"
@@ -26,7 +34,7 @@
             android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Batches Received"
+            android:text="List of batches received"
             android:textSize="25dp"/>
 
         <TextView

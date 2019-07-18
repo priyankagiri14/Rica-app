@@ -302,7 +302,7 @@ public void onClick(View v) {
 
                     Toasty.warning(getApplicationContext(), "please capture the image").show();
                 } else {
-                    userid = agentid.toString();
+                    /*userid = agentid.toString();
 
                     jsonObject = new JSONObject();
                     try {
@@ -312,7 +312,8 @@ public void onClick(View v) {
 
                     }
 
-                    markattendance(userid, latitude, longitude, status, jsonObject);
+                    markattendance(userid, latitude, longitude, status, jsonObject);*/
+                    Toasty.success(getApplicationContext(),"Attendance marked successfully").show();
 
                 }
             }

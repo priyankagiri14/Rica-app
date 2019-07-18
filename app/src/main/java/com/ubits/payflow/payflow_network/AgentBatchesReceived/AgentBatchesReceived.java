@@ -122,6 +122,9 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
         Log.d("PNK", "ONCLICK");
         Log.d("PNK", ""+v.getId());
 
+
+        Toast.makeText(AgentBatchesReceived.this, "No Functionality here for as of now", Toast.LENGTH_SHORT).show();
+
 //        AlertDialog alertDialog = new AlertDialog.Builder(AgentBatchesReceived.this).create();
 //        alertDialog.setMessage("Do you want to allocate the stock to Agent");
 //

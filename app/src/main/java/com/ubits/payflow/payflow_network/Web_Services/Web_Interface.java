@@ -3,6 +3,7 @@ package com.ubits.payflow.payflow_network.Web_Services;
 import com.ubits.payflow.payflow_network.Agent.model.Simallocatemodel;
 import com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGetResponse;
 import com.ubits.payflow.payflow_network.AgentBatchesGet.MyPojo;
+import com.ubits.payflow.payflow_network.AgentBatchesReceived.AgentBatchesReceivedResponse;
 import com.ubits.payflow.payflow_network.Agent_Login.AgentLoginResponse;
 import com.ubits.payflow.payflow_network.AgentsGetResponse.AgentsGetResponse;
 import com.ubits.payflow.payflow_network.AgentsList.AgentsListResponse;
@@ -104,4 +105,9 @@ public interface Web_Interface {
     // @Headers("Accept: application/json");
     @PUT("allocations")
     Call<AgentAllocationStatusResponse> requestAgentAllocationStatus(@Body MyPojo pojo);
+
+    @Headers("Accept: application/json")
+    @GET("batches?size=size&page=page/")
+    Call<AgentBatchesReceivedResponse> requestAgentBatchesReceived(@Query("size") int size, @Query("page") int page);
+
 }

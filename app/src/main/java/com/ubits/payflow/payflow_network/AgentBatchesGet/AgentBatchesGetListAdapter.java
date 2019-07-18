@@ -31,8 +31,8 @@ public class AgentBatchesGetListAdapter extends BaseAdapter {
         public CheckBox batchesgetcheckbox;
 
         MyViewHolder(View view) {
-            batchesgettext = (TextView) view.findViewById(R.id.agents_list_text);
-            batchesgetcheckbox = (CheckBox) view.findViewById(R.id.agent_list_checkbox);
+            batchesgettext = (TextView) view.findViewById(R.id.agents_batches_received_list_text);
+            batchesgetcheckbox = (CheckBox) view.findViewById(R.id.agent_batches_received_list_checkbox);
         }
     }
 
@@ -62,7 +62,7 @@ public class AgentBatchesGetListAdapter extends BaseAdapter {
         if (row == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.agent_batches_get_list_item, parent, false);
+            row = inflater.inflate(R.layout.agent_batches_received_list_item, parent, false);
             holder = new MyViewHolder(row);
             row.setTag(holder);
         }

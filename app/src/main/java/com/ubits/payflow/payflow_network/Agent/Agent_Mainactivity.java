@@ -6,12 +6,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGet;
+import com.ubits.payflow.payflow_network.AgentBatchesReceived.AgentBatchesReceived;
 import com.ubits.payflow.payflow_network.Agent_Login.Agent_Login_Activity;
 import com.ubits.payflow.payflow_network.DriverBatchesGet.BatchesGetList;
 import com.ubits.payflow.payflow_network.R;
@@ -83,8 +85,12 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         }
         else if(v.getId() == R.id.Callagent)
         {
-            Intent intent = new Intent(this, Sim_allocation.class);
+            Intent intent = new Intent(this, AgentBatchesReceived.class);
             startActivity(intent);
+        }
+        else if(v.getId() == R.id.airtimeSales)
+        {
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
         }
     }
 }

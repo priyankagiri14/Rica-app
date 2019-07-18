@@ -108,6 +108,7 @@ private int imageid;
 List<FetchAgent> list1;
 JSONObject jsonObject;
     Location location;
+    TextView datetext,timetext;
     double longitude;
     double latitude;
     protected LocationManager locationManager;
@@ -116,7 +117,7 @@ JSONObject jsonObject;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private static final int PERMISSIONS_REQUEST = 1;
-    private static final String PERMISSIONS[] = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET};
+    private static final String PERMISSIONS[] = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.CAMERA};
 @Override
 protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState);
@@ -127,6 +128,10 @@ protected void onCreate(Bundle savedInstanceState) {
         buttonCapture=findViewById(R.id.camera);
         buttonCapture.setOnClickListener(this);
         location1=findViewById(R.id.location);
+        location1.setOnClickListener(this);
+        datetext=findViewById(R.id.Date);
+        timetext=findViewById(R.id.Time);
+        initDateTime();
         //getLocation();
     mGoogleApiClient = new GoogleApiClient
             .Builder(this)
@@ -150,11 +155,29 @@ protected void onCreate(Bundle savedInstanceState) {
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
     }
-    getLocation();
-
-
     fetchagent();
         }
+
+    private void initDateTime() {
+        Calendar calendar = Calendar.getInstance();
+//date format is:  "Date-Month-Year Hour:Minutes am/pm"
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy"); //Date and time
+        String currentDate = sdf.format(calendar.getTime());
+        //getting current time
+        SimpleDateFormat sds = new SimpleDateFormat(" hh:mm a"); //time
+        String currentTime = sds.format(calendar.getTime());
+
+
+//Day of Name in full form like,"Saturday", or if you need the first three characters you have to put "EEE" in the date format and your result will be "Sat".
+        SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
+        Date date = new Date();
+        String dayName = sdf_.format(date);
+        datetext.setText("" + dayName + " " + currentDate + "");
+        timetext.setText(currentTime);
+
+    }
+
+
 
 
     void getLocation() {
@@ -266,35 +289,42 @@ protected void onCreate(Bundle savedInstanceState) {
 
 @Override
 public void onClick(View v) {
+    if(v.getId()==R.id.location){
+        getLocation();
+    }
         if(v.getId()==R.id.driver_button)
         {
+            if(location1.getText().toString().length()==0){
+                Toast.makeText(this,"Enable GPS First",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if (filePath == null) {
 
-        if (filePath==null){
+                    Toasty.warning(getApplicationContext(), "please capture the image").show();
+                } else {
+                    userid = agentid.toString();
 
-        Toasty.warning(getApplicationContext(),"please capture the image").show();
-        }
-
-        else {
-                userid=agentid.toString();
-
-                jsonObject = new JSONObject();
-                try {
-                        jsonObject.put("id",imageid);
-                } catch (JSONException e) {
+                    jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("id", imageid);
+                    } catch (JSONException e) {
                         e.printStackTrace();
 
+                    }
+
+                    markattendance(userid, latitude, longitude, status, jsonObject);
+
                 }
-
-                markattendance(userid, latitude, longitude,status,jsonObject);
-
-        }
+            }
 
         }
 
 
         else if(v.getId()==R.id.camera)
         {
-                getImageFromCamera();
+
+
+                    getImageFromCamera();
 
         }
 

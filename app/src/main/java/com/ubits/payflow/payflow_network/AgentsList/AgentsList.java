@@ -146,7 +146,7 @@ public class AgentsList extends AppCompatActivity implements View.OnClickListene
                 public void onResponse(Call<AllocationCreate> call, Response<AllocationCreate> response) {
                     String message = response.body().getMessage();
                     Toast.makeText(AgentsList.this, message, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AgentsList.this, Driver_Dashboard.class);
+                    Intent intent = new Intent(AgentsList.this, Stocks_dashboard.class);
                     startActivity(intent);
                 }
 

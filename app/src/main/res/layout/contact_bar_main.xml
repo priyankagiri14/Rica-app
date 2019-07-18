@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="@color/greenontrack">
+        <TextView
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/ontrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ontracklogo"
+        android:layout_below="@id/toolbar"/>
+    <TextView
+        android:id="@+id/contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Details"
+        android:textColor="@color/black"
+        android:layout_below="@id/ontrack"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/contact1"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact"
+        android:textColor="@color/rand"
+        android:text="Office: +27101107746"/>
+
+    <TextView
+        android:id="@+id/contact2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact1"
+        android:textColor="@color/rand"
+        android:text="http://www.ontrackmobile.co.za/"/>
+</RelativeLayout>

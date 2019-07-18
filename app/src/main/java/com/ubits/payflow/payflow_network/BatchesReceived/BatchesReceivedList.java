@@ -120,7 +120,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
         Log.d("PNK", ""+v.getId());
 
         AlertDialog alertDialog = new AlertDialog.Builder(BatchesReceivedList.this).create();
-        alertDialog.setMessage("Are you want to send this stock to the agent");
+        alertDialog.setMessage("Do you want to allocate the stock to Agent");
 
         alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override

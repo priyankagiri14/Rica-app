@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/toolbar"
+        android:background="@color/greenontrack">
+        <TextView
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/ontrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ontracklogo"
+        android:layout_below="@id/toolbar"/>
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Office Address"
+        android:textColor="@color/black"
+        android:layout_below="@id/ontrack"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/address1"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:textColor="@color/rand"
+        android:text="Unit 14|1st Floor|Riverview Office Park"/>
+
+    <TextView
+        android:id="@+id/address2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address1"
+        android:textColor="@color/rand"
+        android:text="Janadel Avenue Midrand"/>
+
+    <TextView
+        android:id="@+id/address3"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address2"
+        android:textColor="@color/rand"
+        android:text="Johannesburg|South Africa"/>
+
+
+</RelativeLayout>

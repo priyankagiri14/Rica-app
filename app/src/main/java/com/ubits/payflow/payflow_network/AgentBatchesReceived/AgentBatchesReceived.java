@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.ubits.payflow.payflow_network.R;
+
 public class AgentBatchesReceived extends AppCompatActivity {
 
     @Override

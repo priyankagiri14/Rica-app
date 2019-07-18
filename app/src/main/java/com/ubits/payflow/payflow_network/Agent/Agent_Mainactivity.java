@@ -18,16 +18,18 @@ import com.ubits.payflow.payflow_network.R;
 
 public class Agent_Mainactivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cardView1,cardView2;
+    CardView cardView1,cardView2,cardView3;
     Toolbar toolbar;
     public void onCreate(Bundle savedInstancestate) {
 
         super.onCreate(savedInstancestate);
         setContentView(R.layout.agent_mainactivity);
         cardView1 = findViewById(R.id.checkStock);
-        cardView2=findViewById(R.id.sim_activation);
+        cardView2 = findViewById(R.id.Callagent);
+        cardView3=findViewById(R.id.sim_activation);
         cardView1.setOnClickListener(this);
         cardView2.setOnClickListener(this);
+        cardView3.setOnClickListener(this);
         toolbar=findViewById(R.id.toolbar);
         toolbar.setTitle("Agent Dashboard");
         setSupportActionBar(toolbar);
@@ -78,6 +80,11 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
             Intent intent=new Intent(this,Sim_allocation.class);
             startActivity(intent);
 
+        }
+        else if(v.getId() == R.id.Callagent)
+        {
+            Intent intent = new Intent(this, Sim_allocation.class);
+            startActivity(intent);
         }
     }
 }

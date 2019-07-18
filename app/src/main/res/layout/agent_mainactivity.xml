@@ -84,7 +84,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Check new stocks"
+                                android:text="Check new Stock"
                                 android:textStyle="bold" />
 
                             <View
@@ -103,6 +103,69 @@
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/Callagent"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/cerclebackgroundgreen"
+                                app:solid_icon="true"
+                                android:text="@string/fa_sim_card_solid"
+                                android:textColor="@color/white"
+                                android:textSize="35dp"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Received Stock"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="10dp"
+                                android:background="@color/lightgray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textColor="@android:color/darker_gray"
+                                android:text="Stock Received is here."
+                                />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!-- summary card view -->
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_below="@+id/linear1"
+                    android:id="@+id/linear2"
+                    android:clipToPadding="false"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/sim_activation"
@@ -152,6 +215,97 @@
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/airtimeSales"
+                        android:layout_width="160dp"
+                        android:layout_height="190dp"
+                        android:layout_margin="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
+                            <info.androidhive.fontawesome.FontTextView
+                                app:solid_icon="true"
+                                android:text="@string/fa_mobile_alt_solid"
+                                android:textSize="37dp"
+                                android:gravity="center"
+                                android:src="@drawable/ic_sim_card_yellow_24dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:textColor="#f4cc18"
+                                android:background="@drawable/cerclebackgroundpink"
+                                android:padding="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"
+                                android:text="AirTime Sales"/>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/lightgray"
+                                android:layout_margin="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="AirTime for the Customers"
+                                android:padding="5dp"
+                                android:textColor="@android:color/darker_gray"/>
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:foreground="?android:attr/selectableItemBackground"-->
+                        <!--android:clickable="true"-->
+                        <!--android:id="@+id/sim_aloc"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp">-->
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:gravity="center">-->
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:text="@string/title_activity_buy_bundle"-->
+                                <!--app:solid_icon="true"-->
+                                <!--android:textColor="@color/red"-->
+                                <!--android:textSize="35dp"-->
+                                <!--android:gravity="center"-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundyello"-->
+                                <!--android:padding="10dp"/>-->
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textStyle="bold"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Stock Allocation-->
+                             <!--to Agent"-->
+                                <!--android:gravity="center"/>-->
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:background="@color/lightgray"-->
+                                <!--android:layout_margin="10dp"/>-->
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="Agents want Stock?"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"/>-->
+
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
 
                     <!-- summary card view -->
 

@@ -28,7 +28,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".FuelMaintenence.VehicleCharge"></activity>
+        <activity android:name=".AgentBatchesReceived.AgentBatchesReceived"></activity>
+        <activity android:name=".FuelMaintenence.VehicleCharge" />
         <activity android:name=".AgentBatchesGet.AgentBatchesGet" />
         <activity android:name=".BatchesReceived.BatchesReceivedList" />
         <activity android:name=".AllocationGet.AllocationGet" />

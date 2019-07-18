@@ -172,7 +172,7 @@ protected void onCreate(Bundle savedInstanceState) {
         SimpleDateFormat sdf_ = new SimpleDateFormat("EEEE");
         Date date = new Date();
         String dayName = sdf_.format(date);
-        datetext.setText("" + dayName + " " + currentDate + "");
+        datetext.setText(currentDate);
         timetext.setText(currentTime);
 
     }

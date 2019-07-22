@@ -48,13 +48,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".General.SplashActivity"
-            android:icon="@mipmap/on_track_logo"
+            android:icon="@mipmap/ontrack_logo2"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/on_track_logo"
+            android:roundIcon="@mipmap/ontrack_logo2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Driver.Driverlogin" />
         <activity
-            android:name=".Agent_Login.Agent_Login_Activity"
+            android:name=".Navigation_main.Navigation_Main"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

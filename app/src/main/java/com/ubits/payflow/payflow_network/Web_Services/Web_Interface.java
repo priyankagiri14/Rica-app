@@ -18,9 +18,12 @@ import com.ubits.payflow.payflow_network.CredentialsCheck.CredentailsCheckRespon
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.GetDriverAttendanceResponse;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.UploadedFile;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent.FetchAgent;
+import com.ubits.payflow.payflow_network.OpenCloseBatches.SerialsGetResponse;
+import com.ubits.payflow.payflow_network.TeamAttendance.TeamAttendanceResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -109,5 +112,14 @@ public interface Web_Interface {
     @Headers("Accept: application/json")
     @GET("batches?size=size&page=page/")
     Call<AgentBatchesReceivedResponse> requestAgentBatchesReceived(@Query("size") int size, @Query("page") int page);
+
+    @Headers("Accept: application/json")
+    @GET("batches/{id}/serials")
+    Call<SerialsGetResponse> requestSerialsGet(@Path("id") String id);
+
+
+    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    @POST("attendance/team")
+    Call<TeamAttendanceResponse> requestTeamAttendance(@Body Pojo pojo);
 
 }

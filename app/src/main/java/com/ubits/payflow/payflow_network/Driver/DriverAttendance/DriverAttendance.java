@@ -379,26 +379,6 @@ public void onClick(View v) {
 
 }
 
-        /*------------------- getting current latlong ------------------*/
-private void getGps() {
-
-        GPStracker gt = new GPStracker(getApplicationContext());
-        Location l = gt.getLocation();
-        if (l == null) {
-        Lat = 0.00;
-        Longs = 0.00;
-        } else {
-        Lat = l.getLatitude();
-        Longs = l.getLongitude();
-        latitude=Lat;
-        longitude=Longs;
-
-        }
-        Log.d(TAG, "getGps: "+latitude+" "+longitude);
-        }
-
-
-
 /*--------- uploading image to server-----------*/
 
 
@@ -436,6 +416,7 @@ public void onResponse(Call<UploadedFile> call, Response<UploadedFile> response)
         //now we will send this image id and store name from spinner using retrofit
         Utils.stopProgress();
         Toasty.success(getApplicationContext(),message1 ).show();
+
 
         }
         else {

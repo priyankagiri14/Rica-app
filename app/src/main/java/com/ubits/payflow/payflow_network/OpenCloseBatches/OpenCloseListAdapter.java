@@ -1,50 +1,45 @@
-package com.ubits.payflow.payflow_network.AgentBatchesReceived;
+package com.ubits.payflow.payflow_network.OpenCloseBatches;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.ubits.payflow.payflow_network.R;
-
 import java.util.List;
 
-public class AgentBatchesReceivedListAdapter extends BaseAdapter {
+public class OpenCloseListAdapter extends BaseAdapter {
 
-    private List<AgentBatchesReceivedResponse> batchesGetLists;
-    private List<Body> bodyList;
+    private List<String> serialsGetResponses;
+
     private Context context;
 
-
-    public AgentBatchesReceivedListAdapter(Context context, List<Body> bodyList) {
+    public OpenCloseListAdapter(Context context, List<String> serialsGetResponses) {
         this.context = context;
-        this.bodyList = bodyList;
+        this.serialsGetResponses = serialsGetResponses;
 
     }
 
     class MyViewHolder {
-        public TextView batchesreceivedtext;
+        public TextView serialreceivedtext;
 
 
         MyViewHolder(View view) {
-            batchesreceivedtext = (TextView) view.findViewById(R.id.agents_batches_received_list_text);
+            serialreceivedtext = (TextView) view.findViewById(R.id.agents_serials_received_list_text);
         }
     }
 
 
     @Override
     public int getCount() {
-        return bodyList.size();
+        return serialsGetResponses.size();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return bodyList.get(position);
+        return serialsGetResponses.get(position);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class AgentBatchesReceivedListAdapter extends BaseAdapter {
         if (row == null)
         {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.agent_batches_received_list_item, parent, false);
+            row = inflater.inflate(R.layout.open_close_list_item, parent, false);
             holder = new MyViewHolder(row);
             row.setTag(holder);
         }
@@ -71,7 +66,7 @@ public class AgentBatchesReceivedListAdapter extends BaseAdapter {
         }
         //batchesgetcheckbox.setChecked(fa);
 
-        holder.batchesreceivedtext.setText(bodyList.get(position).getBatchNo());
+        holder.serialreceivedtext.setText(serialsGetResponses.get(position));
 //        holder.batchesreceivedcheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
 //            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

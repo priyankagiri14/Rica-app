@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.ubits.payflow.payflow_network.AgentBatchesGet.AgentBatchesGet;
 import com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedResponse;
+import com.ubits.payflow.payflow_network.OpenCloseBatches.OpenCloseActivity;
 import com.ubits.payflow.payflow_network.R;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
@@ -34,7 +36,7 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
     ArrayList<Body> bodyArrayList = new ArrayList<>();
     List<Body> bodyArrayList1 = new ArrayList<>();
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
-    String bodybatchesstring[];
+    String batchid[];
     public ListView listView;
     TextView agentbatchesreceived,noagentbatchesreceived;
     Button agentbtnreceive;
@@ -48,6 +50,27 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
         adapter = new AgentBatchesReceivedListAdapter(this,bodyArrayList1);
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
+        listviewclick();
+    }
+
+    private void listviewclick() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String batchclickid = batchid[position];
+                Log.d("onItemClick: ",batchclickid);
+
+                String value = bodyArrayList1.get(position).getBatchNo();
+                Log.d("Value is: ",value);
+
+                Intent intent = new Intent(AgentBatchesReceived.this, OpenCloseActivity.class);
+                intent.putExtra("batchid",batchclickid);
+                intent.putExtra("value",value);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -84,11 +107,18 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
                     String status = response.body().getBody().get(i).getStatus();
                     if(status.equals("RECEIVED"))
                     {
+//
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);
                         agentbtnreceive.setVisibility(View.VISIBLE);
                         agentbatchesreceived.setVisibility(View.VISIBLE);
                     }
+                }
+                batchid = new String[bodyArrayList1.size()];
+                for(int i = 0; i<bodyArrayList1.size();i++)
+                {
+                    batchid[i] = response.body().getBody().get(i).getId().toString();
+                        Log.d("ID: ",batchid[i]);
                 }
 
                 if(listView.getCount() == 0)

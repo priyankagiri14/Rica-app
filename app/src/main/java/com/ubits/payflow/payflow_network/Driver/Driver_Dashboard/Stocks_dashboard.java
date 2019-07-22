@@ -19,6 +19,7 @@ import com.ubits.payflow.payflow_network.Driver.DriverAttendance.DriverAttendanc
 
 import com.ubits.payflow.payflow_network.BatchesReceived.BatchesReceivedList;
 
+import com.ubits.payflow.payflow_network.Navigation_main.Navigation_Main;
 import com.ubits.payflow.payflow_network.R;
 
 import java.util.List;
@@ -75,7 +76,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
 
                 if (menuItem.getItemId() == R.id.logout) {
 
-                    Intent i = new Intent(Stocks_dashboard.this, Agent_Login_Activity.class);
+                    Intent i = new Intent(Stocks_dashboard.this, Navigation_Main.class);
                     startActivity(i);
                     finish();
 

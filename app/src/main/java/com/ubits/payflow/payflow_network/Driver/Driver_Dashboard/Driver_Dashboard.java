@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.ubits.payflow.payflow_network.Agent_Login.Agent_Login_Activity;
 import com.ubits.payflow.payflow_network.General.Dashboard;
 import com.ubits.payflow.payflow_network.Login.Login_Activity;
+import com.ubits.payflow.payflow_network.Navigation_main.Navigation_Main;
 import com.ubits.payflow.payflow_network.R;
 
 public class Driver_Dashboard extends AppCompatActivity {
@@ -60,7 +61,7 @@ public boolean onCreateOptionsMenu(Menu menu){
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.logout:
-                Intent i=new Intent(this,Agent_Login_Activity.class);
+                Intent i=new Intent(this, Navigation_Main.class);
                 startActivity(i);
                 finish();
         }

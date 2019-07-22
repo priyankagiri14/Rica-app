@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TeamAttendanceResponse {
+public class TeamAttendanceResponse_MyPojo {
 
     @SerializedName("attendance")
     @Expose

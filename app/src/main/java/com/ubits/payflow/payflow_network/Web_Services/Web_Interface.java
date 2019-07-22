@@ -19,11 +19,10 @@ import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driveratt
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.driverattendancephoto.UploadedFile;
 import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent.FetchAgent;
 import com.ubits.payflow.payflow_network.OpenCloseBatches.SerialsGetResponse;
-import com.ubits.payflow.payflow_network.TeamAttendance.TeamAttendanceResponse;
+import com.ubits.payflow.payflow_network.TeamAttendance.TeamAttendanceResponse_MyPojo;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -120,6 +119,6 @@ public interface Web_Interface {
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST("attendance/team")
-    Call<TeamAttendanceResponse> requestTeamAttendance(@Body Pojo pojo);
+    Call<TeamAttendanceResponse_MyPojo> requestTeamAttendance(@Body Pojo pojo);
 
 }

@@ -39,6 +39,7 @@ import com.ubits.payflow.payflow_network.Driver.DriverAttendance.model.get_Agent
 import com.ubits.payflow.payflow_network.Driver.Stock_allocate.Tab_Stock_Activity;
 import com.ubits.payflow.payflow_network.General.GPStracker;
 import com.ubits.payflow.payflow_network.R;
+import com.ubits.payflow.payflow_network.TeamAttendance.TeamAttendanceResponse_MyPojo;
 import com.ubits.payflow.payflow_network.Web_Services.Ret;
 import com.ubits.payflow.payflow_network.Web_Services.RetrofitToken;
 import com.ubits.payflow.payflow_network.Web_Services.Web_Interface;
@@ -53,6 +54,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -106,10 +108,13 @@ List<String> agentlist;
 ListView agentlistview;
 private int imageid;
 List<FetchAgent> list1;
+private List<String> attendance, attachment;
 JSONObject jsonObject;
     Location location;
     TextView datetext,timetext;
     double longitude;
+    String savelatitude,savelongitude;
+
     double latitude;
     protected LocationManager locationManager;
     private String provider_info;
@@ -192,6 +197,10 @@ protected void onCreate(Bundle savedInstanceState) {
     @Override
     public void onLocationChanged(Location location) {
         location1.setText("Latitude: " + location.getLatitude() + "\n Longitude: " + location.getLongitude()  );
+        savelongitude= String.valueOf(location.getLongitude());
+        savelatitude= String.valueOf(location.getLatitude());
+        Toast.makeText(this,"Location"+savelatitude +" "+savelongitude,Toast.LENGTH_SHORT).show();
+
 
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -302,18 +311,11 @@ public void onClick(View v) {
 
                     Toasty.warning(getApplicationContext(), "please capture the image").show();
                 } else {
-                    /*userid = agentid.toString();
 
-                    jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("id", imageid);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    int count=0;
+                    TeamAttendanceResponse_MyPojo myPojo=new TeamAttendanceResponse_MyPojo();
 
-                    }
-
-                    markattendance(userid, latitude, longitude, status, jsonObject);*/
-                    Toasty.success(getApplicationContext(),"Attendance marked successfully").show();
+                    //Toasty.success(getApplicationContext(),"Attendance marked successfully").show();
 
                 }
             }

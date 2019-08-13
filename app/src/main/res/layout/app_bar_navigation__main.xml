@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.Navigation_main.Navigation_Main">
+    tools:context="com.tms.ontrack.mobile.Navigation_main.Navigation_Main">
 
     <include layout="@layout/activity_agent__login_"/>
 

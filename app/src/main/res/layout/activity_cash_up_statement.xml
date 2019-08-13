@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.CashUpStatement">
+
+    <androidx.appcompat.widget.Toolbar
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/greenontrack">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CashUp Statement"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.levitnudi.legacytableview.LegacyTableView
+        android:layout_marginTop="@dimen/_55sdp"
+        android:id="@+id/legacytableview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.levitnudi.legacytableview.LegacyTableView>
+
+    <TextView
+
+        android:id="@+id/noRecords"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Records Found!"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="#000"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

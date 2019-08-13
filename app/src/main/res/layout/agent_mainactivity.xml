@@ -11,9 +11,16 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/greenontrack"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agent Dashboard"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
 
 
     </androidx.appcompat.widget.Toolbar>
@@ -26,19 +33,40 @@
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
             <RelativeLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/realtive">
 
+            <!--<RelativeLayout-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:id="@+id/realtive1">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/activeliabilitiestext"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:text="Active Liabilities: ZAR "-->
+                    <!--android:textSize="@dimen/_15sdp"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_toRightOf="@+id/activeliabilitiestext"-->
+                    <!--android:id="@+id/activeliabilitiesvalue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="0000"-->
+                    <!--android:textColor="#000"-->
+                    <!--android:textSize="@dimen/_15sdp"/>-->
+            <!--</RelativeLayout>-->
+
                 <ImageView
                     android:id="@+id/ontracklogo"
-                    android:layout_marginTop="?actionBarSize"
                     android:layout_centerHorizontal="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ontracklogo"
-                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/honor1"
                     android:layout_gravity="center"
                     android:foregroundGravity="right"
                     />
@@ -46,20 +74,20 @@
 
                 <LinearLayout
                     android:id="@+id/linear1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ontracklogo"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:weightSum="3"
+                    android:layout_marginTop="10dp"
                     android:clipToPadding="false"
-                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/checkStock"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="140dp"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground">
 
@@ -70,14 +98,14 @@
                             android:orientation="vertical">
 
                             <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/circlegoldencolor"
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:text="@string/fa_truck_moving_solid"
-                                android:textColor="#FDD835"
-                                android:textSize="35dp"
+                                android:textColor="@color/greenontrack"
+                                android:textSize="28dp"
                                 app:solid_icon="true" />
 
                             <TextView
@@ -85,21 +113,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="Check new Stock"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Check if there is any new stock assigned by driver"
-                                android:textColor="@android:color/darker_gray" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -107,9 +122,10 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/Callagent"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -118,13 +134,13 @@
                             android:orientation="vertical">
 
                             <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundgreen"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/circlegoldencolor"
                                 app:solid_icon="true"
                                 android:text="@string/fa_sim_card_solid"
-                                android:textColor="@color/white"
-                                android:textSize="35dp"
+                                android:textColor="@color/greenontrack"
+                                android:textSize="28dp"
                                 android:gravity="center"/>
 
                             <TextView
@@ -132,22 +148,60 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="Received Stock"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/activebatches"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="140dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/circlegoldencolor"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/fa_sim_card_solid"
+                                android:textColor="@color/greenontrack"
+                                android:textSize="28dp"
+                                app:solid_icon="true" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@android:color/darker_gray"
-                                android:text="Stock Received is here."
-                                />
+                                android:layout_marginTop="10dp"
+                                android:text="Active Batches"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Working on Batch"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -156,22 +210,119 @@
                     <!-- summary card view -->
 
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_below="@+id/linear1"
-                    android:id="@+id/linear2"
+                    android:id="@+id/linearacpt"
                     android:clipToPadding="false"
+                    android:weightSum="3"
                     android:gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/attendanceacpt"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_marginRight="1dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <info.androidhive.fontawesome.FontTextView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/fa_calendar_alt_solid"
+                            android:textColor="@color/greenontrack"
+                            android:textSize="40dp"
+                            app:solid_icon="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="ATTENDANCE"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:text="Accept/Decline Attendnace"-->
+                            <!--android:textColor="@android:color/darker_gray" />-->
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/sim_activation"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/fa_sim_card_solid"
+                                android:textColor="@color/greenontrack"
+                                android:textSize="40dp"
+                                app:solid_icon="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="RICA"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+
+
+                            <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:text="Activates a sim for the customer"-->
+                            <!--android:textColor="@android:color/darker_gray" />-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/bulkrica"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="1dp"
                         android:clickable="true"
                         android:foreground="?android:attr/selectableItemBackground">
 
@@ -182,48 +333,162 @@
                             android:orientation="vertical">
 
                             <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundyello"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:text="@string/fa_sim_card_solid"
-                                android:textColor="@color/red"
-                                android:textSize="35dp"
+                                android:textColor="@color/greenontrack"
+                                android:textSize="40dp"
                                 app:solid_icon="true" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="RICA"
+                                android:text="Bulk RICA"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Activates a sim for the customer"
-                                android:textColor="@android:color/darker_gray" />
+                            <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:text="Accept/Decline Attendnace"-->
+                            <!--android:textColor="@android:color/darker_gray" />-->
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:id="@+id/activebatches"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:foreground="?android:attr/selectableItemBackground">-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
+
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundpink"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="10dp"-->
+                                <!--android:text="@string/fa_sim_card_solid"-->
+                                <!--android:textColor="#E9DF1E"-->
+                                <!--android:textSize="35dp"-->
+                                <!--app:solid_icon="true" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Active Batches"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Working on Batch"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
+
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_below="@+id/linearacpt"
+                    android:id="@+id/linear2"
+                    android:weightSum="4"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:id="@+id/sim_activation"-->
+                        <!--android:layout_width="150dp"-->
+                        <!--android:layout_height="140dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:foreground="?android:attr/selectableItemBackground">-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
+
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="70dp"-->
+                                <!--android:layout_height="70dp"-->
+                                <!--android:background="@drawable/cerclebackgroundgreenontrack"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="10dp"-->
+                                <!--android:text="@string/fa_sim_card_solid"-->
+                                <!--android:textColor="@color/golder_color"-->
+                                <!--android:textSize="28dp"-->
+                                <!--app:solid_icon="true" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="RICA"-->
+                                <!--android:textColor="#000000"-->
+                                <!--android:textStyle="bold" />-->
+
+                            <!--&lt;!&ndash;<View&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="1dp"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:background="@color/lightgray" />&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:padding="5dp"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:text="Activates a sim for the customer"&ndash;&gt;-->
+                                <!--&lt;!&ndash;android:textColor="@android:color/darker_gray" />&ndash;&gt;-->
+
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
 
 
                     <androidx.cardview.widget.CardView
                         android:foreground="?android:attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/airtimeSales"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -232,35 +497,194 @@
                             <info.androidhive.fontawesome.FontTextView
                                 app:solid_icon="true"
                                 android:text="@string/fa_mobile_alt_solid"
-                                android:textSize="37dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                android:textSize="28dp"
                                 android:gravity="center"
                                 android:src="@drawable/ic_sim_card_yellow_24dp"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:textColor="#f4cc18"
-                                android:background="@drawable/cerclebackgroundpink"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:textColor="@color/golder_color"
                                 android:padding="10dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textStyle="bold"
+                                android:textColor="#000000"
                                 android:layout_marginTop="10dp"
-                                android:text="AirTime Sales"/>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/lightgray"
-                                android:layout_margin="10dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="AirTime for the Customers"
-                                android:padding="5dp"
-                                android:textColor="@android:color/darker_gray"/>
+                                android:text="Airtime Sales"/>
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:background="@color/lightgray"-->
+                                <!--android:layout_margin="10dp"/>-->
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:text="Smart Packs for Smart Customers"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"/>-->
+
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/dataBundle"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/fa_broadcast_tower_solid"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
+                                app:solid_icon="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Data Bundle"
+                                android:textColor="#000000"
+                                android:textStyle="bold"
+                                />
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Smart Data Packs for your Smart Phones"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/payTv"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                app:solid_icon="true"
+                                android:text="@string/fa_tv_solid"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Pay TV"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"-->
+                                <!--android:text="TV's Entertainment is in your Hands"-->
+                                <!--/>-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/playLotto"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                app:solid_icon="true"
+                                android:padding="10dp"
+                                android:text="@string/fa_money_bill_alt"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Play Lotto"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+                            <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="Feeling Lucky?-->
+                            <!--Play Lotto"-->
+                            <!--/>-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
                     <!--<androidx.cardview.widget.CardView-->
                         <!--android:foreground="?android:attr/selectableItemBackground"-->
                         <!--android:clickable="true"-->
@@ -321,172 +745,122 @@
                     android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/dataBundle"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:id="@+id/dataBundle"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:foreground="?android:attr/selectableItemBackground">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
 
-                            <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundpurple"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="@string/fa_broadcast_tower_solid"
-                                android:textColor="#1EE9C0"
-                                android:textSize="35dp"
-                                app:solid_icon="true" />
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundpurple"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="10dp"-->
+                                <!--android:text="@string/fa_broadcast_tower_solid"-->
+                                <!--android:textColor="#1EE9C0"-->
+                                <!--android:textSize="35dp"-->
+                                <!--app:solid_icon="true" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Data Bundle"
-                                android:textStyle="bold" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Data Bundle"-->
+                                <!--android:textStyle="bold" />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Smart Data Packs for your Smart Phones"
-                                android:textColor="@android:color/darker_gray" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Smart Data Packs for your Smart Phones"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:id="@+id/payTv"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:foreground="?android:attr/selectableItemBackground"-->
+                        <!--android:clickable="true"-->
+                        <!--android:id="@+id/payTv"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
 
-                            <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundyello"
-                                app:solid_icon="true"
-                                android:text="@string/fa_tv_solid"
-                                android:textColor="@color/pink"
-                                android:textSize="35dp"
-                                android:gravity="center"/>
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundyello"-->
+                                <!--app:solid_icon="true"-->
+                                <!--android:text="@string/fa_tv_solid"-->
+                                <!--android:textColor="@color/pink"-->
+                                <!--android:textSize="35dp"-->
+                                <!--android:gravity="center"/>-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Pay TV"
-                                android:textStyle="bold" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Pay TV"-->
+                                <!--android:textStyle="bold" />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@android:color/darker_gray"
-                                android:text="TV's Entertainment is in your Hands"
-                                />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"-->
+                                <!--android:text="TV's Entertainment is in your Hands"-->
+                                <!--/>-->
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
                     <!-- summary card view -->
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:id="@+id/linear4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_below="@id/linear3"
-                    android:layout_centerVertical="true"
                     android:clipToPadding="false"
-                    android:layout_centerHorizontal="true"
+                    android:weightSum="4"
                     android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:id="@+id/playLotto"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundgreenontrack"
-                                app:solid_icon="true"
-                                android:text="@string/fa_money_bill_alt"
-                                android:textColor="@color/golder_color"
-                                android:textSize="35dp"
-                                android:gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Play Lotto"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@android:color/darker_gray"
-                                android:text="Feeling Lucky?
-                                Play Lotto"
-                                />
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/payUtility"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
                         android:clickable="true"
+                        android:layout_weight="1"
                         android:foreground="?android:attr/selectableItemBackground">
 
                         <LinearLayout
@@ -496,14 +870,14 @@
                             android:orientation="vertical">
 
                             <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundcolor"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:text="@string/fa_lightbulb"
-                                android:textColor="#E9DF1E"
-                                android:textSize="35dp"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
                                 app:solid_icon="true" />
 
                             <TextView
@@ -511,23 +885,139 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:text="Pay Electricity"
+                                android:textColor="#000000"
                                 android:textStyle="bold" />
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Switch ON Your Home"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:id="@+id/microLoan"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                app:solid_icon="true"
+                                android:text="@string/fa_university_solid"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Switch ON Your Home"
-                                android:textColor="@android:color/darker_gray" />
+                                android:layout_marginTop="10dp"
+                                android:text="Micro Loan"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"-->
+                                <!--android:text="Need Money?-->
+                                <!--Go for Micro Loans."-->
+                                <!--/>-->
 
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/microInsurance1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <info.androidhive.fontawesome.FontTextView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/fa_user_shield_solid"
+                                android:textColor="@color/golder_color"
+                                android:textSize="28dp"
+                                app:solid_icon="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="Micro Insurance"
+                                android:textColor="#000000"
+                                android:textStyle="bold" />
+
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Insure your Life with us"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="false"
+                        android:id="@+id/cardview"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
+
+
                     </androidx.cardview.widget.CardView>
 
 
@@ -546,104 +1036,104 @@
                     android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:id="@+id/microLoan"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp">
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:foreground="?android:attr/selectableItemBackground"-->
+                        <!--android:clickable="true"-->
+                        <!--android:id="@+id/microLoan"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
 
-                            <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundgreen"
-                                app:solid_icon="true"
-                                android:text="@string/fa_university_solid"
-                                android:textColor="@color/white"
-                                android:textSize="35dp"
-                                android:gravity="center"/>
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundgreen"-->
+                                <!--app:solid_icon="true"-->
+                                <!--android:text="@string/fa_university_solid"-->
+                                <!--android:textColor="@color/white"-->
+                                <!--android:textSize="35dp"-->
+                                <!--android:gravity="center"/>-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Micro Loan"
-                                android:textStyle="bold" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Micro Loan"-->
+                                <!--android:textStyle="bold" />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textColor="@android:color/darker_gray"
-                                android:text="Need Money?
-                                Go for Micro Loans."
-                                />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:textColor="@android:color/darker_gray"-->
+                                <!--android:text="Need Money?-->
+                                <!--Go for Micro Loans."-->
+                                <!--/>-->
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/microInsurance"
-                        android:layout_width="160dp"
-                        android:layout_height="190dp"
-                        android:layout_margin="10dp"
-                        android:clickable="true"
-                        android:foreground="?android:attr/selectableItemBackground">
+                    <!--<androidx.cardview.widget.CardView-->
+                        <!--android:id="@+id/microInsurance1"-->
+                        <!--android:layout_width="160dp"-->
+                        <!--android:layout_height="190dp"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:foreground="?android:attr/selectableItemBackground">-->
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center"-->
+                            <!--android:orientation="vertical">-->
 
-                            <info.androidhive.fontawesome.FontTextView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:background="@drawable/cerclebackgroundpink"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="@string/fa_user_shield_solid"
-                                android:textColor="#E9DF1E"
-                                android:textSize="35dp"
-                                app:solid_icon="true" />
+                            <!--<info.androidhive.fontawesome.FontTextView-->
+                                <!--android:layout_width="64dp"-->
+                                <!--android:layout_height="64dp"-->
+                                <!--android:background="@drawable/cerclebackgroundpink"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="10dp"-->
+                                <!--android:text="@string/fa_user_shield_solid"-->
+                                <!--android:textColor="#E9DF1E"-->
+                                <!--android:textSize="35dp"-->
+                                <!--app:solid_icon="true" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="Micro Insurance"
-                                android:textStyle="bold" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginTop="10dp"-->
+                                <!--android:text="Micro Insurance"-->
+                                <!--android:textStyle="bold" />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_margin="10dp"
-                                android:background="@color/lightgray" />
+                            <!--<View-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="1dp"-->
+                                <!--android:layout_margin="10dp"-->
+                                <!--android:background="@color/lightgray" />-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Insure your Life with us"
-                                android:textColor="@android:color/darker_gray" />
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:gravity="center"-->
+                                <!--android:padding="5dp"-->
+                                <!--android:text="Insure your Life with us"-->
+                                <!--android:textColor="@android:color/darker_gray" />-->
 
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        <!--</LinearLayout>-->
+                    <!--</androidx.cardview.widget.CardView>-->
 
 
 

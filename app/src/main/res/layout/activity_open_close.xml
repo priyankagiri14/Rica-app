@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.OpenCloseBatches.OpenCloseActivity">
+    tools:context="com.tms.ontrack.mobile.OpenCloseBatches.OpenCloseActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@color/greenontrack">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,7 +20,6 @@
             />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:background="@color/light_grey"
         android:layout_below="@+id/toolbar"
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
@@ -28,6 +27,25 @@
         android:orientation="vertical"
         android:gravity="center"
         >
+
+    <LinearLayout
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/linearlayouth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+
+    <TextView
+            android:layout_marginTop="@dimen/_30sdp"
+            android:id="@+id/batch_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Batch : "
+            android:textSize="25dp"
+            />
         <TextView
             android:layout_marginTop="@dimen/_30sdp"
             android:id="@+id/batch_number"
@@ -35,6 +53,16 @@
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:text="Batch Number"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/_15sdp"
+            android:id="@+id/serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="List of Sim Cards"
             android:textSize="25dp"/>
 
         <TextView
@@ -76,7 +104,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/agentbutton"
         android:textColor="@color/white"
-        android:text="Proceed"
+        android:text="Continue to Start"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_15sdp"

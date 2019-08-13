@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.AgentsList.AgentsList">
+    tools:context="com.tms.ontrack.mobile.AgentsList.AgentsList">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_agent"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/driver_color">
+        android:background="@color/greenontrack">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +21,6 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:background="@color/light_grey"
         android:layout_below="@id/toolbar_agent"
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
         android:id="@+id/btnstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/driverbutton"
+        android:background="@drawable/agentbutton"
         android:textColor="@color/white"
         android:text="Proceed"
         android:textSize="25sp"

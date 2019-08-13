@@ -12,10 +12,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
-            android:layout_marginTop="?actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/realtive">
+
+            <ImageView
+                android:id="@+id/ontracklogo1"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/honor2re1"
+                android:layout_gravity="center"
+                android:foregroundGravity="right"
+                />
+
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_below="@+id/ontracklogo1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:id="@+id/realtive1">
+
+                <TextView
+                    android:padding="@dimen/_10sdp"
+                    android:id="@+id/activeliabilitiestext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/greenontrack"
+                    android:text="Active Liabilities: ZAR "
+                    android:textSize="@dimen/_15sdp"/>
+
+                <TextView
+                    android:layout_toRightOf="@+id/activeliabilitiestext"
+                    android:id="@+id/activeliabilitiesvalue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0000"
+                    android:padding="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_15sdp"/>
+            </RelativeLayout>
+
             <!--<TextView-->
                 <!--android:id="@+id/customer"-->
                 <!--android:layout_width="wrap_content"-->
@@ -26,8 +67,10 @@
                 <!--android:textColor="#7D4EFF"-->
                 <!--android:textSize="20sp" />-->
             <LinearLayout
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/linear1"
+                android:weightSum="2"
+                android:layout_below="@+id/realtive1"
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -37,10 +80,11 @@
                 <androidx.cardview.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layout_weight="1"
                     android:id="@+id/stockReceived"
-                    android:layout_width="160dp"
-                    android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -49,42 +93,44 @@
                         <info.androidhive.fontawesome.FontTextView
                             app:solid_icon="true"
                             android:text="@string/fa_truck_moving_solid"
-                            android:textSize="35dp"
+                            android:textSize="28dp"
                             android:gravity="center"
                             android:src="@drawable/ic_sim_card_yellow_24dp"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:textColor="#f4cc18"
-                            android:background="@drawable/cerclebackgroundpurple"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:textColor="@color/greenontrack"
+                            android:background="@drawable/circlegoldencolor"
                             android:padding="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
+                            android:textColor="#000000"
                             android:layout_marginTop="10dp"
                             android:text="Check New Stocks"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/lightgray"
-                            android:layout_margin="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Hey..! Got a new Stock?"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:background="@color/lightgray"-->
+                            <!--android:layout_margin="10dp"/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:text="Hey..! Got a new Stock?"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"/>-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layout_weight="1"
                     android:id="@+id/sim_aloc"
-                    android:layout_width="160dp"
-                    android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    >
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -93,33 +139,33 @@
                         <info.androidhive.fontawesome.FontTextView
                             android:text="@string/fa_sim_card_solid"
                             app:solid_icon="true"
-                            android:textColor="@color/red"
-                            android:textSize="35dp"
+                            android:textColor="@color/greenontrack"
+                            android:textSize="28dp"
                             android:gravity="center"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundyello"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/circlegoldencolor"
                             android:padding="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:text="Stock Allocation
-                             to Agent"
+                            android:textColor="#000000"
+                            android:text="Stock Allocation to Agent"
                             android:gravity="center"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/lightgray"
-                            android:layout_margin="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Agents want Stock?"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"/>
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:background="@color/lightgray"-->
+                            <!--android:layout_margin="10dp"/>-->
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:text="Agents want Stock?"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"/>-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -128,131 +174,135 @@
 
             </LinearLayout>
 
+            <!--<LinearLayout-->
+                <!--android:layout_below="@id/linear1"-->
+                <!--android:id="@+id/linear2"-->
+                <!--android:clipToPadding="false"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<androidx.cardview.widget.CardView-->
+                    <!--android:foreground="?android:attr/selectableItemBackground"-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/Call"-->
+                    <!--android:layout_width="160dp"-->
+                    <!--android:layout_height="190dp"-->
+                    <!--android:layout_margin="10dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<info.androidhive.fontawesome.FontTextView-->
+                            <!--android:layout_width="64dp"-->
+                            <!--android:layout_height="64dp"-->
+                            <!--android:background="@drawable/cerclebackgroundgreen"-->
+                            <!--app:solid_icon="true"-->
+                            <!--android:text="@string/fa_sim_card_solid"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="35dp"-->
+                            <!--android:gravity="center"/>-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="Stock Returned"-->
+                            <!--android:textStyle="bold" />-->
+
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="Stock returned by the driver"-->
+                            <!--/>-->
+
+                    <!--</LinearLayout>-->
+                <!--</androidx.cardview.widget.CardView>-->
+                <!--<androidx.cardview.widget.CardView-->
+                    <!--android:foreground="?android:attr/selectableItemBackground"-->
+                    <!--android:clickable="true"-->
+                    <!--android:id="@+id/Expenses"-->
+                    <!--android:layout_width="160dp"-->
+                    <!--android:layout_height="190dp"-->
+                    <!--android:layout_margin="10dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<info.androidhive.fontawesome.FontTextView-->
+                            <!--android:layout_width="64dp"-->
+                            <!--android:layout_height="64dp"-->
+                            <!--android:text="@string/fa_truck_moving_solid"-->
+                            <!--app:solid_icon="true"-->
+                            <!--android:textSize="35dp"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:background="@drawable/cerclebackgroundpink"-->
+                            <!--android:padding="10dp" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="Stock Sold"-->
+                            <!--android:textStyle="bold" />-->
+
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="Stock sold by agent"-->
+                            <!--/>-->
+
+                    <!--</LinearLayout>-->
+                <!--</androidx.cardview.widget.CardView>-->
+
+            <!--</LinearLayout>-->
+
             <LinearLayout
                 android:layout_below="@id/linear1"
-                android:id="@+id/linear2"
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.cardview.widget.CardView
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:id="@+id/Call"
-                    android:layout_width="160dp"
-                    android:layout_height="190dp"
-                    android:layout_margin="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <info.androidhive.fontawesome.FontTextView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundgreen"
-                            app:solid_icon="true"
-                            android:text="@string/fa_sim_card_solid"
-                            android:textColor="@color/white"
-                            android:textSize="35dp"
-                            android:gravity="center"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Stock Returned"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="@color/lightgray" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"
-                            android:text="Stock returned by the driver"
-                            />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:id="@+id/Expenses"
-                    android:layout_width="160dp"
-                    android:layout_height="190dp"
-                    android:layout_margin="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <info.androidhive.fontawesome.FontTextView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:text="@string/fa_truck_moving_solid"
-                            app:solid_icon="true"
-                            android:textSize="35dp"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:background="@drawable/cerclebackgroundpink"
-                            android:padding="10dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Stock Sold"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="@color/lightgray" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"
-                            android:text="Stock sold by agent"
-                            />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_below="@id/linear2"
                 android:id="@+id/linear3"
                 android:clipToPadding="false"
+                android:weightSum="2"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:id="@+id/Attendance"
-                    android:layout_width="160dp"
+                    android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -261,46 +311,48 @@
                         android:orientation="vertical">
 
                         <info.androidhive.fontawesome.FontTextView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/cerclebackgroundgreenontrack"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             app:solid_icon="true"
-                            android:text="@string/fa_user_times_solid"
-                            android:textColor="@color/white"
-                            android:textSize="35dp"
+                            android:background="@drawable/cerclebackgroundgreenontrack"
+                            android:text="@string/fa_calendar_alt_solid"
+                            android:textColor="@color/golder_color"
+                            android:textSize="40dp"
                             android:gravity="center"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Attendance"
+                            android:text="Mark Attendance"
+                            android:textColor="#000000"
                             android:textStyle="bold" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="@color/lightgray" />
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"
-                            android:text="Driver need to mark the attendance here"
-                            />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="Driver need to mark the attendance here"-->
+                            <!--/>-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:visibility="invisible"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:layout_width="160dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/cashupHistory">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -309,40 +361,103 @@
                         android:orientation="vertical">
 
                         <info.androidhive.fontawesome.FontTextView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:text="@string/fa_truck_moving_solid"
-                            app:solid_icon="true"
-                            android:textSize="35dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/cerclebackgroundgreenontrack"
                             android:gravity="center"
-                            android:textColor="@color/white"
-                            android:background="@drawable/cerclebackgroundpink"
-                            android:padding="10dp" />
+                            android:padding="10dp"
+                            android:text="@string/fa_money_bill_wave_solid"
+                            android:textColor="@color/golder_color"
+                            android:textSize="40dp"
+                            app:solid_icon="true" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Stock Sold"
+                            android:text="CashUp History"
+                            android:textColor="#000000"
                             android:textStyle="bold" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="@color/lightgray" />
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:background="@color/lightgray" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"
-                            android:text="Stock sold by agent"
-                            />
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="5dp"-->
+                        <!--android:textColor="@android:color/darker_gray"-->
+                        <!--android:text="CashUp History"-->
+                        <!--/>-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+                <!--<androidx.cardview.widget.CardView-->
+                    <!--android:foreground="?android:attr/selectableItemBackground"-->
+                    <!--android:clickable="true"-->
+                    <!--android:layout_width="160dp"-->
+                    <!--android:layout_height="190dp"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--android:id="@+id/cashupHistory">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<info.androidhive.fontawesome.FontTextView-->
+                            <!--android:layout_width="64dp"-->
+                            <!--android:layout_height="64dp"-->
+                            <!--android:background="@drawable/cerclebackgroundcolor"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="10dp"-->
+                            <!--android:text="@string/fa_money_bill_wave_solid"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="35dp"-->
+                            <!--app:solid_icon="true" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="CashUp History"-->
+                            <!--android:textStyle="bold" />-->
+
+                        <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="CashUp History"-->
+                            <!--/>-->
+
+                    <!--</LinearLayout>-->
+                <!--</androidx.cardview.widget.CardView>-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_below="@id/linear3"
+                android:id="@+id/linear4"
+                android:clipToPadding="false"
+                android:weightSum="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

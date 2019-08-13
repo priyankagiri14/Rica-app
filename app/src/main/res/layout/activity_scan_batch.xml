@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tms.ontrack.mobile.Agent.ScanBatch">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/greenontrack"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bulk RICA Scan"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp"/>
+
+<!--        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />-->
+
+        <!--<info.androidhive.fontawesome.FontTextView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:id="@+id/scanbatch"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:padding="10dp"
+            android:text="@string/fa_barcode_solid"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            app:solid_icon="true"
+            android:layout_alignParentRight="true"
+            />-->
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:id="@+id/linearSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:weightSum="2"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/_20sdp">
+        <TextView
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Region"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/greenontrack"/>
+        <Spinner
+            android:id="@+id/regionspinner1"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/region_spinner">
+
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:padding="10dp"
+        android:id="@+id/linearedittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:weightSum="4"
+        android:layout_below="@+id/linearSpinner"
+        android:layout_marginTop="@dimen/_10sdp">
+<androidx.appcompat.widget.SearchView
+    android:id="@+id/searchview"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="3"
+    android:background="@color/white"/>
+
+
+
+        <!--<EditText
+            android:layout_weight="3"
+            android:id="@+id/cellnumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_et"
+            android:layout_marginBottom="10dp"
+            android:hint="Search Here"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            />-->
+        <Button
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/scanbtn"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:text="Scan"
+            android:background="@color/greenontrack"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/white"
+            />
+
+
+    </LinearLayout>
+    <ListView
+        android:layout_below="@+id/linearedittext"
+        android:id="@+id/search_results_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_below="@+id/linearedittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ListView
+        android:layout_marginTop="30dp"
+        android:id="@+id/listViewScannedBatches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+    </LinearLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bt_bg"
+        android:text="Activate Batches"
+        android:textColor="@color/greenontrack"
+        android:id="@+id/activatebacthes"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tms.ontrack.mobile.OpenBatchesResponse.OpenedBatchesActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/greenontrack">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open Batches"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativelayout"
+                android:gravity="right">
+
+                <TextView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More Info"
+                    android:id="@+id/moreInfo"
+                    android:textColor="@color/greenontrack"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_gravity="left"
+                    />
+            </RelativeLayout>
+
+        <LinearLayout
+            android:background="@color/light_grey"
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/linearlayouth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_marginTop="@dimen/_25sdp"
+                android:id="@+id/batch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="Batch: "
+                android:textSize="25dp"
+                />
+            <LinearLayout
+                android:background="@color/light_grey"
+                android:layout_below="@+id/toolbar"
+                android:id="@+id/linearlayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:id="@+id/agent_opened_batch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="BatchNo"
+                    android:textSize="25dp"/>
+        </LinearLayout>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_marginTop="@dimen/_15sdp"
+            android:id="@+id/serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="List of Sim Cards"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/noserialsget"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_200sdp"
+            android:text="This Batch is Sold. Please Complete this Batch
+            by presssing the Button Below"
+            android:textColor="#000000"
+            android:textSize="@dimen/_15sdp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="125dp"
+            android:layout_weight="2"
+            android:id="@+id/linearcheck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/agent_batches_opened_listview"
+                android:divider="#000000"
+                android:dividerHeight="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <Button
+        android:layout_weight="1"
+        android:layout_alignBottom="@id/linearlayout"
+        android:id="@+id/agentopenedbatches"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/agentbutton"
+        android:textColor="@color/white"
+        android:text="STOP This Batch"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

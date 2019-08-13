@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.AllocationGet.AllocationGet">
+    tools:context="com.tms.ontrack.mobile.AllocationGet.AllocationGet">
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

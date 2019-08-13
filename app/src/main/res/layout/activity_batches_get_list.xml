@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubits.payflow.payflow_network.DriverBatchesGet.BatchesGetList">
+    tools:context="com.tms.ontrack.mobile.DriverBatchesGet.BatchesGetList">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/driver_color">
+        android:background="@color/greenontrack">
 
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +21,6 @@
             />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:background="@color/light_grey"
         android:layout_below="@+id/toolbar"
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
@@ -35,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="List of assign batches"
+        android:text="List of Assign Batches"
         android:textSize="25dp"/>
 
         <TextView
@@ -75,7 +74,7 @@
         android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/driverbutton"
+        android:background="@drawable/agentbutton"
         android:textColor="@color/white"
         android:text="Proceed"
         android:textSize="25sp"

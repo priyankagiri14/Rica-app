@@ -146,6 +146,13 @@
     <string name="permission">Permission Granted</string>
 
     <!-- Status-->
+    <array name="region_spinner">
+        <item>Choose a Region</item>
+        <item>Eastern Cape</item>
+        <item>KZN</item>
+        <item>Western Cape</item>
+        <item>Johannesburg</item>
+    </array>
     <array name="select_Status">
         <item>Select Status</item>
         <item>Active</item>

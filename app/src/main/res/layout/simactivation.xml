@@ -7,7 +7,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@color/greenontrack">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,10 +43,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvHowManyPersons"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
 
                     <EditText
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/greenontrack"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First Name"
@@ -60,10 +60,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvHowManyActivations"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
 
                     <EditText
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/greenontrack"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Last Name"
@@ -76,10 +76,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvWhyNetwork1"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
 
                     <EditText
-                        android:backgroundTint="@color/colorPrimary"
+                        android:backgroundTint="@color/greenontrack"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Sim Serial Number"
@@ -92,12 +92,12 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvCustomerEmail"
                     android:visibility="visible"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Id number"
+                        android:hint="Id Number"
                         android:id="@+id/idnum"
                         android:textColor="#000"
                         android:inputType="number" />
@@ -110,9 +110,9 @@
                     android:id="@+id/tvNerk"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/greenontrack"
                         android:text="Network"
                         android:textSize="@dimen/_12sdp"
                         android:layout_width="wrap_content"
@@ -150,15 +150,39 @@
 
                 </RadioGroup>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="15dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Region"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/greenontrack"/>
+                <Spinner
+                    android:id="@+id/regionspinner"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/region_spinner">
+
+                </Spinner>
+                </LinearLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvaddress"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/greenontrack"
                         android:text="Address"
                         android:textSize="@dimen/_12sdp"
                         android:layout_width="wrap_content"
@@ -166,7 +190,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <EditText
                     android:id="@+id/address"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/greenontrack"
                     android:textSize="@dimen/_12sdp"
                     android:gravity="left"
                     android:layout_width="match_parent"
@@ -177,9 +201,9 @@
                     android:id="@+id/tvpostalcode"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/greenontrack"
                         android:text="Postal Code"
                         android:textSize="@dimen/_12sdp"
                         android:layout_width="wrap_content"
@@ -188,7 +212,7 @@
 
                 <EditText
                     android:id="@+id/postal_code"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/greenontrack"
                     android:textSize="@dimen/_12sdp"
                     android:gravity="left"
                     android:inputType="number"
@@ -201,10 +225,10 @@
                     android:id="@+id/tvsubhurb"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
                     <TextView
-                        android:textColor="@color/colorPrimary"
-                        android:text="Subhurb"
+                        android:textColor="@color/greenontrack"
+                        android:text="Sub-Urb"
                         android:inputType="textPersonName"
                         android:textSize="@dimen/_12sdp"
                         android:layout_width="wrap_content"
@@ -212,7 +236,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <EditText
                     android:id="@+id/subhurb"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/greenontrack"
                     android:textSize="@dimen/_12sdp"
                     android:gravity="left"
                     android:layout_width="match_parent"
@@ -225,9 +249,9 @@
                     android:id="@+id/tvcity"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:textColorHint="@color/colorPrimary">
+                    android:textColorHint="@color/greenontrack">
                     <TextView
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/greenontrack"
                         android:text="City"
                         android:inputType="textPersonName"
                         android:textSize="@dimen/_12sdp"
@@ -236,7 +260,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <EditText
                     android:id="@+id/city"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/greenontrack"
                     android:textSize="@dimen/_12sdp"
                     android:gravity="left"
                     android:layout_width="match_parent"
@@ -244,16 +268,16 @@
 
                 <Button
                     android:id="@+id/activate_sim"
-                    android:layout_marginBottom="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:padding="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/agentbutton"
-                    android:text="SAVE"
+                    android:text="Activate SIM"
                     android:textColor="@color/white"/>
 
             </LinearLayout>

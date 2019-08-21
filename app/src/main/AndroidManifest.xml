@@ -62,7 +62,7 @@
             android:value="@string/google_api_ley" />
 
         <activity
-            android:name=".Navigation_main.Navigation_Main"
+            android:name=".Agent.Agent_Mainactivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,7 +76,9 @@
         <activity android:name=".Driver.Stock_allocate.Pending_Box_List" />
         <activity android:name=".Driver.DriverAttendance.DriverAttendance" />
         <activity android:name=".Agent.Sim_allocation" />
+<!--
         <activity android:name=".Agent.Agent_Mainactivity" />
+-->
     </application>
 
 </manifest>

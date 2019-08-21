@@ -189,9 +189,9 @@ public class DataBundleActivity extends AppCompatActivity {
 
     private void setSpinnerView(List<String> networkName) {
         Log.d(TAG, "setSpinnerView: called");
-        int[] images = {R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        int[] images = {R.drawable.vodacom,
+                R.drawable.mtn, R.drawable.cellc, R.drawable.telcom_logo, R.drawable.telcom_logo, R.drawable.vodacom,
+                R.drawable.virgin, R.drawable.econet, R.drawable.lyca};
 
         CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(getApplicationContext(), images, networkName);
         spinnerNetworks.setAdapter(customSpinnerAdapter);

@@ -194,7 +194,7 @@ public class WifiBundle extends AppCompatActivity {
 
     private void setSpinnerView(List<String> networkName) {
         Log.d(TAG, "setSpinnerView: called");
-        int[] images = {R.mipmap.ic_launcher};
+        int[] images = {R.drawable.vast};
 
         CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getApplicationContext(),images,networkName);
         spinnerNetworks.setAdapter(customSpinnerAdapter);

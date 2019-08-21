@@ -107,13 +107,7 @@ public class AirtimeSalesActivity extends AppCompatActivity {
         view.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.requestFocusFromTouch();
-                return false;
-            }
-        });
+
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -187,9 +181,9 @@ public class AirtimeSalesActivity extends AppCompatActivity {
 
     private void setSpinnerView(List<String> networkName) {
         Log.d(TAG, "setSpinnerView: called");
-        int[] images = {R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        int[] images = {R.drawable.vodacom,
+                R.drawable.mtn, R.drawable.cellc, R.drawable.telcom_logo, R.drawable.telcom_logo, R.drawable.vodacom,
+                R.drawable.virgin, R.drawable.econet, R.drawable.lyca};
 
         CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getApplicationContext(),images,networkName);
         spinnerNetworks.setAdapter(customSpinnerAdapter);

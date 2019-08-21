@@ -194,8 +194,8 @@ public class ElectricityBundleActivity extends AppCompatActivity {
 
     private void setSpinnerView(List<String> networkName) {
         Log.d(TAG, "setSpinnerView: called");
-        int[] images = {R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        int[] images = {R.drawable.eletricity_mun,
+                R.drawable.eskom, R.drawable.eletricity_free};
 
         CustomSpinnerAdapter customSpinnerAdapter=new CustomSpinnerAdapter(getApplicationContext(),images,networkName);
         spinnerNetworks.setAdapter(customSpinnerAdapter);

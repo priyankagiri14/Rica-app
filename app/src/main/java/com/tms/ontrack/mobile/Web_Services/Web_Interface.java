@@ -11,6 +11,9 @@ import com.tms.ontrack.mobile.AgentBatchesReceived.AgentBatchesReceivedResponse;
 import com.tms.ontrack.mobile.Agent_Login.AgentLoginResponse;
 import com.tms.ontrack.mobile.AgentsGetResponse.AgentsGetResponse;
 import com.tms.ontrack.mobile.AgentsList.AgentsListResponse;
+import com.tms.ontrack.mobile.AirtimeSales.model.SmartCallAgentLogin;
+import com.tms.ontrack.mobile.AirtimeSales.model.get_all_networks.GetAllNetworksResponse;
+import com.tms.ontrack.mobile.AirtimeSales.model.get_data_plans.GetAllDataPlansResponse;
 import com.tms.ontrack.mobile.AllocationCreateResponse.AllocationCreate;
 
 import com.tms.ontrack.mobile.AllocationGet.AllocationGetResponse;
@@ -34,8 +37,10 @@ import com.tms.ontrack.mobile.OpenCloseBatches.SerialsGetResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -74,7 +79,7 @@ public interface Web_Interface {
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST("allocations/{userId}")
-    Call<AllocationCreate> requestAllocationCreate(@Path("userId") String id, @Body String[] batches);
+    Call<AllocationCreate> requestAllocationCreate(@Path("userId") String id, @Query("lat")double lat, @Query("long") double longitude,@Body String[] batches);
 
     @Headers("Accept: application/json")
     @GET("allocations?size=size&page=page/")
@@ -84,7 +89,7 @@ public interface Web_Interface {
     @Headers({"Accept: application/json", "Content-Type: application/json"})
    // @Headers("Accept: application/json");
     @PUT("allocations")
-    Call<AllocationStatusResponse> requestAllocationStatus(@Body Pojo pojo);
+    Call<AllocationStatusResponse> requestAllocationStatus(@Query("lat") double lat,@Query("long") double longitude,@Body Pojo pojo);
 
     @Headers("Accept: application/json")
     @GET("batches?size=size&page=page/")
@@ -92,7 +97,7 @@ public interface Web_Interface {
 
     @Headers("Accept: application/json")
     @POST("sims")
-    Call<Simallocatemodel> simallocate(@Body RequestBody simallocate, @Header("Authorization") String auth);
+    Call<Simallocatemodel> simallocate(@Body RequestBody simallocate);
 
     //Atendance section
     //for fetching stores list
@@ -118,7 +123,7 @@ public interface Web_Interface {
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     // @Headers("Accept: application/json");
     @PUT("allocations")
-    Call<AgentAllocationStatusResponse> requestAgentAllocationStatus(@Body MyPojo pojo);
+    Call<AgentAllocationStatusResponse> requestAgentAllocationStatus(@Query("lat")double lat, @Query("long") double longitude,@Body MyPojo pojo);
 
     @Headers("Accept: application/json")
     @GET("batches?size=size&page=page/")
@@ -144,7 +149,7 @@ public interface Web_Interface {
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     @POST("activities")
-    Call<OpenCloseResponse> requestOpenClose(@Query("action") String action, @Body RequestBody body);
+    Call<OpenCloseResponse> requestOpenClose(@Query("lat")double lat,@Query("long") double longitude,@Query("action") String action, @Body RequestBody body);
 
     @Headers("Accept: application/json")
     @GET("batches?size=size&page=page/")
@@ -164,5 +169,27 @@ public interface Web_Interface {
 
     @Headers("Content-Type: application/json")
     @POST("sims/batches")
-    Call<ScanBatchesResponse> requestScanBatches(@Query("region")String region, @Body String[] batches);
+    Call<ScanBatchesResponse> requestScanBatches(@Body ScanPojo scanPojo);
+
+    @GET("attachments/{id}/download")
+    Call<ResponseBody> requestImagefromserver(@Path("id") Integer id);
+
+    //smartcall login auth
+    @POST("auth")
+    Call<SmartCallAgentLogin> requestSmartCallLogin(@Header("Authorization") String auth);
+    //smartcall delete auth
+    @DELETE("auth")
+    Call<SmartCallAgentLogin> requestSmartCallLoginInvalidateToken(@Header("Authorization") String auth);
+    //smartcall get all networks
+    @GET("smartload/networks")
+    Call<GetAllNetworksResponse> requestSmartCallGetAllNetworks();
+
+    //smartcall get recharge plans
+    @Headers({ "Content-Type: application/json"})
+    @GET("smartload/networks/{networkId}")
+    Call<GetAllDataPlansResponse> requestGetAllDataPlans(@Path("networkId") int network_id);
+
+    //smartcall recharge request
+    @POST("smartload/recharges")
+    Call<ResponseBody> requestSmartCallRecharge(@Body RequestBody requestRecharge);
 }

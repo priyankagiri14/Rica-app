@@ -1,6 +1,8 @@
 package com.tms.ontrack.mobile.Agent;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,14 +22,23 @@ import androidx.cardview.widget.CardView;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceConfirmResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceGetResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.Body;
+import com.tms.ontrack.mobile.AgentAssignBatchesTab;
 import com.tms.ontrack.mobile.AgentBatchesGet.AgentBatchesGet;
+import com.tms.ontrack.mobile.AgentBatchesGet.AppDatabase;
+import com.tms.ontrack.mobile.AgentBatchesGet.Batches;
+import com.tms.ontrack.mobile.AgentBatchesGet.BatchesAdapter;
 import com.tms.ontrack.mobile.AgentBatchesReceived.AgentBatchesReceived;
+import com.tms.ontrack.mobile.AgentReceiveBatchesTab;
+import com.tms.ontrack.mobile.AirtimeSales.AirtimeSalesActivity;
+import com.tms.ontrack.mobile.DataBundle.DataBundleActivity;
+import com.tms.ontrack.mobile.ElectricityBundle.ElectricityBundleActivity;
 import com.tms.ontrack.mobile.Navigation_main.Navigation_Main;
 import com.tms.ontrack.mobile.OpenBatchesResponse.OpenedBatchesActivity;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
+import com.tms.ontrack.mobile.WifiBundle.WifiBundle;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.arnaudguyon.perm.Perm;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -43,12 +55,21 @@ import retrofit2.Response;
 
 public class Agent_Mainactivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cardView1,cardView2,cardView3,cardView4,cardView5,cardView6,cardView7,cardView8,cardView9,cardView10,cardviewAttendance,airtimeSales;
-    CardView bulkrica;
+    CardView cardView1,cardView2,cardView3,cardView4,cardView5,cardView6,cardView7,cardView8,cardView9,cardView10,cardviewAttendance,airtimeSales,payWater;
+
     Toolbar toolbar;
     int id;
     String batchid;
     private SharedPreferences sharedPreferences;
+    private AppDatabase db;
+    Perm perm;
+    private static final int PERMISSIONS_REQUEST = 1;
+    private static final String PERMISSIONS[] = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.CAMERA};
+
+
+    public static BatchesAdapter batchesAdapter;
+    public static List<Batches> batcheslist = new ArrayList<>();
+    ProgressDialog progressDialog;
     public void onCreate(Bundle savedInstancestate) {
 
         super.onCreate(savedInstancestate);
@@ -65,7 +86,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         cardView10=findViewById(R.id.microInsurance1);
         cardviewAttendance = findViewById(R.id.attendanceacpt);
         airtimeSales = findViewById(R.id.activebatches);
-        bulkrica = findViewById(R.id.bulkrica);
+        payWater = findViewById(R.id.payWater);
         cardView1.setOnClickListener(this);
         cardView2.setOnClickListener(this);
         cardView3.setOnClickListener(this);
@@ -76,10 +97,11 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         cardView8.setOnClickListener(this);
         cardView9.setOnClickListener(this);
         cardView10.setOnClickListener(this);
+        payWater.setOnClickListener(this);
         cardviewAttendance.setOnClickListener(this);
         airtimeSales.setOnClickListener(this);
-        bulkrica.setOnClickListener(this);
-
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
         toolbar=findViewById(R.id.toolbar);
         toolbar.setTitle("Agent Dashboard");
         setSupportActionBar(toolbar);
@@ -104,15 +126,24 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                         editor.apply();
 
                         Intent i = new Intent(Agent_Mainactivity.this, Navigation_Main.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         finish();
-
                     }
+                }
+                if(menuItem.getItemId() == R.id.bulkrica)
+                {
+                    Intent intent = new Intent(Agent_Mainactivity.this, ScanBatch.class);
+                    startActivity(intent);
                 }
                 return false;
     }
 });
+        perm = new Perm(this, PERMISSIONS);
+        if (perm.areGranted()) {
+            //   Toast.makeText(this, "All Permissions granted", Toast.LENGTH_LONG).show();
+        } else {
+            perm.askPermissions(PERMISSIONS_REQUEST);
+        }
     }
 
     @Override
@@ -131,6 +162,11 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                 startActivity(i);
                 finish();
                 break;
+            case R.id.bulkrica:
+                Intent intent = new Intent(this,ScanBatch.class);
+                startActivity(intent);
+                finish();
+                break;
                 default:
                     break;
         }
@@ -139,7 +175,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.checkStock){
-            Intent i=new Intent(this, AgentBatchesGet.class);
+            Intent i=new Intent(this, AgentAssignBatchesTab.class);
             startActivity(i);
         }
         else if(v.getId()==R.id.sim_activation){
@@ -151,34 +187,35 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         {
             if(batchid.length()==0)
             {
-                Intent intent = new Intent(this, AgentBatchesReceived.class);
+                Intent intent = new Intent(this, AgentReceiveBatchesTab.class);
                 startActivity(intent);
             }
             else
             {
-                Toast.makeText(this, "Another Batch is already in Active State", Toast.LENGTH_SHORT).show();
+                anotherBatchActive();
             }
         }
         else if(v.getId() == R.id.airtimeSales)
         {
-            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AirtimeSalesActivity.class);
+            startActivity(intent);
         }
         else if(v.getId() == R.id.dataBundle)
         {
-            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
-        }
+            Intent intent = new Intent(this, DataBundleActivity.class);
+            startActivity(intent);        }
         else if(v.getId() == R.id.payTv)
         {
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
         }
         else if(v.getId() == R.id.payUtility)
         {
-            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
-        }
+            Intent intent = new Intent(this, ElectricityBundleActivity.class);
+            startActivity(intent);        }
         else if(v.getId() == R.id.playLotto)
         {
-            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
-        }
+            Intent intent = new Intent(this, WifiBundle.class);
+            startActivity(intent);        }
         else if(v.getId() == R.id.microLoan)
         {
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
@@ -194,20 +231,45 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         else if(v.getId() == R.id.activebatches)
         {
                 if (batchid.length()==0) {
-                    Toast.makeText(this, "No Active Batches!", Toast.LENGTH_SHORT).show();
+                    noActiveBatches();
                 } else {
                     Intent intent = new Intent(Agent_Mainactivity.this, OpenedBatchesActivity.class);
                     startActivity(intent);
                 }
         }
-        else if(v.getId() == R.id.bulkrica)
+        else if(v.getId() == R.id.payWater)
         {
-            Intent intent = new Intent(Agent_Mainactivity.this,ScanBatch.class);
-            startActivity(intent);
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void anotherBatchActive() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(Agent_Mainactivity.this).create();
+        alertDialog.setMessage("Another Batch is already in Active State");
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Got It!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void noActiveBatches() {
+        AlertDialog alertDialog = new AlertDialog.Builder(Agent_Mainactivity.this).create();
+        alertDialog.setMessage("No Active Batches");
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Got It!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+
     private void attendanceGet() {
+
 
         Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
         Call<AttendanceGetResponse> attendanceGetResponseCall = web_interface.requestAttendanceGet(0,0);
@@ -220,7 +282,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                 bodyList = response.body().getBody();
                 Log.d("onResponse: ", confirmation);
                 if (bodyList.size() == 0) {
-                    Toast.makeText(Agent_Mainactivity.this, "Contact Your Driver for Further Assistance", Toast.LENGTH_SHORT).show();
+                    noAcknowledgmentDialog();
                 } else {
                     confirmation = bodyList.get(0).getConfirmation().toString();
                     Log.d("onResponse: ", confirmation);
@@ -232,9 +294,22 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                     }
                 }
             }
+
+            private void noAcknowledgmentDialog() {
+                AlertDialog alertDialog = new AlertDialog.Builder(Agent_Mainactivity.this).create();
+                alertDialog.setMessage("No Attendance Acknowledgement Pending..!");
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Got It!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.cancel();
+                    }
+                });
+                alertDialog.show();
+            }
+
             @Override
             public void onFailure(Call<AttendanceGetResponse> call, Throwable t) {
-
+                Toast.makeText(Agent_Mainactivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

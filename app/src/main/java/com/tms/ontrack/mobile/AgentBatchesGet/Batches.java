@@ -1,6 +1,7 @@
 package com.tms.ontrack.mobile.AgentBatchesGet;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -17,4 +18,5 @@ public class Batches {
     @NonNull
     @PrimaryKey
     public String batches;
+
 }

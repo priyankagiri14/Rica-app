@@ -77,8 +77,8 @@
     <string name="title_activity_main_menu_client_payments">MainMenuClientPayments</string>
     <string name="title_activity_main_menu_stokvel">MainMenuStokvel</string>
     <string name="title_activity_sell_airtimev">SellAirtimev</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_1">Value Sim</string>
+    <string name="tab_text_2">Normal Sim</string>
     <string name="tab_text_3">Tab 3</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -250,5 +250,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="title_activity_assign_batches_tab">AssignBatchesTab</string>
+    <string name="title_activity_assign_batch_tab">AssignBatchTab</string>
 
 </resources>

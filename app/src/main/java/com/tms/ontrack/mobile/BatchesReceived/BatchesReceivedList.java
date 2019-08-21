@@ -88,7 +88,8 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                 for(int i=0;i<list.size();i++)
                 {
                     String status = response.body().getBody().get(i).getStatus();
-                    if(status.equals("RECEIVED"))
+                    String valueSim = String.valueOf(response.body().getBody().get(i).isValueSim());
+                    if(status.equals("RECEIVED") && valueSim.equals("true"))
                     {
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);

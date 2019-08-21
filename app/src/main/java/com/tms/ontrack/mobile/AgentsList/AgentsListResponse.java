@@ -9,6 +9,9 @@ public class AgentsListResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
+    @SerializedName("message")
+    @Expose
+    private Object message;
     @SerializedName("body")
     @Expose
     private List<Body> body = null;
@@ -22,6 +25,14 @@ public class AgentsListResponse {
 
     public void setSuccess(Boolean success) {
         this.success = success;
+    }
+
+    public Object getMessage() {
+        return message;
+    }
+
+    public void setMessage(Object message) {
+        this.message = message;
     }
 
     public List<Body> getBody() {
@@ -39,4 +50,5 @@ public class AgentsListResponse {
     public void setPage(Page page) {
         this.page = page;
     }
+
 }

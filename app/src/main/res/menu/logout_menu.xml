@@ -3,9 +3,16 @@
     >
 
     <item
+        android:id="@+id/bulkrica"
+        android:orderInCategory="100"
+        app:showAsAction="collapseActionView"
+        android:title="RICA Batch" />
+
+    <item
         android:id="@+id/logout"
         android:orderInCategory="100"
         app:showAsAction="collapseActionView"
         android:title="Logout" />
+
 
 </menu>

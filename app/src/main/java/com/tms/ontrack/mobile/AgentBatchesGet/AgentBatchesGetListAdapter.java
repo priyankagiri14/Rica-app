@@ -29,10 +29,12 @@ public class AgentBatchesGetListAdapter extends BaseAdapter {
     class MyViewHolder {
         public TextView batchesgettext;
         public CheckBox batchesgetcheckbox;
+        public TextView batchesgetvaluetext;
 
         MyViewHolder(View view) {
             batchesgettext = (TextView) view.findViewById(R.id.agents_list_text);
             batchesgetcheckbox = (CheckBox) view.findViewById(R.id.agent_list_checkbox);
+            batchesgetvaluetext = (TextView)view.findViewById(R.id.agent_batches_value_get_list_text);
         }
     }
 
@@ -74,6 +76,7 @@ public class AgentBatchesGetListAdapter extends BaseAdapter {
 
 
         holder.batchesgettext.setText(bodyList.get(position).getBatchNo());
+        holder.batchesgetvaluetext.setText(bodyList.get(position).getTotalValue().toString());
         holder.batchesgetcheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

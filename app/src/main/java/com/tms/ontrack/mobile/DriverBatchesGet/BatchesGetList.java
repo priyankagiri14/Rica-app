@@ -2,11 +2,21 @@ package com.tms.ontrack.mobile.DriverBatchesGet;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BatchesGetList extends AppCompatActivity implements View.OnClickListener ,SearchView.OnQueryTextListener{
+public class BatchesGetList extends AppCompatActivity implements View.OnClickListener ,SearchView.OnQueryTextListener, LocationListener {
 
 
     SearchView searchView;
@@ -44,6 +54,8 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
     public ListView listView;
     ProgressDialog progressBar;
     int count = 0;
+    LocationManager locationManager;
+    double latitude, longitude;
 
     Button btnstatus;
 
@@ -108,9 +120,39 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         btnstatus = (Button)findViewById(R.id.btnstatus);
         btnstatus.setVisibility(View.INVISIBLE);
         assignedbatches.setVisibility(View.INVISIBLE);
+        getLocation();
+        /*locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                return;
+                }
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        onLocationChanged(location);*/
         batchesGet();
         btnstatus.setOnClickListener(this);
     }
+
+    private void getLocation() {
+
+        try{
+            progressBar.show();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, (LocationListener) this);
+            progressBar.dismiss();
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void batchesGet(){
 
         Log.d("PNK", "BATCHESGET");
@@ -127,7 +169,8 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                 for(int i=0;i<list1.size();i++)
                 {
                     String status = list1.get(i).getStatus();
-                    if(status.equals("PENDING"))
+                    String valuesim = String.valueOf(list1.get(i).isValueSim());
+                    if(status.equals("PENDING") && valuesim.equals("true"))
                     {
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
@@ -200,7 +243,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
                     pojo.setStatus(stts);
                     pojo.setBatches(batches);
-                    Call<AllocationStatusResponse> call = web_interface.requestAllocationStatus(pojo);
+                    Call<AllocationStatusResponse> call = web_interface.requestAllocationStatus(latitude,longitude,pojo);
                     //exeuting the service
                     call.enqueue(new Callback<AllocationStatusResponse>() {
                         @Override
@@ -233,7 +276,6 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                 int size = listView.getCount();
 
                 for (int j = 0; j < bodyArrayList1.size(); j++) {
-
                     if (bodyArrayList1.get(j).isIschecked()) {
                         bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
                         //batches[j] = bodyArrayList1.get(j).getBatchNo();
@@ -251,7 +293,7 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
                     pojo.setStatus(status);
                     pojo.setBatches(batches);
                     pojo.setReason(reason);
-                    Call<AllocationStatusResponse> call = web_interface.requestAllocationStatus(pojo);
+                    Call<AllocationStatusResponse> call = web_interface.requestAllocationStatus(latitude,longitude,pojo);
                     //exeuting the service
                     Log.d("agentlogin: ", call.toString());
                     call.enqueue(new Callback<AllocationStatusResponse>() {
@@ -280,4 +322,67 @@ public class BatchesGetList extends AppCompatActivity implements View.OnClickLis
         alertDialog.show();
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        Log.d("onLocationChanged: ", String.valueOf(latitude));
+        Log.d("onLocationChanged: ", String.valueOf(longitude));
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+        if(!((Activity) BatchesGetList.this).isFinishing())
+        {
+            //show dialog
+            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Enable Location");
+            alertDialog.setMessage("Open GPS Settings?");
+            alertDialog.setCancelable(false);
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    if(Settings.ACTION_LOCATION_SOURCE_SETTINGS.equals(true))
+                    {
+                        alertDialog.dismiss();
+                    }
+                    count++;
+                }
+            });
+            if(count>0)
+            {
+                alertDialog.dismiss();
+                count = 0;
+            }
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(BatchesGetList.this, Stocks_dashboard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                }
+            });
+            alertDialog.show();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("Enable Location")
+//                    .setMessage("Open GPS Settings")
+//                    .setCancelable(false)
+//                    .setPositiveButton("Yes",
+//                            (dialog, id) -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+//                    .setNegativeButton("Cancel",
+//                            (dialog, id) -> startActivity(new Intent(DriverAttendance.this,Stocks_dashboard.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+//            alert = builder.create();
+//            alert.show();
+        }
+    }
 }

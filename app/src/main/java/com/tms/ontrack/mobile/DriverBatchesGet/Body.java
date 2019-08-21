@@ -41,6 +41,18 @@ public class Body implements Serializable {
     @Expose
     private Integer count;
 
+    public boolean isValueSim() {
+        return valueSim;
+    }
+
+    public void setValueSim(boolean valueSim) {
+        this.valueSim = valueSim;
+    }
+
+    @SerializedName("valueSim")
+    @Expose
+    private boolean valueSim;
+
     public Integer getId() {
         return id;
     }

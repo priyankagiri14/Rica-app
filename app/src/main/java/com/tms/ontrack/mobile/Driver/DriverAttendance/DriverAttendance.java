@@ -121,7 +121,7 @@ List<Body> agent =new ArrayList<>();
 ArrayList<String> bodyArrayListId = new ArrayList<String>();
 JSONObject jsonObject;
     Location location;
-    TextView datetext,timetext;
+    TextView datetext,timetext,noagents;
     double longitude;
     double savelatitude,savelongitude;
     ProgressDialog progressBar,progressBar1;
@@ -157,6 +157,9 @@ protected void onCreate(Bundle savedInstanceState) {
     location1.setVisibility(View.INVISIBLE);
     datetext = findViewById(R.id.Date);
     timetext = findViewById(R.id.Time);
+    noagents = findViewById(R.id.noagents);
+    buttonCapture.setVisibility(View.INVISIBLE);
+    buttonStartDay.setVisibility(View.INVISIBLE);
     getLocation();
     initDateTime();
     initLocation();
@@ -316,6 +319,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 
     private void fetchagent() {
+                progressBar.show();
                 Web_Interface webInterface = RetrofitToken.getClient().create(Web_Interface.class);
                 Call<FetchAgent> call = webInterface.requestfetchagent(RetrofitToken.token);
                 call.enqueue(new Callback<FetchAgent>() {
@@ -334,12 +338,22 @@ protected void onCreate(Bundle savedInstanceState) {
                                               list1.add(response.body());
                                               agentid.add(agent.get(i).getId());
                                               list.add(agent.get(i).getName());
+                                              progressBar.dismiss();
                                         }
+
                                         Log.d("agentname",list.toString() +"\n" +"agentid" +agentid.toString());
                                     populateListView(list1);
                                     if(agentlistview.getCount() == 0)
                                     {
-                                        Toast.makeText(DriverAttendance.this, "No Agents are assigned to You", Toast.LENGTH_SHORT).show();
+                                        noagents.setVisibility(View.VISIBLE);
+//                                        buttonCapture.setVisibility(View.INVISIBLE);
+//                                        buttonStartDay.setVisibility(View.INVISIBLE);
+//                                        progressBar.dismiss();
+                                    }
+                                    else if(agentlistview.getCount()>0)
+                                    {
+                                        buttonCapture.setVisibility(View.VISIBLE);
+                                        buttonStartDay.setVisibility(View.VISIBLE);
                                     }
                                 }
                                 else {
@@ -438,6 +452,7 @@ public void onClick(View v) {
 
                             } else {
                                 Toast.makeText(DriverAttendance.this, message, Toast.LENGTH_LONG).show();
+                                filePath=null;
                                 Intent intent = new Intent(DriverAttendance.this, Stocks_dashboard.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
@@ -562,7 +577,7 @@ public void onResponse(Call<UploadedFile> call, Response<UploadedFile> response)
         Toasty.success(getApplicationContext(),message1 ).show();
 
         progressBar.cancel();
-        filePath=null;
+
 
 
         }

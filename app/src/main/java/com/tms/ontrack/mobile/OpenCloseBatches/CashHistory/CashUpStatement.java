@@ -38,7 +38,7 @@ public class CashUpStatement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_up_statement);
 
-        norecords = (TextView)findViewById(R.id.noRecords);
+        norecords = (TextView)findViewById(R.id.norecords);
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
         progressBar.setMessage("Please Wait...");
@@ -55,7 +55,7 @@ public class CashUpStatement extends AppCompatActivity {
 
                 assert response.body() != null;
                 
-                if (response.body().getBody() != null) {
+                if (response.body().getBody().size() != 0) {
                     List<Body> bodyList = new ArrayList<>();
 //                    Log.d("onBody: ", response.body().getBody().get(0).getFrom().getName());
                     bodyList = response.body().getBody();
@@ -101,6 +101,7 @@ public class CashUpStatement extends AppCompatActivity {
 //                        } catch (ParseException e) {
 //                            e.printStackTrace();
 //                        }
+                        legacyTableView.setVisibility(View.GONE);
                         norecords.setVisibility(View.VISIBLE);
                         progressBar.cancel();
 //                        norecords.setText(datetime);

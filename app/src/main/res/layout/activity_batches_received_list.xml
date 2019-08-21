@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.tms.ontrack.mobile.BatchesReceived.BatchesReceivedList">
 
-    <androidx.appcompat.widget.Toolbar
+    <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar1"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -18,7 +18,7 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         />
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>-->
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_below="@+id/toolbar1"

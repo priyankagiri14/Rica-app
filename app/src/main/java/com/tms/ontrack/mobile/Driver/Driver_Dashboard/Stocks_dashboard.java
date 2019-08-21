@@ -16,6 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.tms.ontrack.mobile.Agent_Login.Agent_Login_Activity;
+import com.tms.ontrack.mobile.AssignBatchTab;
+import com.tms.ontrack.mobile.Driver.Stock_allocate.Tab_Stock_Activity;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.CashUpStatement;
 import com.tms.ontrack.mobile.DriverBatchesGet.BatchesGetList;
 
@@ -25,6 +27,7 @@ import com.tms.ontrack.mobile.BatchesReceived.BatchesReceivedList;
 
 import com.tms.ontrack.mobile.Navigation_main.Navigation_Main;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.ReceiveBatchesTab;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 
@@ -132,7 +135,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        getMenuInflater().inflate(R.menu.driver_logout_menu, menu);
         return true;
     }
 
@@ -155,7 +158,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
 
         if(v.getId()==R.id.sim_aloc){
-            Intent i=new Intent(Stocks_dashboard.this, BatchesReceivedList.class);
+            Intent i=new Intent(Stocks_dashboard.this, ReceiveBatchesTab.class);
             startActivity(i);
         }
 
@@ -169,7 +172,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
 
 
         if(v.getId()==R.id.stockReceived){
-            Intent i=new Intent(Stocks_dashboard.this, BatchesGetList.class);
+            Intent i=new Intent(Stocks_dashboard.this, AssignBatchTab.class);
             startActivity(i);
         }
         if(v.getId()==R.id.cashupHistory)

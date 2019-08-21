@@ -2,9 +2,16 @@ package com.tms.ontrack.mobile.AgentBatchesReceived;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.OpenCloseBatches.OpenCloseActivity;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
@@ -24,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AgentBatchesReceived extends AppCompatActivity implements View.OnClickListener{
+public class AgentBatchesReceived extends AppCompatActivity implements View.OnClickListener,LocationListener{
 
     private AgentBatchesReceivedListAdapter adapter;
     List<AgentBatchesReceivedResponse> list1 = new ArrayList<>();
@@ -35,7 +43,9 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
     public ListView listView;
     TextView agentbatchesreceived,noagentbatchesreceived;
     ProgressDialog progressBar;
-
+    LocationManager locationManager;
+    double latitude, longitude;
+    int count = 0;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
     {
@@ -84,9 +94,23 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
         noagentbatchesreceived = (TextView) findViewById(R.id.noagentbatchesreceived);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         agentbatchesreceived.setVisibility(View.INVISIBLE);
+        getLocation();
         batchesReceived();
 
     }
+
+    private void getLocation() {
+        try{
+            progressBar.show();
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, (LocationListener) this);
+            progressBar.dismiss();
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void batchesReceived(){
 
         Log.d("PNK", "BATCHES Received");
@@ -103,7 +127,8 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
                 for(int i=0;i<list.size();i++)
                 {
                     String status = response.body().getBody().get(i).getStatus();
-                    if(status.equals("RECEIVED"))
+                    String valueSim = String.valueOf(response.body().getBody().get(i).isValueSim());
+                    if(status.equals("RECEIVED")&& valueSim.equals("true"))
                     {
 //
                         bodyArrayList1.add(list.get(i));
@@ -247,5 +272,55 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
 //        });
 //
 //        alertDialog.show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
+        Log.d("onLocationChanged: ", String.valueOf(latitude));
+        Log.d("onLocationChanged: ", String.valueOf(longitude));
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        if(!((Activity) AgentBatchesReceived.this).isFinishing()) {
+            //show dialog
+            android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Enable Location");
+            alertDialog.setMessage("Open GPS Settings?");
+            alertDialog.setCancelable(false);
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    if (Settings.ACTION_LOCATION_SOURCE_SETTINGS.equals(true)) {
+                        alertDialog.dismiss();
+                    }
+                    count++;
+                }
+            });
+            if (count > 0) {
+                alertDialog.dismiss();
+                count = 0;
+            }
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(AgentBatchesReceived.this, Agent_Mainactivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                }
+            });
+            alertDialog.show();
+        }
     }
 }

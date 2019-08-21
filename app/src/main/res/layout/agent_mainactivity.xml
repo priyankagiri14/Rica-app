@@ -66,7 +66,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:src="@drawable/honor1"
+                    android:src="@drawable/teklom"
                     android:layout_gravity="center"
                     android:foregroundGravity="right"
                     />
@@ -214,7 +214,7 @@
                     android:layout_below="@+id/linear1"
                     android:id="@+id/linearacpt"
                     android:clipToPadding="false"
-                    android:weightSum="3"
+                    android:weightSum="2"
                     android:gravity="center"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
@@ -317,7 +317,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
+<!--                    <androidx.cardview.widget.CardView
                         android:id="@+id/bulkrica"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -351,22 +351,22 @@
                                 android:textStyle="bold" />
 
 
-                            <!--<View-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="1dp"-->
-                            <!--android:layout_margin="10dp"-->
-                            <!--android:background="@color/lightgray" />-->
+                            &lt;!&ndash;<View&ndash;&gt;
+                            &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;
+                            &lt;!&ndash;android:layout_height="1dp"&ndash;&gt;
+                            &lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;
+                            &lt;!&ndash;android:background="@color/lightgray" />&ndash;&gt;
 
-                            <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:padding="5dp"-->
-                            <!--android:text="Accept/Decline Attendnace"-->
-                            <!--android:textColor="@android:color/darker_gray" />-->
+                            &lt;!&ndash;<TextView&ndash;&gt;
+                            &lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;
+                            &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
+                            &lt;!&ndash;android:gravity="center"&ndash;&gt;
+                            &lt;!&ndash;android:padding="5dp"&ndash;&gt;
+                            &lt;!&ndash;android:text="Accept/Decline Attendnace"&ndash;&gt;
+                            &lt;!&ndash;android:textColor="@android:color/darker_gray" />&ndash;&gt;
 
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>-->
 
 
                     <!--<androidx.cardview.widget.CardView-->
@@ -582,13 +582,12 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:id="@+id/payTv"
-                        android:layout_weight="1"
+                        android:id="@+id/payUtility"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
-                        >
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:foreground="?android:attr/selectableItemBackground">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -600,34 +599,34 @@
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:background="@drawable/cerclebackgroundgreenontrack"
-                                app:solid_icon="true"
-                                android:text="@string/fa_tv_solid"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@string/fa_lightbulb"
                                 android:textColor="@color/golder_color"
                                 android:textSize="28dp"
-                                android:gravity="center"/>
+                                app:solid_icon="true" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Pay TV"
+                                android:text="Pay Electricity"
                                 android:textColor="#000000"
                                 android:textStyle="bold" />
 
                             <!--<View-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="1dp"-->
-                                <!--android:layout_margin="10dp"-->
-                                <!--android:background="@color/lightgray" />-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
 
                             <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:gravity="center"-->
-                                <!--android:padding="5dp"-->
-                                <!--android:textColor="@android:color/darker_gray"-->
-                                <!--android:text="TV's Entertainment is in your Hands"-->
-                                <!--/>-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:text="Switch ON Your Home"-->
+                            <!--android:textColor="@android:color/darker_gray" />-->
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -854,14 +853,14 @@
                     android:weightSum="4"
                     android:orientation="horizontal">
 
-
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/payUtility"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/payTv"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="140dp"
-                        android:clickable="true"
-                        android:layout_weight="1"
-                        android:foreground="?android:attr/selectableItemBackground">
+                        >
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -873,37 +872,87 @@
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:background="@drawable/cerclebackgroundgreenontrack"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="@string/fa_lightbulb"
+                                app:solid_icon="true"
+                                android:text="@string/fa_tv_solid"
                                 android:textColor="@color/golder_color"
                                 android:textSize="28dp"
-                                app:solid_icon="true" />
+                                android:gravity="center"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Pay Electricity"
+                                android:text="Pay TV"
                                 android:textColor="#000000"
                                 android:textStyle="bold" />
 
                             <!--<View-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="1dp"-->
-                                <!--android:layout_margin="10dp"-->
-                                <!--android:background="@color/lightgray" />-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:layout_margin="10dp"-->
+                            <!--android:background="@color/lightgray" />-->
 
                             <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:gravity="center"-->
-                                <!--android:padding="5dp"-->
-                                <!--android:text="Switch ON Your Home"-->
-                                <!--android:textColor="@android:color/darker_gray" />-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"-->
+                            <!--android:text="TV's Entertainment is in your Hands"-->
+                            <!--/>-->
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:id="@+id/payWater"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
+                            <info.androidhive.fontawesome.FontTextView
+                                app:solid_icon="true"
+                                android:text="@string/fa_tint_solid"
+                                android:background="@drawable/cerclebackgroundgreenontrack"
+                                android:textSize="28dp"
+                                android:gravity="center"
+                                android:src="@drawable/ic_sim_card_yellow_24dp"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:textColor="@color/golder_color"
+                                android:padding="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="#000000"
+                                android:layout_marginTop="10dp"
+                                android:text="Pay Water"/>
+                            <!--<View-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="1dp"-->
+                            <!--android:background="@color/lightgray"-->
+                            <!--android:layout_margin="10dp"/>-->
+                            <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:gravity="center"-->
+                            <!--android:text="Smart Packs for Smart Customers"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:textColor="@android:color/darker_gray"/>-->
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
 
                     <androidx.cardview.widget.CardView
                         android:foreground="?android:attr/selectableItemBackground"
@@ -1008,17 +1057,6 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="false"
-                        android:id="@+id/cardview"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="140dp"
-                        >
-
-
-                    </androidx.cardview.widget.CardView>
 
 
 

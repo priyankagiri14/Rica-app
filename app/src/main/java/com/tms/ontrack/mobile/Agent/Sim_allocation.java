@@ -5,17 +5,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.location.aravind.getlocation.GeoLocator;
 import com.tms.ontrack.mobile.Agent.model.Simallocatemodel;
+import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.AppDatabaseSerials;
+import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.Serials;
+import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.SerialsAdapter;
+import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.SerialsInterface;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.Web_Services.MyApp;
 import com.tms.ontrack.mobile.Web_Services.Ret;
@@ -26,67 +35,109 @@ import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.dmoral.toasty.Toasty;
+import me.sudar.zxingorient.ZxingOrient;
+import me.sudar.zxingorient.ZxingOrientResult;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Sim_allocation extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class Sim_allocation extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
-    public EditText fname, lname, address, pincode, subhurb, simserial, idnum,city;
+    public EditText fname, lname, address, pincode, subhurb, simserial, idnum, city;
     public RadioGroup networkrg;
+    ListView listViewsearchserials;
+    private String mResult = null;
+    ArrayList<String> ListElementsArrayList;
+    ArrayAdapter<String> adapter;
+    String[] batches;
     RadioButton vodacom, telkom, cellc, mtn;
-    String network,citystring;
-    String simcard ="";
-    Button simallocate;
+    String network, citystring;
+    String simcard = "";
+    Button simallocate, agentscanbtn;
     Spinner regionspinner;
     String region;
     String type = "ONLINE";
+    private SearchView searchView;
+    AppDatabaseSerials db;
+    SerialsInterface serialsInterface;
+    SerialsAdapter serialsAdapter;
+    List<Serials> serialsList = new ArrayList<>();
+    TextView textserials;
 
     public void onCreate(Bundle savedInstancestate) {
 
         super.onCreate(savedInstancestate);
         setContentView(R.layout.simactivation);
-        regionspinner = (Spinner)findViewById(R.id.regionspinner);
+        regionspinner = (Spinner) findViewById(R.id.regionspinner);
 
+        db = Room.databaseBuilder(MyApp.getContext(), AppDatabaseSerials.class, "serials")
+                .allowMainThreadQueries()
+                .build();
 
-
+        searchView = (SearchView) findViewById(R.id.agentsearchview);
+        searchView.setOnQueryTextListener(this);
         fname = findViewById(R.id.firstname);
         lname = findViewById(R.id.lastname);
         address = findViewById(R.id.address);
         pincode = findViewById(R.id.postal_code);
         subhurb = findViewById(R.id.subhurb);
-        simserial = findViewById(R.id.serialnum);
         idnum = findViewById(R.id.idnum);
-        city=findViewById(R.id.city);
+        city = findViewById(R.id.city);
         networkrg = findViewById(R.id.netwrokrg);
         networkrg.setOnCheckedChangeListener(this);
         vodacom = findViewById(R.id.vodacom);
         telkom = findViewById(R.id.telkom);
         mtn = findViewById(R.id.mtn);
-        simallocate=findViewById(R.id.activate_sim);
+        simallocate = findViewById(R.id.activate_sim);
+        agentscanbtn = findViewById(R.id.agentscanbtn);
+        agentscanbtn.setOnClickListener(this);
         simallocate.setOnClickListener(this);
+        listViewsearchserials = findViewById(R.id.agent_search_results_list);
+        listViewsearchserials.setTextFilterEnabled(true);
+        listViewsearchserials.setVisibility(View.GONE);
+        listViewsearchserials.setOnItemClickListener(this);
         cellc = findViewById(R.id.cellc);
         Bundle bundle = getIntent().getExtras();
-        if(bundle==null)
-        {
-            simserial.setText("");
+        if (bundle == null) {
+            searchView.setQuery("", false);
+        } else {
+            simcard = bundle.getString("simcard");
+            searchView.setQuery(simcard, false);
         }
-        else
-            {
-                simcard = bundle.getString("simcard");
-                simserial.setText(simcard);
-            }
-    if(Pref.getCity(this)==null)
-    {
-        city.setText("");
-    }
-    else
-        {
+        if (Pref.getCity(this) == null) {
+            city.setText("");
+        } else {
             city.setText(Pref.getCity(this));
         }
+
+        regionspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    Toast.makeText(Sim_allocation.this, "Please Enter data for all the Fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    region = regionspinner.getSelectedItem().toString();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void initiateScan() {
+        ZxingOrient integrator = new ZxingOrient(this);
+        integrator.setVibration(true);
+        integrator.setBeep(true);
+        integrator.initiateScan();
     }
 
     private void getLocation() {
@@ -99,38 +150,43 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        regionspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0)
-                {
-                    Toast.makeText(Sim_allocation.this,"Please Select the Region",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    region = regionspinner.getSelectedItem().toString();
-                }
+        if (v.getId() == R.id.agentscanbtn) {
+            initiateScan();
+        }
+        if (v.getId() == R.id.activate_sim) {
+        if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                || searchView.getQuery().length() == 0 || idnum.getText().length() == 0) {
+            Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+        } else {
+            simallocation(searchView.getQuery().toString(), network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
+                    address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString());
+        }
+    }
+
+}
+
+    private void addBatchValue() {
+
+        String textvalue = searchView.getQuery().toString();
+
+            //adding only unique values
+            ListElementsArrayList.add(textvalue);
+            batches = new String[ListElementsArrayList.size()];
+            for (int j = 0; j < ListElementsArrayList.size(); j++) {
+                batches[j] = ListElementsArrayList.get(j);
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            //Log.d(TAG, "onActivityResult: result"+ListElementsArrayList);
+            adapter.notifyDataSetChanged();
+            listViewsearchserials.setVisibility(View.GONE);
+            searchView.setQuery("",false);
 
-            }
-        });
-        if(fname.getText().toString().length()==0 || lname.getText().length() ==0 || address.length()==0 ||
-        pincode.getText().toString().length()==0 ||subhurb.getText().toString().length()==0 ||network.isEmpty()
-        || simserial.getText().length()==0 || idnum.getText().length()==0){
-            Toast.makeText(this,"Enter required fields",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            simallocation(simserial.getText().toString(),network,idnum.getText().toString(),fname.getText().toString(),lname.getText().toString(),
-                    address.getText().toString(),pincode.getText().toString(),subhurb.getText().toString(),city.getText().toString());
-        }
     }
 
     private void simallocation(String serial, String network, String idnum, String fname, String lname, String address, String postalcode, String subhurb, String city) {
 
-        Web_Interface webInterface = Ret.getClient().create(Web_Interface.class);
+        Web_Interface webInterface = RetrofitToken.getClient().create(Web_Interface.class);
         try {
             JSONObject paramObject = new JSONObject();
             paramObject.put("serial",serial );
@@ -146,7 +202,7 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
             paramObject.put("type",type);
             Log.d("simalloacte data",serial+"\n"+network +"\n" +idnum+"\n"+fname+"\n"+lname +"\n" +address +"\n" +postalcode +"\n" +subhurb +"\n" +city);
             RequestBody body = RequestBody.create(MediaType.parse("application/json"),(paramObject).toString());
-            Call<Simallocatemodel> call= webInterface.simallocate(body, RetrofitToken.token);
+            Call<Simallocatemodel> call= webInterface.simallocate(body);
             //exeuting the service
             call.enqueue(new Callback<Simallocatemodel>() {
                 @Override
@@ -156,8 +212,9 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
                         String success = response.body().getSuccess().toString();
                         if(success.equals("true"))
                         {
+                            db.serialsInterface().deleteSerials(serial) ;
                             Toasty.success(getApplicationContext(),message).show();
-                            Pref.setBatchID(MyApp.getContext(),city);
+                            Pref.setCity(MyApp.getContext(),city);
                             Intent intent = new Intent(Sim_allocation.this, Agent_Mainactivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -219,4 +276,59 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-}
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(searchView.getQuery().length() == 0)
+        {
+            listViewsearchserials.setVisibility(View.GONE);
+            agentscanbtn.setVisibility(View.VISIBLE);
+        }
+        //arrayAdapterstring.getFilter().filter(newText);
+        else
+        {
+            listViewsearchserials.setVisibility(View.VISIBLE);
+            agentscanbtn.setVisibility(View.GONE);
+            String text = "%" + newText + "%";
+            serialsList = db.serialsInterface().serialscount(text);
+            serialsAdapter = new SerialsAdapter(this, R.layout.searchview_layout, serialsList);
+            serialsAdapter.notifyDataSetChanged();
+            listViewsearchserials.setAdapter(serialsAdapter);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String batchvalue = serialsList.get(position).getSerials();
+        //String batchvalue = parent.getItemAtPosition(position).toString();
+        Log.d("onItemClick: ",batchvalue);
+        searchView.setQuery(batchvalue,false);
+        listViewsearchserials.setVisibility(View.GONE);
+        agentscanbtn.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ZxingOrientResult result = ZxingOrient.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Log.i("SMW", "Cancelled scan");
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                Log.i("SMW", "Scanned");
+                mResult = result.getContents();
+                searchView.setQuery(mResult,false);
+                //Log.d(TAG, "onActivityResult: result"+ListElementsArrayList);
+                }
+
+            }
+
+        }
+    }

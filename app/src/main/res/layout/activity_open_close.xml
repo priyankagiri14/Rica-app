@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.tms.ontrack.mobile.OpenCloseBatches.OpenCloseActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -104,7 +105,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/agentbutton"
         android:textColor="@color/white"
-        android:text="Continue to Start"
+        android:text="Start"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_15sdp"

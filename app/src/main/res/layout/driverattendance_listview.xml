@@ -238,6 +238,17 @@
                  />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/noagents"
+            android:visibility="gone"
+            android:layout_below="@+id/linearlocation"
+            android:layout_marginTop="@dimen/_130sdp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Agents are Assigned to You"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/black"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

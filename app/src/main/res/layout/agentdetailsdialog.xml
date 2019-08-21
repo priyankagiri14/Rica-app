@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:weightSum="2"
+        android:id="@+id/mainlinear"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:id="@+id/lineartext"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="8">
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/nametext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Name"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/mobilenotext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mobile No."
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/emailtext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Email"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/idtext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="ID No."
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:id="@+id/linearphoto"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/profileimage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_launcher"
+            />
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_below="@id/mainlinear"
+        android:id="@+id/linearbutton"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:orientation="horizontal"
+        >
+
+
+
+        <TextView
+            android:layout_margin="@dimen/_15sdp"
+            android:id="@+id/ok"
+            android:textSize="@dimen/_15sdp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Got It!"
+            android:textColor="@color/greenontrack"/>
+    </LinearLayout>
+</RelativeLayout>

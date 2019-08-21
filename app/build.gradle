@@ -20,8 +20,8 @@ android {
         applicationId "com.tms.ontrack.mobile"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "2.1"
     }
     buildTypes {
         release {
@@ -80,7 +80,16 @@ dependencies {
 
             }
     implementation 'android.arch.persistence.room:runtime:1.1.1';
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1';
+
+    implementation 'com.mindorks.android:placeholderview:1.0.3'
+    annotationProcessor 'com.mindorks.android:placeholderview-compiler:1.0.3'
+
+    // RecyclerView dependency is added to override the
+    // default 25.4.1 RecyclerView dependency used by placeholderview.
+    // If you are using the support libraries other than 25.x in the project
+    implementation 'com.android.support:recyclerview-v7:28.0.0' // example: 27.1.0
 }
 
 android {

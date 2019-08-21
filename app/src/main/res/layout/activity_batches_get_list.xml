@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.tms.ontrack.mobile.DriverBatchesGet.BatchesGetList">
 
-    <androidx.appcompat.widget.Toolbar
+    <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -19,7 +19,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             />
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>-->
     <LinearLayout
         android:layout_below="@+id/toolbar"
         android:id="@+id/linearlayout"

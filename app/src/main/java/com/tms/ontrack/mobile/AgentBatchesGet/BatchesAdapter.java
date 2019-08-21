@@ -1,6 +1,7 @@
 package com.tms.ontrack.mobile.AgentBatchesGet;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,16 @@ public class BatchesAdapter extends ArrayAdapter {
 
         private List<Batches> batchesDataList;
         private Context mContext;
-        private int searchview_layout;
+    public static ArrayAdapter<List> arrayAdapter;
+    private int resource;
 
-        public BatchesAdapter(Context context, int resource,
+
+    public BatchesAdapter(Context context, int resource,
                                     List<Batches> batchesList) {
             super(context, resource, batchesList);
             batchesDataList = batchesList;
             mContext = context;
-            searchview_layout = resource;
+
         }
 
         @Override
@@ -42,14 +45,16 @@ public class BatchesAdapter extends ArrayAdapter {
 
             if (view == null) {
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(searchview_layout, parent, false);
+                        .inflate(R.layout.searchview_layout, parent, false);
             }
 
             Batches batches = getItem(position);
 
-            TextView dealsTv = (TextView) view.findViewById(R.id.textbatches);
+            TextView textbatches = (TextView) view.findViewById(R.id.textbatches);
             assert batches != null;
-            dealsTv.setText(batches.getBatches());
+            textbatches.setText(batches.getBatches());
+            Log.d("batchesdatalist",batchesDataList.toString());
+            //arrayAdapter.add(batchesDataList);
 
             return view;
         }

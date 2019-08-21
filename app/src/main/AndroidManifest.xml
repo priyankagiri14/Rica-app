@@ -18,8 +18,7 @@
 
     <application
         android:name=".Web_Services.MyApp"
-        android:allowBackup="true"
-        android:appComponentFactory="whateverString"
+        android:allowBackup="false"
         android:icon="@mipmap/ontrack_logo2"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -27,9 +26,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:appComponentFactory">
-        <activity android:name=".Agent.ScanBatch"></activity>
-        <activity android:name=".OpenCloseBatches.CashHistory.CashUpStatement"></activity>
+        tools:replace="android:allowBackup">
+        <activity android:name=".AgentBatchesReceived.AgentNormalBatchesReceivedList"></activity>
+        <activity android:name=".AgentReceiveBatchesTab" />
+        <activity android:name=".AgentBatchesGet.AgentNormalBatchesList" />
+        <activity
+            android:name=".AssignBatchTab"
+            android:label="@string/title_activity_assign_batch_tab"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Agent.ScanBatch" />
+        <activity android:name=".OpenCloseBatches.CashHistory.CashUpStatement" />
         <activity android:name=".OpenBatchesResponse.OpenedBatchesActivity" />
         <activity android:name=".OpenCloseBatches.OpenCloseActivity" />
         <activity android:name=".FuelMaintenence.VehicleCharge" />
@@ -42,7 +48,15 @@
         <activity android:name=".AgentsList.AgentsList" />
         <activity android:name=".AgentsGetResponse.AgentsGetList" />
         <activity android:name=".DriverBatchesGet.BatchesGetList" />
-
+        <activity android:name=".DriverBatchesGet.NormalBatchesGetList" />
+        <activity android:name=".AgentAssignBatchesTab" />
+        <activity android:name=".ReceiveBatchesTab" />
+        <activity android:name=".BatchesReceived.NormalBatchesReceivedList" />
+        <activity android:name=".WifiBundle.WifiBundle"/>
+        <activity android:name=".AirtimeSales.AirtimeSalesActivity"/>
+        <activity android:name=".DataBundle.DataBundleActivity"/>
+        <activity android:name=".AirtimeSales.AirtimeRechargeActivity"/>
+        <activity android:name=".ElectricityBundle.ElectricityBundleActivity"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_ley" />

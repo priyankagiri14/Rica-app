@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.tms.ontrack.mobile.OpenBatchesResponse.OpenedBatchesActivity">
 
 
@@ -49,7 +50,7 @@
             </RelativeLayout>
 
         <LinearLayout
-            android:background="@color/light_grey"
+            android:background="@color/white"
             android:layout_below="@+id/toolbar"
             android:id="@+id/linearlayouth"
             android:layout_width="wrap_content"
@@ -67,7 +68,7 @@
                 android:textSize="25dp"
                 />
             <LinearLayout
-                android:background="@color/light_grey"
+                android:background="@color/white"
                 android:layout_below="@+id/toolbar"
                 android:id="@+id/linearlayout2"
                 android:layout_width="wrap_content"
@@ -137,7 +138,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/agentbutton"
         android:textColor="@color/white"
-        android:text="STOP This Batch"
+        android:text="STOP"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_marginBottom="@dimen/_15sdp"

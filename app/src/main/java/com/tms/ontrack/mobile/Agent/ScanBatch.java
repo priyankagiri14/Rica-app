@@ -2,6 +2,7 @@ package com.tms.ontrack.mobile.Agent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -102,12 +103,17 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
         arraylist = Pref.getBatchArray(this);
         listViewScannedBatches= findViewById(R.id.listViewScannedBatches);
         addbtn = findViewById(R.id.addbtn);
+        addbtn.setVisibility(View.GONE);
         nobatches = findViewById(R.id.nobatches);
         nobatches.setVisibility(View.GONE);
         textbatches = findViewById(R.id.textbatches);
         listViewsearchbatches = findViewById(R.id.search_results_list);
         listViewsearchbatches.setTextFilterEnabled(true);
         searchView = findViewById(R.id.searchview);
+        searchView.setQueryHint("Search");
+        searchView.onActionViewExpanded();
+        //searchView.setFocusable(true);
+        searchView.requestFocusFromTouch();
         searchView.setOnQueryTextListener(this);
         activatebacthes.setOnClickListener(this);
         scanbtn.setOnClickListener(this);
@@ -161,7 +167,8 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
                     {
                         return;
                     }
-                    BatchesAdapter batchesAdapter = new BatchesAdapter(ScanBatch.this,R.layout.searchview_layout,strings);
+                    BatchesAdapter batc
+                    hesAdapter = new BatchesAdapter(ScanBatch.this,R.layout.searchview_layout,strings);
                     listViewsearchbatches.setAdapter(batchesAdapter);
                 }
             });
@@ -368,7 +375,7 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
     public boolean onQueryTextChange(String newText) {
         if(searchView.getQuery().length() == 0)
         {
-                nobatches.setVisibility(View.INVISIBLE);
+                nobatches.setVisibility(View.GONE);
                 listViewsearchbatches.setVisibility(View.INVISIBLE);
                 listViewScannedBatches.setVisibility(View.VISIBLE);
                 activatebacthes.setVisibility(View.VISIBLE);
@@ -428,6 +435,11 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
                 network=cellc.getText().toString();
                 break;
         }
+    }
+
+    public void searchviewClick(View view) {
+
+        searchView.setIconified(false);
     }
 }
 

@@ -4,35 +4,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
+import com.tms.ontrack.mobile.Agent.NetworkError;
+import com.tms.ontrack.mobile.Agent.OfflineRica;
 import com.tms.ontrack.mobile.Agent_Login.Agent_Login_Activity;
 import com.tms.ontrack.mobile.AssignBatchTab;
-import com.tms.ontrack.mobile.Driver.Stock_allocate.Tab_Stock_Activity;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.CashUpStatement;
-import com.tms.ontrack.mobile.DriverBatchesGet.BatchesGetList;
-
 import com.tms.ontrack.mobile.Driver.DriverAttendance.DriverAttendance;
-
-import com.tms.ontrack.mobile.BatchesReceived.BatchesReceivedList;
-
 import com.tms.ontrack.mobile.Navigation_main.Navigation_Main;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.ReceiveBatchesTab;
+import com.tms.ontrack.mobile.RicaTab;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
+import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
+import com.veyo.autorefreshnetworkconnection.CheckNetworkConnectionHelper;
+import com.veyo.autorefreshnetworkconnection.listener.StopReceiveDisconnectedListener;
 
 import java.util.List;
-
 import info.androidhive.fontawesome.FontTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,35 +40,71 @@ import retrofit2.Response;
 public class Stocks_dashboard extends AppCompatActivity implements View.OnClickListener{
 
     FontTextView stock_allocation;
-    TextView activeliabilitiesvalue;
+    TextView activeliabilitiesvalue,nameText;
     private List<String> performance;
     Toolbar toolbar;
+    String nameString;
+    TextView textView;
     private List<String> datearray;
     public static String storeid="1",date1="2019-06-26",date2="2019-07-04";
     private SharedPreferences sharedPreferences;
-
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        View view=inflater.inflate(R.layout.stocks_dashboard, container, false);
-//        ((Driver_Dashboard) getActivity()).getSupportActionBar().setTitle("Driver Dashboard");
-//        ButterKnife.bind(this,view);
-//        //stocks_received.setOnClickListener(this);
-//        Log.d("Driver Dashboard","Driver Dashboard opens");
-//        return view;
-//
-//    }
+    CardView airtimeSales,databundle,payTv,payUtility,playLotto,Microloan, MicroInsurance,payWater,sim_activation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stocks_dashboard);
 
+        CheckNetworkConnectionHelper
+                .getInstance()
+                .registerNetworkChangeListener(new StopReceiveDisconnectedListener() {
+                    @Override
+                    public void onDisconnected() {
+                        //Do your task on Network Disconnected!
+                        Log.e("onDisconnected","Network");
+                        Intent intent = new Intent(Stocks_dashboard.this, NetworkError.class);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onNetworkConnected() {
+                        //Do your task on Network Connected!
+                        Log.d("onNetworkConnected: ","Network");
+                       /* Intent intent = new Intent(Agent_Mainactivity.this,Agent_Mainactivity.class);
+                        startActivity(intent);*/
+                    }
+
+                    @Override
+                    public Context getContext() {
+                        return Stocks_dashboard.this;
+                    }
+                });
         activeliabilitiesvalue = (TextView)findViewById(R.id.activeliabilitiesvalue);
 
-//    FontTextView assign_agent=(FontTextView)findViewById(R.id.stck);
-//        assign_agent.setOnClickListener(this);
         CardView stocks_received=(CardView)findViewById(R.id.sim_aloc);
+
+        airtimeSales=findViewById(R.id.airtimeSales);
+        databundle=findViewById(R.id.dataBundle);
+        payTv=findViewById(R.id.payTv);
+        payUtility=findViewById(R.id.payUtility);
+        playLotto=findViewById(R.id.playLotto);
+        Microloan=findViewById(R.id.microLoan);
+        MicroInsurance=findViewById(R.id.microInsurance1);
+        payWater = findViewById(R.id.payWater);
+        sim_activation = findViewById(R.id.sim_activation);
+        textView = findViewById(R.id.uhlPrompt);
+        nameText = findViewById(R.id.nametext);
+
+        sim_activation.setOnClickListener(this);
+        airtimeSales.setOnClickListener(this);
+        databundle.setOnClickListener(this);
+        payTv.setOnClickListener(this);
+        payUtility.setOnClickListener(this);
+        playLotto.setOnClickListener(this);
+        Microloan.setOnClickListener(this);
+        MicroInsurance.setOnClickListener(this);
+        payWater.setOnClickListener(this);
 
         CardView attendance=(CardView)findViewById(R.id.Attendance);
         CardView cashHistory = (CardView)findViewById(R.id.cashupHistory);
@@ -78,38 +112,73 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
         stocks_received.setOnClickListener(this);
         attendance.setOnClickListener(this);
         toolbar=findViewById(R.id.toolbar);
+/*
 
+        new UpdateHandler.Builder(this)
+                .setContent("New Version Found")
+                .setTitle("Update Found")
+                .setUpdateText("Update!")
+                .setCancelable(false)
+                .showDefaultAlert(true)
+                .showWhatsNew(true)
+                .setCheckerCount(2)
+                .setOnUpdateFoundLister(new UpdateHandler.Builder.UpdateListener() {
+                    @Override
+                    public void onUpdateFound(boolean newVersion, String whatsNew) {
+                        textView.setText(textView.getText() + "\n\nUpdate Found : " + newVersion + "\n\nWhat's New\n" + whatsNew);
+                    }
+                })
+                .setOnUpdateClickLister(new UpdateHandler.Builder.UpdateClickListener() {
+                    @Override
+                    public void onUpdateClick(boolean newVersion, String whatsNew) {
+*/
+/*                        Log.v("onUpdateClick", String.valueOf(newVersion));
+                        Log.v("onUpdateClick", whatsNew);*//*
+
+                        Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.tms.ontrack.mobile"));
+                        startActivity(intent);
+                    }
+                })
+                .build();
+*/
 
         CardView stocks_allcoated=(CardView)findViewById(R.id.stockReceived);
+        nameString = Pref.getFirstName(this);
         stocks_received.setOnClickListener(this);
         stocks_allcoated.setOnClickListener(this);
         valueWallet();
-        toolbar.setTitle("Driver Dashboard");
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        nameText.setText(nameString);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
 
                 if (menuItem.getItemId() == R.id.logout) {
 
-                        sharedPreferences=getSharedPreferences("Driver", Context.MODE_PRIVATE);
-                      if(sharedPreferences.contains("Driver")) {
-                          SharedPreferences.Editor editor = sharedPreferences.edit();
-                          editor.clear();
-                          editor.apply();
-                          Intent i = new Intent(Stocks_dashboard.this, Navigation_Main.class);
-                          i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                          startActivity(i);
-                          finish();
+                    sharedPreferences = getSharedPreferences("Driver", Context.MODE_PRIVATE);
+                    if (sharedPreferences.contains("Driver")) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+                        Intent i = new Intent(Stocks_dashboard.this, Navigation_Main.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
 
-                      }
-
-
-
+                    }
                 }
+                    if(menuItem.getItemId() == R.id.bulkrica)
+                    {
+                        Log.d("StocksDash", "onOptionsItemSelected:bulk ");
+                        Intent intent = new Intent(Stocks_dashboard.this, OfflineRica.class);
+                        startActivity(intent);
+                    }
+
                 return false;
             }
         });
+
 
     }
 
@@ -127,7 +196,6 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<ValueWalletResponse> call, Throwable t) {
-                Toast.makeText(Stocks_dashboard.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -135,7 +203,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.driver_logout_menu, menu);
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
         return true;
     }
 
@@ -146,6 +214,11 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
             case R.id.logout:
                 Intent i=new Intent(this, Agent_Login_Activity.class);
                 startActivity(i);
+                finish();
+                break;
+            case R.id.bulkrica:
+                Intent intent = new Intent(this, OfflineRica.class);
+                startActivity(intent);
                 finish();
                 break;
             default:
@@ -178,6 +251,52 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
         if(v.getId()==R.id.cashupHistory)
         {
             Intent intent = new Intent(Stocks_dashboard.this, CashUpStatement.class);
+            startActivity(intent);
+        }
+
+        else if(v.getId() == R.id.airtimeSales)
+        {
+            /*Intent intent = new Intent(this, AirtimeSalesActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.dataBundle)
+        {
+/*            Intent intent = new Intent(this, DataBundleActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.payTv)
+        {
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.payUtility)
+        {
+/*            Intent intent = new Intent(this, ElectricityBundleActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.playLotto)
+        {
+/*            Intent intent = new Intent(this, WifiBundle.class);
+            startActivity(intent);*/
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.microLoan)
+        {
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.microInsurance1)
+        {
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.payWater)
+        {
+            Toast.makeText(Stocks_dashboard.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
+        else if(v.getId() == R.id.sim_activation)
+        {
+            Intent intent = new Intent(Stocks_dashboard.this, RicaTab.class);
             startActivity(intent);
         }
 

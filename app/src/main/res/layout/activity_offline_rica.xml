@@ -3,22 +3,23 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<!--    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/greenontrack">
+        android:layout_height="wrap_content"
+        android:background="@color/greenontrack"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sim Activation"
+            android:text="Offline Sim Activation"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            />
-    </Toolbar>-->
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <LinearLayout
             android:background="@color/white"
@@ -130,15 +131,15 @@
                         android:textColor="@color/white"
                         />
                 </LinearLayout>
-                    <ListView
-                        android:layout_below="@+id/linearedittext"
-                        android:dividerHeight="1dp"
-                        android:visibility="gone"
-                        android:headerDividersEnabled="true"
-                        android:footerDividersEnabled="true"
-                        android:id="@+id/agent_search_results_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                <ListView
+                    android:layout_below="@+id/linearedittext"
+                    android:dividerHeight="1dp"
+                    android:visibility="gone"
+                    android:headerDividersEnabled="true"
+                    android:footerDividersEnabled="true"
+                    android:id="@+id/agent_search_results_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -186,32 +187,32 @@
                         android:orientation="horizontal"
                         android:weightSum="4"
                         >
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:id="@+id/vodacom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Vodacom" />
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/vodacom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vodacom" />
 
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:id="@+id/cellc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CellC" />
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/cellc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CellC" />
 
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:id="@+id/telkom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Telkom" />
-                    <RadioButton
-                        android:layout_weight="1"
-                        android:id="@+id/mtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="MTN" />
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/telkom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Telkom" />
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/mtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MTN" />
 
                     </LinearLayout>
                 </RadioGroup>
@@ -231,15 +232,15 @@
                         android:text="Region"
                         android:textSize="@dimen/_12sdp"
                         android:textColor="@color/greenontrack"/>
-                <Spinner
-                    android:id="@+id/regionspinner"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/region_spinner">
+                    <Spinner
+                        android:id="@+id/regionspinner"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/region_spinner">
 
-                </Spinner>
+                    </Spinner>
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -294,14 +295,14 @@
                     android:id="@+id/tvcity"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:textColorHint="@color/greenontrack">
-                <EditText
-                    android:hint="City"
-                    android:id="@+id/city"
-                    android:textColor="@color/greenontrack"
-                    android:textSize="@dimen/_12sdp"
-                    android:gravity="left"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <EditText
+                        android:hint="City"
+                        android:id="@+id/city"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

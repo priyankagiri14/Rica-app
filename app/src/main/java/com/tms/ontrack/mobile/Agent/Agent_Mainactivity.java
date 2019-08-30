@@ -7,18 +7,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceConfirmResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceGetResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.Body;
@@ -28,6 +29,7 @@ import com.tms.ontrack.mobile.AgentBatchesGet.AppDatabase;
 import com.tms.ontrack.mobile.AgentBatchesGet.Batches;
 import com.tms.ontrack.mobile.AgentBatchesGet.BatchesAdapter;
 import com.tms.ontrack.mobile.AgentBatchesReceived.AgentBatchesReceived;
+import com.tms.ontrack.mobile.AgentBatchesReceived.AgentNormalBatchesReceivedList;
 import com.tms.ontrack.mobile.AgentReceiveBatchesTab;
 import com.tms.ontrack.mobile.AirtimeSales.AirtimeSalesActivity;
 import com.tms.ontrack.mobile.DataBundle.DataBundleActivity;
@@ -35,17 +37,17 @@ import com.tms.ontrack.mobile.ElectricityBundle.ElectricityBundleActivity;
 import com.tms.ontrack.mobile.Navigation_main.Navigation_Main;
 import com.tms.ontrack.mobile.OpenBatchesResponse.OpenedBatchesActivity;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.RicaTab;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 import com.tms.ontrack.mobile.WifiBundle.WifiBundle;
-
+import com.veyo.autorefreshnetworkconnection.CheckNetworkConnectionHelper;
+import com.veyo.autorefreshnetworkconnection.listener.StopReceiveDisconnectedListener;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import fr.arnaudguyon.perm.Perm;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -55,38 +57,70 @@ import retrofit2.Response;
 
 public class Agent_Mainactivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cardView1,cardView2,cardView3,cardView4,cardView5,cardView6,cardView7,cardView8,cardView9,cardView10,cardviewAttendance,airtimeSales,payWater;
+    CardView cardView1, cardView2, cardView3, cardView4, cardView5, cardView6, cardView7, cardView8, cardView9, cardView10, cardviewAttendance, airtimeSales, payWater;
 
     Toolbar toolbar;
+
     int id;
-    String batchid;
+    String batchid,nameString;
     private SharedPreferences sharedPreferences;
     private AppDatabase db;
     Perm perm;
     private static final int PERMISSIONS_REQUEST = 1;
     private static final String PERMISSIONS[] = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.CAMERA};
 
+    TextView textView,nameText;
 
     public static BatchesAdapter batchesAdapter;
     public static List<Batches> batcheslist = new ArrayList<>();
     ProgressDialog progressDialog;
+
     public void onCreate(Bundle savedInstancestate) {
 
         super.onCreate(savedInstancestate);
         setContentView(R.layout.agent_mainactivity);
+
+
+        /*CheckNetworkConnectionHelper
+                .getInstance()
+                .registerNetworkChangeListener(new StopReceiveDisconnectedListener() {
+                    @Override
+                    public void onDisconnected() {
+                        //Do your task on Network Disconnected!
+                        Log.e("onDisconnected","Network");
+                        Intent intent = new Intent(Agent_Mainactivity.this,NetworkError.class);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onNetworkConnected() {
+                        //Do your task on Network Connected!
+                        Log.d("onNetworkConnected: ","Network");
+                       *//* Intent intent = new Intent(Agent_Mainactivity.this,Agent_Mainactivity.class);
+                        startActivity(intent);*//*
+                    }
+
+                    @Override
+                    public Context getContext() {
+                        return Agent_Mainactivity.this;
+                    }
+                });*/
         cardView1 = findViewById(R.id.checkStock);
         cardView2 = findViewById(R.id.Callagent);
-        cardView3=findViewById(R.id.sim_activation);
-        cardView4=findViewById(R.id.airtimeSales);
-        cardView5=findViewById(R.id.dataBundle);
-        cardView6=findViewById(R.id.payTv);
-        cardView7=findViewById(R.id.payUtility);
-        cardView8=findViewById(R.id.playLotto);
-        cardView9=findViewById(R.id.microLoan);
-        cardView10=findViewById(R.id.microInsurance1);
+        cardView3 = findViewById(R.id.sim_activation);
+        cardView4 = findViewById(R.id.airtimeSales);
+        cardView5 = findViewById(R.id.dataBundle);
+        cardView6 = findViewById(R.id.payTv);
+        cardView7 = findViewById(R.id.payUtility);
+        cardView8 = findViewById(R.id.playLotto);
+        cardView9 = findViewById(R.id.microLoan);
+        cardView10 = findViewById(R.id.microInsurance1);
         cardviewAttendance = findViewById(R.id.attendanceacpt);
         airtimeSales = findViewById(R.id.activebatches);
         payWater = findViewById(R.id.payWater);
+        textView = findViewById(R.id.uhlPrompt);
+
         cardView1.setOnClickListener(this);
         cardView2.setOnClickListener(this);
         cardView3.setOnClickListener(this);
@@ -100,19 +134,20 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         payWater.setOnClickListener(this);
         cardviewAttendance.setOnClickListener(this);
         airtimeSales.setOnClickListener(this);
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
-        toolbar=findViewById(R.id.toolbar);
-        toolbar.setTitle("Agent Dashboard");
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        if(Pref.getBatchID(this) == null)
-        {
+        nameText = findViewById(R.id.nametext);
+
+        if (Pref.getBatchID(this) == null) {
             batchid = "";
+        } else {
+            batchid = Pref.getBatchID(this);
         }
-        else
-            {
-                batchid = Pref.getBatchID(this);
-            }
+        nameString = Pref.getFirstName(this);
+        nameText.setText(nameString);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -130,22 +165,27 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                         finish();
                     }
                 }
-                if(menuItem.getItemId() == R.id.bulkrica)
-                {
-                    Intent intent = new Intent(Agent_Mainactivity.this, ScanBatch.class);
+                if (menuItem.getItemId() == R.id.bulkrica) {
+                    Intent intent = new Intent(Agent_Mainactivity.this, OfflineRica.class);
                     startActivity(intent);
                 }
                 return false;
-    }
-});
+            }
+        });
         perm = new Perm(this, PERMISSIONS);
         if (perm.areGranted()) {
             //   Toast.makeText(this, "All Permissions granted", Toast.LENGTH_LONG).show();
         } else {
             perm.askPermissions(PERMISSIONS_REQUEST);
         }
-    }
 
+}
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -163,7 +203,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.bulkrica:
-                Intent intent = new Intent(this,ScanBatch.class);
+                Intent intent = new Intent(this,OfflineRica.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -179,7 +219,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
             startActivity(i);
         }
         else if(v.getId()==R.id.sim_activation){
-            Intent intent=new Intent(this,Sim_allocation.class);
+            Intent intent=new Intent(this, RicaTab.class);
             startActivity(intent);
 
         }
@@ -197,25 +237,33 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         }
         else if(v.getId() == R.id.airtimeSales)
         {
-            Intent intent = new Intent(this, AirtimeSalesActivity.class);
-            startActivity(intent);
+           /* Intent intent = new Intent(this, AirtimeSalesActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+
         }
         else if(v.getId() == R.id.dataBundle)
         {
-            Intent intent = new Intent(this, DataBundleActivity.class);
-            startActivity(intent);        }
+/*            Intent intent = new Intent(this, DataBundleActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
         else if(v.getId() == R.id.payTv)
         {
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
         }
         else if(v.getId() == R.id.payUtility)
         {
-            Intent intent = new Intent(this, ElectricityBundleActivity.class);
-            startActivity(intent);        }
+          /*  Intent intent = new Intent(this, ElectricityBundleActivity.class);
+            startActivity(intent);*/
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
         else if(v.getId() == R.id.playLotto)
         {
-            Intent intent = new Intent(this, WifiBundle.class);
-            startActivity(intent);        }
+ /*           Intent intent = new Intent(this, WifiBundle.class);
+            startActivity(intent);*/
+            Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
+        }
         else if(v.getId() == R.id.microLoan)
         {
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();

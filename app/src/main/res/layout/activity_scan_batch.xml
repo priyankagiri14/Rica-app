@@ -1,439 +1,376 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tms.ontrack.mobile.Agent.ScanBatch">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/greenontrack"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RICA Batch"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"/>
-
-<!--        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/ic_right_arrow"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />-->
-
-        <!--<info.androidhive.fontawesome.FontTextView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:id="@+id/scanbatch"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:padding="10dp"
-            android:text="@string/fa_barcode_solid"
-            android:textColor="@color/white"
-            android:textSize="40dp"
-            app:solid_icon="true"
-            android:layout_alignParentRight="true"
-            />-->
-
-    </androidx.appcompat.widget.Toolbar>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--        <Toolbar
+            android:visibility="gone"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/greenontrack">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sim Activation"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                />
+        </Toolbar>-->
 
     <ScrollView android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:id="@+id/linearTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvHowManyPersons"
-        android:textColorHint="@color/greenontrack">
-
-        <EditText
-            android:backgroundTint="@color/greenontrack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="First Name"
-            android:id="@+id/firstname"
-            android:textColor="#000"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvHowManyActivations"
-        android:textColorHint="@color/greenontrack">
-
-        <EditText
-            android:backgroundTint="@color/greenontrack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Last Name"
-            android:id="@+id/lastname"
-            android:textColor="#000"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
-
         <LinearLayout
-            android:padding="10dp"
-            android:id="@+id/linearedittext"
+            android:background="@color/white"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical"
+            android:id="@+id/linearTextView"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            android:layout_below="@+id/city"
-            android:layout_marginTop="@dimen/_10sdp">
-
-            <SearchView
-
-                android:id="@+id/searchview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@color/white">
-                <requestFocus/>
-            </SearchView>
-
-
-
-            <!--<EditText
-                android:layout_weight="3"
-                android:id="@+id/cellnumber"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_border_et"
-                android:layout_marginBottom="10dp"
-                android:hint="Search Here"
-                android:inputType="number"
-                android:padding="10dp"
-                android:singleLine="true"
-                />-->
-            <Button
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:id="@+id/scanbtn"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:text="Scan"
-                android:background="@color/greenontrack"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/white"
-                />
-
-            <Button
-                android:visibility="gone"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:id="@+id/addbtn"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:text="Add"
-                android:background="@color/greenontrack"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/white"
-                />
-
-
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/linearedittext">
-            <ListView
-                android:dividerHeight="1dp"
-                android:visibility="gone"
-                android:headerDividersEnabled="true"
-                android:footerDividersEnabled="true"
-                android:id="@+id/search_results_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/nobatches"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No Batches Found!"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:gravity="center_horizontal"/>
+            android:layout_height="match_parent">
             <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ListView
-                    android:nestedScrollingEnabled="true"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/listViewScannedBatches"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:weightSum="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
-                </ListView>
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHowManyPersons"
+                        android:textColorHint="@color/greenontrack">
+
+                        <EditText
+                            android:backgroundTint="@color/greenontrack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="First Name"
+                            android:id="@+id/firstname"
+                            android:textColor="#000"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHowManyActivations"
+                        android:textColorHint="@color/greenontrack">
+
+                        <EditText
+                            android:backgroundTint="@color/greenontrack"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Last Name"
+                            android:id="@+id/lastname"
+                            android:textColor="#000"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:id="@+id/linearedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:layout_below="@+id/city"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <SearchView
+
+                        android:id="@+id/searchview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@color/white">
+                        <requestFocus/>
+                    </SearchView>
+
+
+
+                    <!--<EditText
+                        android:layout_weight="3"
+                        android:id="@+id/cellnumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_border_et"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Search Here"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:singleLine="true"
+                        />-->
+                    <Button
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:id="@+id/scanbtn"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:text="Scan"
+                        android:background="@color/greenontrack"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        />
+
+                    <Button
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:id="@+id/addbtn"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:text="Add"
+                        android:background="@color/greenontrack"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        />
+
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/linearedittext">
+                    <ListView
+                        android:dividerHeight="1dp"
+                        android:visibility="gone"
+                        android:headerDividersEnabled="true"
+                        android:footerDividersEnabled="true"
+                        android:id="@+id/search_results_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/nobatches"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No Batches Found!"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        android:gravity="center_horizontal"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ListView
+                            android:nestedScrollingEnabled="true"
+                            android:visibility="gone"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/listViewScannedBatches"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                        </ListView>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCustomerEmail"
+                    android:visibility="visible"
+                    android:textColorHint="@color/greenontrack">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Id Number"
+                        android:id="@+id/idnum"
+                        android:textColor="#000"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <!-- Age Group -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvNerk"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/greenontrack">
+                    <TextView
+                        android:textColor="@color/greenontrack"
+                        android:text="Network"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RadioGroup
+                    style="@style/MyRadioButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/netwrokrg"
+                    android:layout_gravity="center_horizontal">
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4"
+                        >
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/vodacom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vodacom" />
+
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/cellc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CellC" />
+
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/telkom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Telkom" />
+                        <RadioButton
+                            android:layout_weight="1"
+                            android:id="@+id/mtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MTN" />
+
+                    </LinearLayout>
+                </RadioGroup>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="15dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Region"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/greenontrack"/>
+                    <Spinner
+                        android:id="@+id/regionspinner1"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/region_spinner">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvaddress"
+                    android:textColorHint="@color/greenontrack">
+                    <EditText
+                        android:hint="Address"
+                        android:id="@+id/address"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvpostalcode"
+                    android:textColorHint="@color/greenontrack">
+                    <EditText
+                        android:hint="Postal Code"
+                        android:id="@+id/postal_code"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvsubhurb"
+                    android:textColorHint="@color/greenontrack">
+                    <EditText
+                        android:hint="Sub Urb"
+                        android:id="@+id/subhurb"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvcity"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:textColorHint="@color/greenontrack">
+                    <EditText
+                        android:hint="City"
+                        android:id="@+id/city"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/activatebacthes"
+                    android:layout_marginBottom="@dimen/_25sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bt_bg"
+                    android:text="Activate Batches"
+                    android:textColor="@color/greenontrack"
+                    android:gravity="center_horizontal"/>
+
             </LinearLayout>
-        </RelativeLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvCustomerEmail"
-            android:visibility="visible"
-            android:textColorHint="@color/greenontrack">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Id Number"
-                android:id="@+id/idnum"
-                android:textColor="#000"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <!-- Age Group -->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvNerk"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColorHint="@color/greenontrack">
-            <TextView
-                android:textColor="@color/greenontrack"
-                android:text="Network"
-                android:textSize="@dimen/_12sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <RadioGroup
-            style="@style/MyRadioButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/netwrokrg"
-            android:layout_gravity="center_horizontal">
-
-            <RadioButton
-                android:id="@+id/vodacom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Vodacom" />
-
-            <RadioButton
-                android:id="@+id/cellc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CellC" />
-
-            <RadioButton
-                android:id="@+id/telkom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Telkom" />
-            <RadioButton
-                android:id="@+id/mtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MTN" />
-
-        </RadioGroup>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginTop="15dp">
-            <TextView
-                android:layout_weight="1"
-                android:gravity="left"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Region"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/greenontrack"/>
-            <Spinner
-                android:id="@+id/regionspinner1"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/region_spinner">
-
-            </Spinner>
         </LinearLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvaddress"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColorHint="@color/greenontrack">
-            <TextView
-                android:textColor="@color/greenontrack"
-                android:text="Address"
-                android:textSize="@dimen/_12sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <EditText
-            android:id="@+id/address"
-            android:textColor="@color/greenontrack"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvpostalcode"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColorHint="@color/greenontrack">
-            <TextView
-                android:textColor="@color/greenontrack"
-                android:text="Postal Code"
-                android:textSize="@dimen/_12sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <EditText
-            android:id="@+id/postal_code"
-            android:textColor="@color/greenontrack"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="left"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvsubhurb"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColorHint="@color/greenontrack">
-            <TextView
-                android:textColor="@color/greenontrack"
-                android:text="Sub-Urb"
-                android:inputType="textPersonName"
-                android:textSize="@dimen/_12sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <EditText
-            android:id="@+id/subhurb"
-            android:textColor="@color/greenontrack"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvcity"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColorHint="@color/greenontrack">
-            <TextView
-                android:textColor="@color/greenontrack"
-                android:text="City"
-                android:inputType="textPersonName"
-                android:textSize="@dimen/_12sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <EditText
-            android:id="@+id/city"
-            android:textColor="@color/greenontrack"
-            android:textSize="@dimen/_12sdp"
-            android:gravity="left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-
-        <Button
-            android:id="@+id/activatebacthes"
-            android:layout_marginBottom="@dimen/_25sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:padding="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bt_bg"
-            android:text="Activate Batches"
-            android:textColor="@color/greenontrack"
-            android:gravity="center_horizontal"/>
-
-
-
-    </LinearLayout>
-    </LinearLayout>
     </ScrollView>
-    <!--<LinearLayout
-        android:padding="10dp"
-        android:id="@+id/linearSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:weightSum="2"
-        android:layout_below="@+id/linearTextView"
-        android:layout_marginTop="@dimen/_20sdp">
-        <TextView
-            android:layout_weight="1"
-            android:gravity="left"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Region"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/greenontrack"/>
-
-
-        </Spinner>
-    </LinearLayout>-->
-
-
-<!--    <Button
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bt_bg"
-        android:text="Activate Batches"
-        android:textColor="@color/greenontrack"
-        android:id="@+id/activatebacthes"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/_25sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
 </RelativeLayout>
+
+
+
+
+
+
+

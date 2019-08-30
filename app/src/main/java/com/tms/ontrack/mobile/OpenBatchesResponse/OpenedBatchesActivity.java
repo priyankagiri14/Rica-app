@@ -241,7 +241,7 @@ public class OpenedBatchesActivity extends AppCompatActivity implements View.OnC
                         public void onClick(DialogInterface dialog, int which) {
 
 
-                            if (status_success == listsize) {
+//                            if (status_success == listsize) {
                                 String status = "stop";
                                 Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
                                 try {
@@ -251,7 +251,7 @@ public class OpenedBatchesActivity extends AppCompatActivity implements View.OnC
 
                                     RequestBody body = RequestBody.create(MediaType.parse("application/json"), (paramObject).toString());
 
-                                    Call<OpenCloseResponse> openCloseActivityCall = web_interface.requestOpenClose(latitude,longitude,status, body);
+                                    Call<OpenCloseResponse> openCloseActivityCall = web_interface.requestOpenClose(latitude, longitude, status, body);
                                     openCloseActivityCall.enqueue(new Callback<OpenCloseResponse>() {
                                         @Override
                                         public void onResponse(Call<OpenCloseResponse> call, Response<OpenCloseResponse> response) {
@@ -275,17 +275,18 @@ public class OpenedBatchesActivity extends AppCompatActivity implements View.OnC
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            } else {
-                                progressBar.cancel();
-                                AlertDialog alertDialog = new AlertDialog.Builder(OpenedBatchesActivity.this).create();
-                                alertDialog.setMessage("Please Sell all the Sims before Stop this Batch..");
-                                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Got It!", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        alertDialog.cancel();
-                                    }
-                                });
-                                alertDialog.show();                            }
+//                            }
+//                             else {
+//                                progressBar.cancel();
+//                                AlertDialog alertDialog = new AlertDialog.Builder(OpenedBatchesActivity.this).create();
+//                                alertDialog.setMessage("Please Sell all the Sims before Stop this Batch..");
+//                                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Got It!", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        alertDialog.cancel();
+//                                    }
+//                                });
+//                                alertDialog.show();                            }
                         }
                     });
                     alertDialog1.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {

@@ -14,14 +14,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
+import com.tms.ontrack.mobile.Agent.Sim_allocation;
 import com.tms.ontrack.mobile.CredentialsCheck.CredentailsCheckResponse;
 import com.tms.ontrack.mobile.Driver.Driver_Dashboard.Stocks_dashboard;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.RicaTab;
 import com.tms.ontrack.mobile.Web_Services.MyApp;
 import com.tms.ontrack.mobile.Web_Services.RetrofitClient;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
+import com.veyo.autorefreshnetworkconnection.CheckNetworkConnectionHelper;
+import com.veyo.autorefreshnetworkconnection.listener.StopReceiveDisconnectedListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +52,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent__login_);
 
+
         cellid = (EditText)findViewById(R.id.cellnumber);
         password = (EditText)findViewById(R.id.password);
         login = (Button)findViewById(R.id.btnLogin);
@@ -55,6 +60,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
         aSharedPreferences = getSharedPreferences("Agent",Context.MODE_PRIVATE);
 
         if(mSharedPreferences.contains(DRIVER)){
+
             Intent intent = new Intent(Agent_Login_Activity.this, Stocks_dashboard.class);
             startActivity(intent);
             finish();
@@ -83,6 +89,32 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                     }
                 }
         });
+    }
+
+    private void networkCheck() {
+
+        CheckNetworkConnectionHelper
+                .getInstance()
+                .registerNetworkChangeListener(new StopReceiveDisconnectedListener() {
+                    @Override
+                    public void onDisconnected() {
+                        Log.d("onDisconnected: ","Network Disconnected");
+                        Intent intent = new Intent(Agent_Login_Activity.this, RicaTab.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onNetworkConnected() {
+                        //Do your task on Network Connected!
+                        Log.e("onConnected","Network Connected");
+
+                    }
+
+                    @Override
+                    public Context getContext() {
+                        return Agent_Login_Activity.this;
+                    }
+                });
     }
 
     private void agentlogin(String cellid, String password) {
@@ -160,6 +192,11 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                 if (response.isSuccessful() && response.code() == 200) {
                     if (response.body() != null) {
                         String authority = response.body().getBody().getAuthority().getAuthority();
+                        String firstName = response.body().getBody().getFirstName();
+                        if(!firstName.equals("null"))
+                        {
+                            Pref.putFirstName(MyApp.getContext(),firstName);
+                        }
                         if(authority.equals("ADMIN"))
                         {
                             progressBar.cancel();

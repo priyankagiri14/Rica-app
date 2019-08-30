@@ -15,9 +15,18 @@
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agent Dashboard"
+            android:text="Agent- "
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/nametext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
             android:textColor="@color/white"
             android:textSize="20sp"
             />
@@ -210,6 +219,14 @@
                     <!-- summary card view -->
 
                 </LinearLayout>
+                <TextView
+                    android:text="@string/update_handler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/uhlPrompt"
+                    android:textColor="@color/black"/>
                 <LinearLayout
                     android:layout_below="@+id/linear1"
                     android:id="@+id/linearacpt"
@@ -652,7 +669,7 @@
                                 android:background="@drawable/cerclebackgroundgreenontrack"
                                 app:solid_icon="true"
                                 android:padding="10dp"
-                                android:text="@string/fa_money_bill_alt"
+                                android:text="@string/fa_wifi_solid"
                                 android:textColor="@color/golder_color"
                                 android:textSize="28dp"
                                 android:gravity="center"/>
@@ -661,7 +678,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="Play Lotto"
+                                android:text="Pay Wi-Fi"
                                 android:textColor="#000000"
                                 android:textStyle="bold" />
 

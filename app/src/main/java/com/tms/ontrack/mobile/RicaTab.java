@@ -9,18 +9,16 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.tms.ontrack.mobile.AgentBatchesReceived.AgentBatchesReceived;
-import com.tms.ontrack.mobile.AgentBatchesReceived.AgentNormalBatchesReceivedList;
+import com.tms.ontrack.mobile.Agent.ScanBatch;
+import com.tms.ontrack.mobile.Agent.Sim_allocation;
 
-public class AgentReceiveBatchesTab extends TabActivity {
+public class RicaTab extends TabActivity {
 
-    private TextView tabtext;
-    String driver="DRIVER";
-
+    TextView tabtext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agent_receive_batches_tab);
+        setContentView(R.layout.activity_rica_tab);
 
         tabtext=findViewById(R.id.tab_tv_title);
 
@@ -29,16 +27,19 @@ public class AgentReceiveBatchesTab extends TabActivity {
         Intent intent;
 
         spec=tabHost.newTabSpec("Boxno");
-        spec.setIndicator("Normal Sims");
-        intent=new Intent(this, AgentNormalBatchesReceivedList.class);
+        spec.setIndicator("RICA");
+        intent=new Intent(this, Sim_allocation.class);
         spec.setContent(intent);
         tabHost.addTab(spec);
 
+
         spec=tabHost.newTabSpec("Pending stock");
-        spec.setIndicator("Value Sims");
-        intent=new Intent(this, AgentBatchesReceived.class);
+        spec.setIndicator("RICA Batch");
+        intent=new Intent(this, ScanBatch.class);
         spec.setContent(intent);
         tabHost.addTab(spec);
+       // tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FFFFFF"));
+
 
 
 
@@ -47,7 +48,6 @@ public class AgentReceiveBatchesTab extends TabActivity {
         {
             tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#2A880D")); // unselected
             TextView tv = (TextView) tabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title); //Unselected Tabs
-            //tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#FF0000")); // unselected
             tv.setTextColor(Color.parseColor("#E5B66E"));
         }
 
@@ -67,9 +67,11 @@ public class AgentReceiveBatchesTab extends TabActivity {
                 tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#2A880D")); // selected
                 TextView tv = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
                 tv.setTextColor(Color.parseColor("#E5B66E"));
+                // display the name of the tab whenever a tab is changed
+                // Toast.makeText(getApplicationContext(), tabId, Toast.LENGTH_SHORT).show();
+
 
             }
         });
     }
 }
-

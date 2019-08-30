@@ -18,7 +18,22 @@
             android:background="@color/greenontrack"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Driver- "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                />
 
+            <TextView
+                android:id="@+id/nametext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                />
 
         </androidx.appcompat.widget.Toolbar>
 

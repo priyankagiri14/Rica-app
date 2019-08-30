@@ -14,7 +14,7 @@ public class Pref {
     public static final String BATCH_ARRAY = "batcharray";
     public static final String ALLOCATION_ID = "allocation_id";
     public static final String CITY = "city";
-
+    public static final String FNAME = "firstName";
     public static SharedPreferences getPref(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -73,5 +73,13 @@ public class Pref {
     }
     public static String getBatchArray(Context context) {
         return getPref(context).getString(BATCH_ARRAY, null);
+    }
+
+    public static void putFirstName(Context context,String firstname)
+    {
+        getPref(context).edit().putString(FNAME,firstname).commit();
+    }
+    public static String getFirstName(Context context) {
+        return getPref(context).getString(FNAME, null);
     }
 }

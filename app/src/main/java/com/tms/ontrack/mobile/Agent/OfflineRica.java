@@ -1,5 +1,9 @@
 package com.tms.ontrack.mobile.Agent;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import com.location.aravind.getlocation.GeoLocator;
 import com.tms.ontrack.mobile.Agent.model.Simallocatemodel;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.AppDatabaseSerials;
@@ -27,7 +28,6 @@ import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.SerialsAdapter;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.SerialsInterface;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.Web_Services.MyApp;
-import com.tms.ontrack.mobile.Web_Services.Ret;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
@@ -47,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Sim_allocation extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
+public class OfflineRica extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener{
 
     public EditText fname, lname, address, pincode, subhurb, simserial, idnum, city;
     public RadioGroup networkrg;
@@ -56,30 +56,33 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
     ArrayList<String> ListElementsArrayList;
     ArrayAdapter<String> adapter;
     String[] batches;
+    Toolbar toolbar;
     RadioButton vodacom, telkom, cellc, mtn;
     String network, citystring;
     String simcard = "";
     Button simallocate, agentscanbtn;
     Spinner regionspinner;
     String region;
-    String type = "ONLINE";
+    String type = "OFFLINE";
     private SearchView searchView;
     AppDatabaseSerials db;
     SerialsInterface serialsInterface;
     SerialsAdapter serialsAdapter;
     List<Serials> serialsList = new ArrayList<>();
     TextView textserials;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_offline_rica);
 
-    public void onCreate(Bundle savedInstancestate) {
-
-        super.onCreate(savedInstancestate);
-        setContentView(R.layout.simactivation);
         regionspinner = (Spinner) findViewById(R.id.regionspinner);
 
         db = Room.databaseBuilder(MyApp.getContext(), AppDatabaseSerials.class, "serials")
                 .allowMainThreadQueries()
                 .build();
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         searchView = (SearchView) findViewById(R.id.agentsearchview);
         searchView.onActionViewExpanded();
         searchView.setOnQueryTextListener(this);
@@ -124,7 +127,7 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    Toast.makeText(Sim_allocation.this, "Please Enter data for all the Fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OfflineRica.this, "Please Enter data for all the Fields", Toast.LENGTH_SHORT).show();
                 } else {
                     region = regionspinner.getSelectedItem().toString();
                 }
@@ -158,33 +161,33 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
             initiateScan();
         }
         if (v.getId() == R.id.activate_sim) {
-        if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
-                pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
-                || searchView.getQuery().length() == 0 || idnum.getText().length() == 0) {
-            Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
-        } else {
-            simallocation(searchView.getQuery().toString(), network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
-                    address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString());
+            if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                    pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                    || searchView.getQuery().length() == 0 || idnum.getText().length() == 0) {
+                Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+            } else {
+                simallocation(searchView.getQuery().toString(), network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
+                        address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString());
+            }
         }
-    }
 
-}
+    }
 
     private void addBatchValue() {
 
         String textvalue = searchView.getQuery().toString();
 
-            //adding only unique values
-            ListElementsArrayList.add(textvalue);
-            batches = new String[ListElementsArrayList.size()];
-            for (int j = 0; j < ListElementsArrayList.size(); j++) {
-                batches[j] = ListElementsArrayList.get(j);
-            }
+        //adding only unique values
+        ListElementsArrayList.add(textvalue);
+        batches = new String[ListElementsArrayList.size()];
+        for (int j = 0; j < ListElementsArrayList.size(); j++) {
+            batches[j] = ListElementsArrayList.get(j);
+        }
 
-            //Log.d(TAG, "onActivityResult: result"+ListElementsArrayList);
-            adapter.notifyDataSetChanged();
-            listViewsearchserials.setVisibility(View.GONE);
-            searchView.setQuery("",false);
+        //Log.d(TAG, "onActivityResult: result"+ListElementsArrayList);
+        adapter.notifyDataSetChanged();
+        listViewsearchserials.setVisibility(View.GONE);
+        searchView.setQuery("",false);
 
     }
 
@@ -219,7 +222,7 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
                             db.serialsInterface().deleteSerials(serial) ;
                             Toasty.success(getApplicationContext(),message).show();
                             Pref.setCity(MyApp.getContext(),city);
-                            Intent intent = new Intent(Sim_allocation.this, Agent_Mainactivity.class);
+                            Intent intent = new Intent(OfflineRica.this, Agent_Mainactivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
@@ -330,11 +333,11 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
                 mResult = result.getContents();
                 searchView.setQuery(mResult,false);
                 //Log.d(TAG, "onActivityResult: result"+ListElementsArrayList);
-                }
-
             }
 
         }
+
+    }
 
     public void searchviewClickable(View view) {
         searchView.setIconified(false);

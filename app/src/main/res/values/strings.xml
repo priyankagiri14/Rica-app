@@ -9,6 +9,7 @@
     <string name="title_activity_rica">Rica</string>
     <string name="title_activity_airtime">Airtime</string>
 
+    <string name="update_handler"></string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

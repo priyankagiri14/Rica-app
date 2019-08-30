@@ -240,42 +240,42 @@ try{
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
+        for (int j = 0; j < bodyArrayList1.size(); j++) {
 
-        Log.d("PNK", "ONCLICK");
-        Log.d("PNK", ""+v.getId());
+            if (bodyArrayList1.get(j).isIschecked()) {
+                bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
+                count++;
+                //batches[j] = bodyArrayList1.get(j).getBatchNo();
+            }
+        }
+        if (count == 0) {
+            Toast.makeText(AgentBatchesGet.this, "Please Select any Batch", Toast.LENGTH_SHORT).show();
+        } else {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(AgentBatchesGet.this).create();
-        alertDialog.setMessage("Please Confirm..?");
+            Log.d("PNK", "ONCLICK");
+            Log.d("PNK", "" + v.getId());
 
-        MyPojo myPojo1 = new MyPojo();
+            AlertDialog alertDialog = new AlertDialog.Builder(AgentBatchesGet.this).create();
+            alertDialog.setMessage("Please Confirm..?");
 
-        alertDialog.setButton(Dialog.BUTTON_POSITIVE, "RECEIVED", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
+            MyPojo myPojo1 = new MyPojo();
 
-                String stts = "RECEIVED";
-                Log.d("PNK", "Here I am");
+            alertDialog.setButton(Dialog.BUTTON_POSITIVE, "RECEIVED", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
 
-                for (int j = 0; j < bodyArrayList1.size(); j++) {
+                    String stts = "RECEIVED";
+                    Log.d("PNK", "Here I am");
 
-                    if (bodyArrayList1.get(j).isIschecked()) {
-                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                        count++;
-                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
-                    }
-                }
-                if (count == 0) {
-                    Toast.makeText(AgentBatchesGet.this, "Please Select any Batch for Receiving", Toast.LENGTH_SHORT).show();
-                } else {
+
                     String[] batches = new String[bodyArrayListbatches.size()];
                     for (int j = 0; j < bodyArrayListbatches.size(); j++) {
                         batches[j] = bodyArrayListbatches.get(j);
                         batchesdata.setBatches(bodyArrayListbatches.get(j));
                     }
                     db.batchesInterface().insertBatches(batchesdata);
-                    Log.d("onTableData: ",batchesdata.getBatches());
+                    Log.d("onTableData: ", batchesdata.getBatches());
 
 
                     /*Gson gson = new Gson();
@@ -285,7 +285,7 @@ try{
                     Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
                     myPojo1.setStatus(stts);
                     myPojo1.setBatches(batches);
-                    Call<AgentAllocationStatusResponse> callagent = web_interface.requestAgentAllocationStatus(latitude,longitude,myPojo1);
+                    Call<AgentAllocationStatusResponse> callagent = web_interface.requestAgentAllocationStatus(latitude, longitude, myPojo1);
                     //exeuting the service
                     callagent.enqueue(new Callback<AgentAllocationStatusResponse>() {
                         @Override
@@ -306,63 +306,64 @@ try{
                     });
 
                 }
-            }
-        });
-        alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "DECLINE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            });
 
-                String reason = "These Batches are assigned mistakenly";
-                String status = "DECLINED";
-                Log.d("PNK", "Here I am");
-                int size = listView.getCount();
+            alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "DECLINE", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                for (int j = 0; j < bodyArrayList1.size(); j++) {
+                    String reason = "These Batches are assigned mistakenly";
+                    String status = "DECLINED";
+                    Log.d("PNK", "Here I am");
+                    int size = listView.getCount();
 
-                    if (bodyArrayList1.get(j).isIschecked()) {
-                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-                        count++;
-                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
-                    }
-                }
-                if (count == 0) {
-                    Toast.makeText(AgentBatchesGet.this, "Please Select any Batch for Decline", Toast.LENGTH_SHORT).show();
-                } else {
-                    String[] batches = new String[bodyArrayList1.size()];
-                    for (int j = 0; j < bodyArrayListbatches.size(); j++) {
-                        batches[j] = bodyArrayListbatches.get(j);
-                    }
-                    Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-                    myPojo1.setStatus(status);
-                    myPojo1.setBatches(batches);
-                    myPojo1.setReason(reason);
-                    Call<AgentAllocationStatusResponse> callagent = web_interface.requestAgentAllocationStatus(latitude,longitude,myPojo1);
-                    //exeuting the service
-                    Log.d("agentlogin: ", callagent.toString());
-                    callagent.enqueue(new Callback<AgentAllocationStatusResponse>() {
-                        @Override
-                        public void onResponse(Call<AgentAllocationStatusResponse> call, Response<AgentAllocationStatusResponse> response) {
+                    for (int j = 0; j < bodyArrayList1.size(); j++) {
 
-                            String message = response.body().getMessage();
-                            Toast.makeText(AgentBatchesGet.this, message, Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(AgentBatchesGet.this, Agent_Mainactivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
+                        if (bodyArrayList1.get(j).isIschecked()) {
+                            bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
+                            count++;
+                            //batches[j] = bodyArrayList1.get(j).getBatchNo();
                         }
-
-                        @Override
-                        public void onFailure(Call<AgentAllocationStatusResponse> call, Throwable t) {
-                            Toast.makeText(AgentBatchesGet.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    if (count == 0) {
+                        Toast.makeText(AgentBatchesGet.this, "Please Select any Batch for Decline", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String[] batches = new String[bodyArrayList1.size()];
+                        for (int j = 0; j < bodyArrayListbatches.size(); j++) {
+                            batches[j] = bodyArrayListbatches.get(j);
                         }
-                    });
+                        Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
+                        myPojo1.setStatus(status);
+                        myPojo1.setBatches(batches);
+                        myPojo1.setReason(reason);
+                        Call<AgentAllocationStatusResponse> callagent = web_interface.requestAgentAllocationStatus(latitude, longitude, myPojo1);
+                        //exeuting the service
+                        Log.d("agentlogin: ", callagent.toString());
+                        callagent.enqueue(new Callback<AgentAllocationStatusResponse>() {
+                            @Override
+                            public void onResponse(Call<AgentAllocationStatusResponse> call, Response<AgentAllocationStatusResponse> response) {
+
+                                String message = response.body().getMessage();
+                                Toast.makeText(AgentBatchesGet.this, message, Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(AgentBatchesGet.this, Agent_Mainactivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<AgentAllocationStatusResponse> call, Throwable t) {
+                                Toast.makeText(AgentBatchesGet.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
 //
+                    }
                 }
-            }
-        });
+            });
 
-        alertDialog.show();
+            alertDialog.show();
+        }
     }
 
     @Override

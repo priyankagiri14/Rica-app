@@ -58,6 +58,14 @@
                     android:textSize="@dimen/_15sdp"/>
             </RelativeLayout>
 
+            <TextView
+                android:text="@string/update_handler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/uhlPrompt"
+                android:textColor="@color/black"/>
             <!--<TextView-->
                 <!--android:id="@+id/customer"-->
                 <!--android:layout_width="wrap_content"-->
@@ -288,7 +296,7 @@
                 android:layout_below="@id/linear1"
                 android:id="@+id/linear3"
                 android:clipToPadding="false"
-                android:weightSum="2"
+                android:weightSum="3"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -302,7 +310,7 @@
                     android:clickable="true"
                     android:id="@+id/Attendance"
                     android:layout_width="match_parent"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     >
 
                     <LinearLayout
@@ -350,8 +358,9 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:layout_weight="1"
+                    android:layout_marginRight="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="10dp"
                     android:id="@+id/cashupHistory">
 
@@ -377,6 +386,58 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="CashUp History"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:background="@color/lightgray" />-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="5dp"-->
+                        <!--android:textColor="@android:color/darker_gray"-->
+                        <!--android:text="CashUp History"-->
+                        <!--/>-->
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/sim_activation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <info.androidhive.fontawesome.FontTextView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/cerclebackgroundgreenontrack"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/fa_sim_card_solid"
+                            android:textColor="@color/golder_color"
+                            android:textSize="40dp"
+                            app:solid_icon="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="RICA"
                             android:textColor="#000000"
                             android:textStyle="bold" />
 
@@ -681,7 +742,7 @@
                             android:background="@drawable/cerclebackgroundgreenontrack"
                             app:solid_icon="true"
                             android:padding="10dp"
-                            android:text="@string/fa_money_bill_alt"
+                            android:text="@string/fa_wifi_solid"
                             android:textColor="@color/golder_color"
                             android:textSize="28dp"
                             android:gravity="center"/>
@@ -690,7 +751,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Play Lotto"
+                            android:text="Pay Wi-Fi"
                             android:textColor="#000000"
                             android:textStyle="bold" />
 

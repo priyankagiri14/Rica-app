@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
+import com.tms.ontrack.mobile.Agent.NetworkError;
 import com.tms.ontrack.mobile.Agent_Login.AgentLoginResponse;
 import com.tms.ontrack.mobile.CredentialsCheck.CredentailsCheckResponse;
 import com.tms.ontrack.mobile.Driver.Driver_Dashboard.Stocks_dashboard;
@@ -26,6 +27,8 @@ import com.tms.ontrack.mobile.Web_Services.RetrofitClient;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
+import com.veyo.autorefreshnetworkconnection.CheckNetworkConnectionHelper;
+import com.veyo.autorefreshnetworkconnection.listener.StopReceiveDisconnectedListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -61,6 +64,32 @@ public class Navigation_Main extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation__main);
+
+        CheckNetworkConnectionHelper
+                .getInstance()
+                .registerNetworkChangeListener(new StopReceiveDisconnectedListener() {
+                    @Override
+                    public void onDisconnected() {
+                        //Do your task on Network Disconnected!
+                        Log.e("onDisconnected","Network");
+                        Intent intent = new Intent(Navigation_Main.this, NetworkError.class);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onNetworkConnected() {
+                        //Do your task on Network Connected!
+                        Log.d("onNetworkConnected: ","Network");
+                       /* Intent intent = new Intent(Agent_Mainactivity.this,Agent_Mainactivity.class);
+                        startActivity(intent);*/
+                    }
+
+                    @Override
+                    public Context getContext() {
+                        return Navigation_Main.this;
+                    }
+                });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSharedPreferences = getSharedPreferences("Driver", Context.MODE_PRIVATE);
@@ -160,6 +189,11 @@ public class Navigation_Main extends AppCompatActivity
                 if (response.isSuccessful() && response.code() == 200) {
                     if (response.body() != null) {
                         String authority = response.body().getBody().getAuthority().getAuthority();
+                        String firstName = response.body().getBody().getFirstName();
+                        if(!firstName.equals("null"))
+                        {
+                            Pref.putFirstName(MyApp.getContext(),firstName);
+                        }
                         if(authority.equals("ADMIN"))
                         {
                             progressBar.cancel();

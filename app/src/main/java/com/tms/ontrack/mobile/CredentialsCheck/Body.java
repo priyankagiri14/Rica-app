@@ -10,6 +10,18 @@ public class Body {
     @SerializedName("name")
     @Expose
     private String name;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @SerializedName("firstName")
+    @Expose
+    private String firstName;
     @SerializedName("email")
     @Expose
     private String email;

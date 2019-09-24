@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +19,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
+import com.novoda.merlin.Connectable;
+import com.novoda.merlin.Disconnectable;
+import com.novoda.merlin.Merlin;
+import com.novoda.merlin.MerlinsBeard;
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.AirtimeSales.model.SmartCallAgentLogin;
 import com.tms.ontrack.mobile.AirtimeSales.model.get_all_networks.GetAllNetworksResponse;
@@ -55,10 +63,10 @@ public class AirtimeSalesActivity extends AppCompatActivity {
     private static final String TAG ="AirtimeSalesActivity" ;
     Toolbar toolbar;
     private Dialog smartCallLoginDialog;
-    private String username;
+    private String username="0tm$y$tem@dmin";
     @BindView(R.id.spinnerNetworks)
     Spinner spinnerNetworks;
-    private String password;
+    private String password="1x0n?#5FzJ^X";
     private String smartCallToken;
     Button loadingButton;
     private String message;
@@ -76,6 +84,12 @@ public class AirtimeSalesActivity extends AppCompatActivity {
     ArrayList<String>desc;
     ExpandablePlaceHolderView expandableView;
     private ProgressBar progress;
+    private ConstraintLayout constraintLayout;
+    private TextView tvNoPlanFound;
+    private Merlin merlin;
+    private LinearLayout linearNetworks;
+    private MerlinsBeard merlinsBeard;
+    private LinearLayout linearNoInternet;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -85,29 +99,73 @@ public class AirtimeSalesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         toolbar=findViewById(R.id.toolbar);
         expandableView=findViewById(R.id.expandableView);
+        linearNoInternet=findViewById(R.id.linearNoInternet);
+        merlin = new Merlin.Builder().withConnectableCallbacks().withDisconnectableCallbacks().build(this);
+        merlinsBeard = new MerlinsBeard.Builder()
+                .build(this);
         spinnerNetworks=findViewById(R.id.spinnerNetworks);
         progress=findViewById(R.id.progressBar);
+        tvNoPlanFound=findViewById(R.id.tvNotFound);
+        constraintLayout=findViewById(R.id.constraintLayout);
         linearGetProductInfo=findViewById(R.id.linearGetProductInfo);
         toolbar.setTitle("Airtime Sales");
+        linearNetworks=findViewById(R.id.linearNetworks);
+        NestedScrollView view = (NestedScrollView) findViewById(R.id.scrollView);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         sharedPreferences= getSharedPreferences("smartCallLogin", 0);
          getSavedToken=sharedPreferences.getString("smartCallToken",null);
-        if(getSavedToken!=null)
-        {
-            Log.d(TAG, "onCreate: saved token:"+getSavedToken);
-            getAllNetworks();
+        merlin.registerConnectable(new Connectable() {
+            @Override
+            public void onConnect() {
+                // Do something you haz internet!
+                linearNoInternet.setVisibility(View.GONE);
 
+                Log.d(TAG, "onConnect: conected");
+                if(linearNetworks.getVisibility()==View.VISIBLE && linearNetworks.getVisibility()==View.VISIBLE)
+                {
+                    Log.d(TAG, "onConnect: visible layout need not refresh");
+                }
+                else {
+                    Log.d(TAG, "onConnect: needs to refresh");
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                    if(getSavedToken!=null)
+                    {
+                        Log.d(TAG, "onCreate: saved token:"+getSavedToken);
+                        getAllNetworks();
+
+                    }
+                    else {
+                        Log.d(TAG, "onCreate: token:"+getSavedToken);
+                        connectToSmartCall();
+                    }
+                }
+
+            }
+        });
+
+        merlin.registerDisconnectable(() -> {
+            Log.d(TAG, "onDisconnect1: disconnected");
+            new Handler(Looper.getMainLooper()).post(new Runnable(){
+                @Override
+                public void run() {
+                    linearNoInternet.setVisibility(View.VISIBLE);
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                }
+            });
+
+        });
+       if (!merlinsBeard.isConnected()) {
+            Log.d(TAG, "onDisconnect2: disconnected");
+            linearNoInternet.setVisibility(View.VISIBLE);
         }
-        else {
-            Log.d(TAG, "onCreate: token:"+getSavedToken);
-            showDialog();
-        }
-        NestedScrollView view = (NestedScrollView) findViewById(R.id.scrollView);
         view.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
-
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -122,7 +180,18 @@ public class AirtimeSalesActivity extends AppCompatActivity {
         });
     }
 
+    private void connectToSmartCall() {
+        String up=username+":"+password;
+        //noinspection deprecation
+        byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
+        String finalEncoded=new String(encoded_username_password);
+
+        Log.d(TAG, "showDialog: username:"+finalEncoded);
+        sendLoginDataToServer(finalEncoded);
+    }
+
     private void getAllNetworks() {
+        linearNetworks.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         Log.d(TAG, "getAllNetworks: getting netwrks");
         Web_Interface webInterface= RetrofitSmartCallToken.getClient().create(Web_Interface.class);
@@ -146,15 +215,25 @@ public class AirtimeSalesActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: networksname:"+networkName+"\n"+"networkid:"+networkId);
                     setSpinnerView(networkName);
                     progress.setVisibility(View.GONE);
+                    linearNetworks.setVisibility(View.VISIBLE);
                 }
                 else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Log.d(TAG,jObjError.getString("responseDescription"));
                         message=jObjError.getString("responseDescription");
-                        Toast.makeText(AirtimeSalesActivity.this, message, Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onResponse: else");
-                        progress.setVisibility(View.GONE);
+                        if(response.code()==401)
+                        {
+                            Log.d(TAG, "onResponse: unauthorized, start authorising again");
+                           connectToSmartCall();
+                           progress.setVisibility(View.GONE);
+                        }
+                        else {
+                            Toast.makeText(AirtimeSalesActivity.this, message, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onResponse: else");
+                            progress.setVisibility(View.GONE);
+                        }
+
                         //stopping progress
                     } catch (Exception e) {
                         Log.d(TAG, "onResponse: exception:"+e.getLocalizedMessage());
@@ -208,6 +287,7 @@ public class AirtimeSalesActivity extends AppCompatActivity {
     }
 
     private void getSpecificNetworkInfo(int current_network_pos) {
+        tvNoPlanFound.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         linearGetProductInfo.setVisibility(View.GONE);
         Log.d(TAG, "getSpecificNetworkInfo: called current pos:"+current_network_pos);
@@ -235,12 +315,12 @@ public class AirtimeSalesActivity extends AppCompatActivity {
                         products=new ArrayList<>();
                         prod= productType.get(i).getProducts();
                         prod1= productType.get(i).getProducts();
-                        if(productType.get(i).getCode().contains("A") || productType.get(i).getCode().contains("V ")
+                        if(productType.get(i).getCode().contains("A")
                     ||  productType.get(i).getCode().contains("S ") || productType.get(i).getCode().contains("R ")
-                    ||productType.get(i).getCode().contains("WV") || productType.get(i).getCode().contains("HV")
+                     || productType.get(i).getCode().contains("HV")
                     ||productType.get(i).getCode().contains("PB") || productType.get(i).getCode().contains("L ")
-                                ||productType.get(i).getCode().contains("ST") || productType.get(i).getCode().contains("SR")||
-                        productType.get(i).getCode().contains("LV") ) {
+                                ||productType.get(i).getCode().contains("ST") || productType.get(i).getCode().contains("SR")
+                         ) {
                             expandableView.addView(new HeadingView(MyApp.getContext(), productType.get(i).getDescription()));
                             Log.d(TAG, "onResponse: contains+"+productType.get(i).getDescription());
                         }
@@ -249,16 +329,17 @@ public class AirtimeSalesActivity extends AppCompatActivity {
                         code.add(productType.get(i).getCode());// product type codes
                         desc.add(productType.get(i).getDescription());// product type names
                             for (Product product : productType.get(i).getProducts()) {
-                                if((product.getTypeCode().contains("A") || product.getTypeCode().contains("V ")
+                                if((product.getTypeCode().contains("A")
                                         ||  product.getTypeCode().contains("S ") || product.getTypeCode().contains("R ")
-                                        ||product.getTypeCode().contains("WV") || product.getTypeCode().contains("HV")
+                                        || product.getTypeCode().contains("HV")
                                         ||product.getTypeCode().contains("PB") || product.getTypeCode().contains("L ")
-                                        ||product.getTypeCode().contains("ST") || product.getTypeCode().contains("SR")||
-                                        product.getTypeCode().contains("LV"))
-                                        && product.getSmsIndicator().contains("true")) {
+                                        ||product.getTypeCode().contains("ST") || product.getTypeCode().contains("SR"))
+                                        && (product.getSmsIndicator().contains("false")&& product.getPinIndicator().contains("false"))) {
                                     Log.d(TAG, "onResponse: contains+"+product.getDescription());
 
                                     expandableView.addView(new InfoView(MyApp.getContext(), product));
+                                    linearGetProductInfo.setVisibility(View.VISIBLE);
+
                                 }
                                 products.add(product + "");
                             }
@@ -277,10 +358,15 @@ public class AirtimeSalesActivity extends AppCompatActivity {
                         Log.d(TAG, "onResponse: packs:"+products.size());
 
                     }
+                    if(linearGetProductInfo.getVisibility()==View.GONE)
+                    {
+                        Log.d(TAG, "onResponse: no data found");
+                        tvNoPlanFound.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        tvNoPlanFound.setVisibility(View.GONE);
+                    }
                     progress.setVisibility(View.GONE);
-                    linearGetProductInfo.setVisibility(View.VISIBLE);
-
-
 
                 }
                 else {
@@ -294,6 +380,7 @@ public class AirtimeSalesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<GetAllDataPlansResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
+                Toast.makeText(AirtimeSalesActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 progress.setVisibility(View.GONE);
 
 
@@ -363,44 +450,12 @@ public class AirtimeSalesActivity extends AppCompatActivity {
 
     }
 
-    private void showDialog() {
-
-        smartCallLoginDialog = new Dialog(this);
-        smartCallLoginDialog.setContentView(R.layout.custom_smartcall_login_dialog);
-        smartCallLoginDialog.setTitle("Ontrack Mobile");
-        final EditText editTextUsername = (EditText) smartCallLoginDialog.findViewById(R.id.editTextUsername);
-        final EditText editTextPassword = (EditText) smartCallLoginDialog.findViewById(R.id.editTextpassword);
-         loadingButton = smartCallLoginDialog.findViewById(R.id.btnLogin);
-        loadingButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                username=editTextUsername.getText().toString();
-                password=editTextPassword.getText().toString();
-                if(username.isEmpty() || password.isEmpty())
-                {
-                    Toasty.info(MyApp.getContext(),"Please fill the credentials").show();
-                }
-                else {
-                    String up=username+":"+password;
-                    //noinspection deprecation
-                    byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
-                    String finalEncoded=new String(encoded_username_password);
-
-                    Log.d(TAG, "showDialog: username:"+finalEncoded);
-                    sendLoginDataToServer(finalEncoded);
-                }
-            }
-        });
-        smartCallLoginDialog.setCanceledOnTouchOutside(false);
-        smartCallLoginDialog.show();
-    }
 
     private void sendLoginDataToServer(String finalEncoded) {
 
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
-        progressBar.setMessage("Checking the Login Credentials...");
+        progressBar.setMessage("Please Wait...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
 
@@ -424,12 +479,7 @@ public class AirtimeSalesActivity extends AppCompatActivity {
                     String getSavedToken=sharedPreferences.getString("smartCallToken",null);
                     Log.d(TAG, "onResponse: saved token is:"+getSavedToken);
                     Toasty.success(AirtimeSalesActivity.this,message).show();
-                    if(smartCallLoginDialog.isShowing())
-                    {
-                        smartCallLoginDialog.dismiss();
-                    }
                     progressBar.dismiss();
-
 
                 }
                 else {
@@ -459,12 +509,30 @@ public class AirtimeSalesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+        merlin.bind();
+    }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        merlin.unbind();
+        Log.d(TAG, "onDestroy: called");
+    }
+    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.signout_smartcall, menu);
         return true;
     }
-
+*/
 }

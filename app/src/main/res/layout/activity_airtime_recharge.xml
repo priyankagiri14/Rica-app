@@ -34,29 +34,37 @@
         app:cardCornerRadius="10dp"
         android:layout_height="450dp">
 
-        <TextView
-            android:id="@+id/tvrd"
-            android:text="Recharge Details"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/greenontrack"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvrd"
+                android:text="Recharge Details"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/greenontrack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
 
 <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_marginLeft="20dp"
     android:weightSum="2"
+    android:layout_marginTop="@dimen/_30sdp"
     android:layout_marginRight="20dp"
     android:layout_height="wrap_content">
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
                 android:text="Description:"
                 android:textColor="@color/greenontrack"
                 android:textSize="16sp"
@@ -66,16 +74,15 @@
         android:layout_width="0dp"
         android:id="@+id/tvDesc"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:text="Vodacom Airtime"
         android:textColor="@color/greenontrack"
         android:textSize="16sp"
          />
 </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="50dp"
             android:orientation="horizontal"
             android:weightSum="2"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -84,7 +91,6 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
                 android:text="Retail Value (R):"
                 android:textColor="@color/greenontrack"
                 android:textSize="16sp"
@@ -94,7 +100,6 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
                 android:text="Vodacom Airtime"
                 android:textColor="@color/greenontrack"
                 android:textSize="16sp"
@@ -104,12 +109,22 @@
         <View
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-         android:layout_marginTop="@dimen/_130sdp"
+            android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/greenontrack" />
 
-
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/tvRechargeLabel"
+                android:textColor="@color/greenontrack"
+                android:layout_marginRight="34dp"
+                android:visibility="visible"
+                android:layout_marginLeft="34dp"
+                android:text="This number will receive recharge pin"
+                android:textSize="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         <EditText
             android:inputType="number"
@@ -119,27 +134,16 @@
             android:hint="Enter Recharge Number"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="180dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
-            android:id="@+id/tvRechargeLabel"
-            android:textColor="@color/greenontrack"
-            android:layout_marginRight="34dp"
-            android:visibility="visible"
-            android:layout_marginLeft="34dp"
-            android:layout_marginTop="180dp"
-            android:text="This number will receive recharge pin"
-            android:textSize="8sp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tvRechargeAmount"
             android:textColor="@color/greenontrack"
             android:layout_marginRight="34dp"
             android:visibility="visible"
             android:layout_marginLeft="34dp"
-            android:layout_marginTop="240dp"
             android:text="Recharge Amount"
             android:textSize="8sp"
             android:layout_width="match_parent"
@@ -154,7 +158,6 @@
             android:layout_marginRight="30dp"
             android:editable="false"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="240dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="Deprecated" />
@@ -165,9 +168,9 @@
             android:textColor="@color/greenontrack"
             android:textColorHint="@color/greenontrack"
             android:hint="Meter Number"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="300dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
@@ -177,11 +180,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="30dp"
             android:text="Recharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

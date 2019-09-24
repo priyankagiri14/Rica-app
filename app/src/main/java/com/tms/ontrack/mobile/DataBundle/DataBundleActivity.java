@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
+import com.novoda.merlin.Connectable;
+import com.novoda.merlin.Merlin;
+import com.novoda.merlin.MerlinsBeard;
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.AirtimeSales.HeadingView;
 import com.tms.ontrack.mobile.AirtimeSales.InfoView;
@@ -60,10 +65,10 @@ public class DataBundleActivity extends AppCompatActivity {
     private static final String TAG = "DataBundleActivity";
     Toolbar toolbar;
     private Dialog smartCallLoginDialog;
-    private String username;
+    private String username="0tm$y$tem@dmin";
     @BindView(R.id.spinnerNetworks)
     Spinner spinnerNetworks;
-    private String password;
+    private String password="1x0n?#5FzJ^X";
     private String smartCallToken;
     Button loadingButton;
     private String message;
@@ -82,6 +87,10 @@ public class DataBundleActivity extends AppCompatActivity {
     ExpandablePlaceHolderView expandableView;
     private ProgressBar progress;
     private TextView tvNoPlanFound;
+    private Merlin merlin;
+    private LinearLayout linearNetworks;
+    private MerlinsBeard merlinsBeard;
+    private LinearLayout linearNoInternet;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -93,39 +102,76 @@ public class DataBundleActivity extends AppCompatActivity {
         expandableView = findViewById(R.id.expandableView);
         spinnerNetworks = findViewById(R.id.spinnerNetworks);
         progress = findViewById(R.id.progressBar);
+        linearNoInternet=findViewById(R.id.linearNoInternet);
+        merlin = new Merlin.Builder().withConnectableCallbacks().withDisconnectableCallbacks().build(this);
+        merlinsBeard = new MerlinsBeard.Builder()
+                .build(this);
         linearGetProductInfo = findViewById(R.id.linearGetProductInfo);
         toolbar.setTitle("Data Bundle");
         tvNoPlanFound=findViewById(R.id.tvNotFound);
+        linearNetworks=findViewById(R.id.linearNetworks);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences("smartCallLogin", 0);
         getSavedToken = sharedPreferences.getString("smartCallToken", null);
-        if (getSavedToken != null) {
-            Log.d(TAG, "onCreate: saved token:" + getSavedToken);
-            getAllNetworks();
+        merlin.registerConnectable(new Connectable() {
+            @Override
+            public void onConnect() {
+                // Do something you haz internet!
+                linearNoInternet.setVisibility(View.GONE);
 
-        } else {
-            Log.d(TAG, "onCreate: token:" + getSavedToken);
-            showDialog();
+                Log.d(TAG, "onConnect: conected");
+                if(linearNetworks.getVisibility()==View.VISIBLE && linearNetworks.getVisibility()==View.VISIBLE)
+                {
+                    Log.d(TAG, "onConnect: visible layout need not refresh");
+                }
+                else {
+                    Log.d(TAG, "onConnect: needs to refresh");
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                    if(getSavedToken!=null)
+                    {
+                        Log.d(TAG, "onCreate: saved token:"+getSavedToken);
+                        getAllNetworks();
+
+                    }
+                    else {
+                        Log.d(TAG, "onCreate: token:"+getSavedToken);
+                        connectToSmartCall();
+                    }
+                }
+
+            }
+        });
+
+        merlin.registerDisconnectable(() -> {
+            Log.d(TAG, "onDisconnect1: disconnected");
+            new Handler(Looper.getMainLooper()).post(new Runnable(){
+                @Override
+                public void run() {
+                    linearNoInternet.setVisibility(View.VISIBLE);
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                }
+            });
+
+        });
+        if (!merlinsBeard.isConnected()) {
+            Log.d(TAG, "onDisconnect2: disconnected");
+            linearNoInternet.setVisibility(View.VISIBLE);
         }
         NestedScrollView view = (NestedScrollView) findViewById(R.id.scrollView);
         view.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.requestFocusFromTouch();
-                return false;
-            }
-        });
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.smartcall_logout) {
                     invalidateToken();
-
                 }
                 return false;
             }
@@ -133,6 +179,7 @@ public class DataBundleActivity extends AppCompatActivity {
     }
 
     private void getAllNetworks() {
+        linearNetworks.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         Log.d(TAG, "getAllNetworks: getting netwrks");
         Web_Interface webInterface = RetrofitSmartCallToken.getClient().create(Web_Interface.class);
@@ -154,15 +201,24 @@ public class DataBundleActivity extends AppCompatActivity {
                     }
                     Log.d(TAG, "onResponse: networksname:" + networkName + "\n" + "networkid:" + networkId);
                     setSpinnerView(networkName);
+                    linearNetworks.setVisibility(View.VISIBLE);
                     progress.setVisibility(View.GONE);
                 } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Log.d(TAG, jObjError.getString("responseDescription"));
-                        message = jObjError.getString("responseDescription");
-                        Toast.makeText(DataBundleActivity.this, message, Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onResponse: else");
-                        progress.setVisibility(View.GONE);
+                        if(response.code()==401)
+                        {
+                            Log.d(TAG, "onResponse: unauthorized, start authorising again");
+                            connectToSmartCall();
+                            progress.setVisibility(View.GONE);
+                        }
+                        else {
+                            message = jObjError.getString("responseDescription");
+                            Toast.makeText(DataBundleActivity.this, message, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onResponse: else");
+                            progress.setVisibility(View.GONE);
+                        }
                         //stopping progress
                     } catch (Exception e) {
                         Log.d(TAG, "onResponse: exception:" + e.getLocalizedMessage());
@@ -186,7 +242,15 @@ public class DataBundleActivity extends AppCompatActivity {
         });
 
     }
+    private void connectToSmartCall() {
+        String up=username+":"+password;
+        //noinspection deprecation
+        byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
+        String finalEncoded=new String(encoded_username_password);
 
+        Log.d(TAG, "showDialog: username:"+finalEncoded);
+        sendLoginDataToServer(finalEncoded);
+    }
     private void setSpinnerView(List<String> networkName) {
         Log.d(TAG, "setSpinnerView: called");
         int[] images = {R.drawable.vodacom,
@@ -247,7 +311,7 @@ public class DataBundleActivity extends AppCompatActivity {
                                 || productType.get(i).getCode().contains("YB") || productType.get(i).getCode().contains("NB")
                                 || productType.get(i).getCode().contains("5D") || productType.get(i).getCode().contains("B1")
                                 || productType.get(i).getCode().contains("B6") || productType.get(i).getCode().contains("B3")
-                                || productType.get(i).getCode().contains("ND") || productType.get(i).getCode().contains("DV")
+                                || productType.get(i).getCode().contains("ND")
                                 || productType.get(i).getCode().contains("RH") || productType.get(i).getCode().contains("FD")
                                 || productType.get(i).getCode().contains("P6") || productType.get(i).getCode().contains("P3")
                                 || productType.get(i).getCode().contains("D ") || productType.get(i).getCode().contains("FB")
@@ -261,17 +325,18 @@ public class DataBundleActivity extends AppCompatActivity {
                         code.add(productType.get(i).getCode());// product type codes
                         desc.add(productType.get(i).getDescription());// product type names
                         for (Product product : productType.get(i).getProducts()) {
-                            if (product.getTypeCode().contains("P ") || product.getTypeCode().contains("X ")
+                            if ((product.getTypeCode().contains("P ") || product.getTypeCode().contains("X ")
                                     || product.getTypeCode().contains("SD") || product.getTypeCode().contains("WD")
                                     || productType.get(i).getCode().contains("YB") || productType.get(i).getCode().contains("NB")
                                     || productType.get(i).getCode().contains("5D") || productType.get(i).getCode().contains("B1")
                                     || productType.get(i).getCode().contains("B6") || productType.get(i).getCode().contains("B3")
-                                    || product.getTypeCode().contains("ND") || product.getTypeCode().contains("DV")
+                                    || product.getTypeCode().contains("ND")
                                     || product.getTypeCode().contains("RH") || product.getTypeCode().contains("FD")
                                     || product.getTypeCode().contains("P6") || product.getTypeCode().contains("P3") ||
                                     product.getTypeCode().contains("D ") || product.getTypeCode().contains("FB")
                                     || product.getTypeCode().contains("WB") || product.getTypeCode().contains("FM")
-                                    || product.getTypeCode().contains("WE") || product.getTypeCode().contains("FW")) {
+                                    || product.getTypeCode().contains("WE") || product.getTypeCode().contains("FW"))
+                                    && (product.getSmsIndicator().contains("false")&& product.getPinIndicator().contains("false"))) {
                                 Log.d(TAG, "onResponse: contains+" + product.getDescription());
 
                                 expandableView.addView(new InfoView(MyApp.getContext(), product));
@@ -385,42 +450,13 @@ public class DataBundleActivity extends AppCompatActivity {
 
     }
 
-    private void showDialog() {
 
-        smartCallLoginDialog = new Dialog(this);
-        smartCallLoginDialog.setContentView(R.layout.custom_smartcall_login_dialog);
-        smartCallLoginDialog.setTitle("Ontrack Mobile");
-        final EditText editTextUsername = (EditText) smartCallLoginDialog.findViewById(R.id.editTextUsername);
-        final EditText editTextPassword = (EditText) smartCallLoginDialog.findViewById(R.id.editTextpassword);
-        loadingButton = smartCallLoginDialog.findViewById(R.id.btnLogin);
-        loadingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                username = editTextUsername.getText().toString();
-                password = editTextPassword.getText().toString();
-                if (username.isEmpty() || password.isEmpty()) {
-                    Toasty.info(MyApp.getContext(), "Please fill the credentials").show();
-                } else {
-                    String up = username + ":" + password;
-                    //noinspection deprecation
-                    byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
-                    String finalEncoded = new String(encoded_username_password);
-
-                    Log.d(TAG, "showDialog: username:" + finalEncoded);
-                    sendLoginDataToServer(finalEncoded);
-                }
-            }
-        });
-        smartCallLoginDialog.setCanceledOnTouchOutside(false);
-        smartCallLoginDialog.show();
-    }
 
     private void sendLoginDataToServer(String finalEncoded) {
 
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
-        progressBar.setMessage("Checking the Login Credentials...");
+        progressBar.setMessage("Please Wait...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
 
@@ -444,9 +480,7 @@ public class DataBundleActivity extends AppCompatActivity {
                     String getSavedToken = sharedPreferences.getString("smartCallToken", null);
                     Log.d(TAG, "onResponse: saved token is:" + getSavedToken);
                     Toasty.success(DataBundleActivity.this, message).show();
-                    if (smartCallLoginDialog.isShowing()) {
-                        smartCallLoginDialog.dismiss();
-                    }
+
                     progressBar.dismiss();
 
 
@@ -477,12 +511,30 @@ public class DataBundleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+        merlin.bind();
+    }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        merlin.unbind();
+        Log.d(TAG, "onDestroy: called");
+    }
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.signout_smartcall, menu);
         return true;
-    }
+    }*/
 
 }

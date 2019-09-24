@@ -44,16 +44,20 @@ public class HeadingView {
     @Resolve
     public void onResolved() {
         toggleIcon.setImageDrawable(mContext.getResources().getDrawable(android.R.drawable.arrow_up_float));
+        toggleIcon.setRotation(450);
         headingTxt.setText(mHeading);
     }
 
     @Expand
     public void onExpand(){
         toggleIcon.setImageDrawable(mContext.getResources().getDrawable(android.R.drawable.arrow_down_float));
+        toggleIcon.setRotation(360);
+
     }
 
     @Collapse
     public void onCollapse(){
         toggleIcon.setImageDrawable(mContext.getResources().getDrawable(android.R.drawable.arrow_up_float));
+        toggleIcon.setRotation(450);
     }
 }

@@ -43,6 +43,7 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
     private String smartLoadId,rechargeNumber,rechargeAmount,meterNumber;
     private String message;
     ProgressDialog progressDialog;
+    private Integer errorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +63,16 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
         setSupportActionBar(toolbar);
         productId=getIntent().getStringExtra("product_id");
         retailValue=getIntent().getDoubleExtra("retail_value",0);
+        Double rv=99999.99;
         rechargeDesc=getIntent().getStringExtra("recharge_description");
-        if(productId!=null && retailValue!=null && rechargeDesc!=null)
+        if(productId!=null && retailValue.equals(rv) && rechargeDesc!=null)
         {
             //set text to textview if values not null
+            tvRetail.setText("R2-R1000");
+            tvDesc.setText(rechargeDesc);
+        }
+        else if(productId!=null && !retailValue.equals(rv) && rechargeDesc!=null)
+        {
             tvRetail.setText(retailValue+"");
             tvDesc.setText(rechargeDesc);
             editTextRechargeAmount.setText(retailValue+"");
@@ -78,23 +85,32 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
             Log.d(TAG, "onCreate: showing meter number");
             editTextMeterNumber.setVisibility(View.VISIBLE);
             editTextRechargeNumber.setHint("Enter Number");
-
         }
+
+        else if(rechargeDesc.contains("R10-125MB"))
+        {
+            tvRechargeLabel.setVisibility(View.VISIBLE);
+            Log.d(TAG, "onCreate: showing meter number");
+            editTextMeterNumber.setVisibility(View.VISIBLE);
+            editTextRechargeNumber.setHint("Enter Number");
+        }
+
         else {
             Log.d(TAG, "onCreate: hide meter number");
-            tvRechargeLabel.setVisibility(View.GONE);
+            tvRechargeLabel.setVisibility(View.INVISIBLE);
             editTextMeterNumber.setVisibility(View.GONE);
             editTextRechargeNumber.setHint("Enter Recharge Number");
         }
 
         buttonRecharge.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View v) {
+/*
         smartLoadId="27827419888";
+*/
+        smartLoadId="0739962418";
         rechargeNumber=editTextRechargeNumber.getText().toString();
         rechargeAmount=editTextRechargeAmount.getText().toString().trim();
         meterNumber=editTextMeterNumber.getText().toString();
@@ -104,7 +120,12 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
             Toast.makeText(this, "Enter number to recharge", Toast.LENGTH_SHORT).show();
 
         }
+         else if(rechargeAmount.isEmpty())
+         {
+             Toast.makeText(this, "Enter recharge amount", Toast.LENGTH_SHORT).show();
 
+
+         }
         else if(editTextMeterNumber.getVisibility()==View.VISIBLE)
         {
              if (rechargeNumber.isEmpty())
@@ -124,27 +145,24 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
             }
             else {
                 String client_ref=GenerateRandomString.randomString(6);
-                String pinless="true";
                 String send_sms="true";
                 Log.d(TAG, "onClick: clientref:"+client_ref);
-                sendRechargeDetailsToServer(smartLoadId,rechargeNumber,rechargeAmount,client_ref,pinless,send_sms,productId,meterNumber);
+                sendRechargeDetailsToServer(smartLoadId,rechargeNumber,rechargeAmount,client_ref,send_sms,productId,meterNumber);
 
             }
         }
         else {
             meterNumber="";
             String client_ref=GenerateRandomString.randomString(6);
-            String pinless="true";
             String send_sms="true";
             Log.d(TAG, "onClick: clientref:"+client_ref);
-            sendRechargeDetailsToServer(smartLoadId,rechargeNumber,rechargeAmount,client_ref,pinless,send_sms,productId,meterNumber);
-
+            sendRechargeDetailsToServer(smartLoadId,rechargeNumber,rechargeAmount,client_ref,send_sms,productId,meterNumber);
         }
 
     }
 
     private void sendRechargeDetailsToServer(String smartLoadId, String rechargeNumber, String rechargeAmount,
-                                             String client_ref, String pinless, String send_sms,String productId,String meterNumber) {
+                                             String client_ref, String send_sms,String productId,String meterNumber) {
         Log.d(TAG, "sendRechargeDetailsToServer: retrofit");
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -161,8 +179,8 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
             paramObject.put("deviceId",meterNumber);
             paramObject.put("productId", productId);
             paramObject.put("amount", rechargeAmount);
-            paramObject.put("pinless", pinless);
             paramObject.put("sendSms", send_sms);
+            paramObject.put("smsProviderIdentifier","SmartCall");
             RequestBody body = RequestBody.create(MediaType.parse("application/json"),(paramObject).toString());
             Call<ResponseBody> call= webInterface.requestSmartCallRecharge(body);
             //exeuting the service
@@ -177,8 +195,8 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
         if (response.isSuccessful() && response.code() == 200) {
             try {
                 JSONObject jObjSuccess = new JSONObject(response.body().string());
-                Log.d(TAG,jObjSuccess.getString("responseCode"));
-                message=jObjSuccess.getString("responseCode");
+                Log.d(TAG,jObjSuccess.getString("statusMessage"));
+                message=jObjSuccess.getString("statusMessage");
                 Toasty.success(this, message, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 finish();
@@ -187,6 +205,8 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
             } catch (Exception e) {
                 Log.d(TAG, "onResponse: exception:"+e.getLocalizedMessage());
                 //stopping progress
+                progressDialog.dismiss();
+
 
             }
 
@@ -194,15 +214,66 @@ public class AirtimeRechargeActivity extends AppCompatActivity implements View.O
         else {
             try {
                 JSONObject jObjError = new JSONObject(response.errorBody().string());
-                Log.d(TAG,jObjError.getString("message"));
-                message=jObjError.getString("message");
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                Log.d(TAG,jObjError.getJSONObject("error").getString("message"));
+                message=jObjError.getJSONObject("error").getString("message");
+                errorCode=jObjError.getJSONObject("error").getInt("code");
+                if(errorCode.equals(16))
+                {
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+                if(errorCode.equals(9))
+                {
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+                else if(errorCode.equals(1001))
+                {
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+                }
+                else if(errorCode.equals(1002))
+                {
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+                else if(errorCode.equals(1003))
+                {
+                    message=jObjError.getJSONObject("error").getString("statusMessage");
+
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+                }
+                else if(errorCode.equals(1004))
+                {
+                    message=jObjError.getJSONObject("error").getString("statusMessage");
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+                }
+                else if(errorCode.equals(1005))
+                {
+                    message=jObjError.getJSONObject("error").getString("statusMessage");
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+                }
+                else if(errorCode.equals(1006))
+                {
+                    message=jObjError.getJSONObject("error").getString("statusMessage");
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+                else if(errorCode.equals(1007))
+                {
+                    message=jObjError.getJSONObject("error").getString("statusMessage");
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+
                 Log.d(TAG, "onResponse: else");
                 progressDialog.dismiss();
                 //stopping progress
             } catch (Exception e) {
                 Log.d(TAG, "onResponse: exception:"+e.getLocalizedMessage());
                 //stopping progress
+                progressDialog.dismiss();
 
             }
         }

@@ -10,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mindorks.placeholderview.ExpandablePlaceHolderView;
+import com.novoda.merlin.Connectable;
+import com.novoda.merlin.Merlin;
+import com.novoda.merlin.MerlinsBeard;
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.AirtimeSales.HeadingView;
 import com.tms.ontrack.mobile.AirtimeSales.InfoView;
@@ -61,10 +66,10 @@ public class ElectricityBundleActivity extends AppCompatActivity {
     private static final String TAG ="ElectricityBundleAct" ;
     Toolbar toolbar;
     private Dialog smartCallLoginDialog;
-    private String username;
+    private String username="0tm$y$tem@dmin";
     @BindView(R.id.spinnerNetworks)
     Spinner spinnerNetworks;
-    private String password;
+    private String password="1x0n?#5FzJ^X";
     private String smartCallToken;
     Button loadingButton;
     private String message;
@@ -83,32 +88,79 @@ public class ElectricityBundleActivity extends AppCompatActivity {
     ExpandablePlaceHolderView expandableView;
     private ProgressBar progress;
     private TextView tvNoPlanFound;
+    private Merlin merlin;
+    private LinearLayout linearNetworks;
+    private MerlinsBeard merlinsBeard;
+    private LinearLayout linearNoInternet;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_bundle);
+        setContentView(R.layout.activity_electricity_bundle);
         ButterKnife.bind(this);
         toolbar=findViewById(R.id.toolbar);
         expandableView=findViewById(R.id.expandableView);
         spinnerNetworks=findViewById(R.id.spinnerNetworks);
         progress=findViewById(R.id.progressBar);
+        linearNoInternet=findViewById(R.id.linearNoInternet);
+        merlin = new Merlin.Builder().withConnectableCallbacks().withDisconnectableCallbacks().build(this);
+        merlinsBeard = new MerlinsBeard.Builder()
+                .build(this);
+        linearNetworks=findViewById(R.id.linearNetworks);
         linearGetProductInfo=findViewById(R.id.linearGetProductInfo);
         toolbar.setTitle("Electricity Bundle");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         sharedPreferences= getSharedPreferences("smartCallLogin", 0);
         getSavedToken=sharedPreferences.getString("smartCallToken",null);
-        if(getSavedToken!=null)
-        {
-            Log.d(TAG, "onCreate: saved token:"+getSavedToken);
-            getAllNetworks();
+        merlin.registerConnectable(new Connectable() {
+            @Override
+            public void onConnect() {
+                // Do something you haz internet!
+                linearNoInternet.setVisibility(View.GONE);
 
-        }
-        else {
-            Log.d(TAG, "onCreate: token:"+getSavedToken);
-            showDialog();
+                Log.d(TAG, "onConnect: conected");
+                if(linearNetworks.getVisibility()==View.VISIBLE && linearNetworks.getVisibility()==View.VISIBLE)
+                {
+                    Log.d(TAG, "onConnect: visible layout need not refresh");
+                }
+                else {
+                    Log.d(TAG, "onConnect: needs to refresh");
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                    if(getSavedToken!=null)
+                    {
+                        Log.d(TAG, "onCreate: saved token:"+getSavedToken);
+                        getAllNetworks();
+
+                    }
+                    else {
+                        Log.d(TAG, "onCreate: token:"+getSavedToken);
+                        connectToSmartCall();
+                    }
+                }
+
+            }
+        });
+
+        merlin.registerDisconnectable(() -> {
+            Log.d(TAG, "onDisconnect1: disconnected");
+            new Handler(Looper.getMainLooper()).post(new Runnable(){
+                @Override
+                public void run() {
+                    linearNoInternet.setVisibility(View.VISIBLE);
+                    linearNetworks.setVisibility(View.GONE);
+                    linearGetProductInfo.setVisibility(View.GONE);
+
+                }
+            });
+
+        });
+        if (!merlinsBeard.isConnected()) {
+            Log.d(TAG, "onDisconnect2: disconnected");
+            linearNoInternet.setVisibility(View.VISIBLE);
         }
         NestedScrollView view = (NestedScrollView) findViewById(R.id.scrollView);
         view.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
@@ -136,6 +188,7 @@ public class ElectricityBundleActivity extends AppCompatActivity {
     }
 
     private void getAllNetworks() {
+        linearNetworks.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         Log.d(TAG, "getAllNetworks: getting netwrks");
         Web_Interface webInterface= RetrofitSmartCallToken.getClient().create(Web_Interface.class);
@@ -158,6 +211,7 @@ public class ElectricityBundleActivity extends AppCompatActivity {
                     }
                     Log.d(TAG, "onResponse: networksname:"+networkName+"\n"+"networkid:"+networkId);
                     setSpinnerView(networkName);
+                    linearNetworks.setVisibility(View.VISIBLE);
                     progress.setVisibility(View.GONE);
                 }
                 else {
@@ -165,9 +219,17 @@ public class ElectricityBundleActivity extends AppCompatActivity {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         Log.d(TAG,jObjError.getString("responseDescription"));
                         message=jObjError.getString("responseDescription");
-                        Toast.makeText(ElectricityBundleActivity.this, message, Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onResponse: else");
-                        progress.setVisibility(View.GONE);
+                        if(response.code()==401)
+                        {
+                            Log.d(TAG, "onResponse: unauthorized, start authorising again");
+                            connectToSmartCall();
+                            progress.setVisibility(View.GONE);
+                        }
+                        else {
+                            Toast.makeText(ElectricityBundleActivity.this, message, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onResponse: else");
+                            progress.setVisibility(View.GONE);
+                        }
                         //stopping progress
                     } catch (Exception e) {
                         Log.d(TAG, "onResponse: exception:"+e.getLocalizedMessage());
@@ -185,11 +247,18 @@ public class ElectricityBundleActivity extends AppCompatActivity {
                 Toast.makeText(ElectricityBundleActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
                 progress.setVisibility(View.GONE);
-
-
             }
         });
 
+    }
+    private void connectToSmartCall() {
+        String up=username+":"+password;
+        //noinspection deprecation
+        byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
+        String finalEncoded=new String(encoded_username_password);
+
+        Log.d(TAG, "showDialog: username:"+finalEncoded);
+        sendLoginDataToServer(finalEncoded);
     }
 
     private void setSpinnerView(List<String> networkName) {
@@ -255,7 +324,9 @@ public class ElectricityBundleActivity extends AppCompatActivity {
                         code.add(productType.get(i).getCode());// product type codes
                         desc.add(productType.get(i).getDescription());// product type names
                         for (Product product : productType.get(i).getProducts()) {
-                            if(productType.get(i).getCode().contains("E ")) {
+                            if((productType.get(i).getCode().contains("E "))&&
+                                    (product.getSmsIndicator().contains("true")&&
+                                            product.getPinIndicator().contains("true"))) {
                                 Log.d(TAG, "onResponse: contains+"+product.getDescription());
                                 expandableView.addView(new InfoView(MyApp.getContext(), product));
                             }
@@ -362,44 +433,13 @@ public class ElectricityBundleActivity extends AppCompatActivity {
 
     }
 
-    private void showDialog() {
 
-        smartCallLoginDialog = new Dialog(this);
-        smartCallLoginDialog.setContentView(R.layout.custom_smartcall_login_dialog);
-        smartCallLoginDialog.setTitle("Ontrack Mobile");
-        final EditText editTextUsername = (EditText) smartCallLoginDialog.findViewById(R.id.editTextUsername);
-        final EditText editTextPassword = (EditText) smartCallLoginDialog.findViewById(R.id.editTextpassword);
-        loadingButton = smartCallLoginDialog.findViewById(R.id.btnLogin);
-        loadingButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                username=editTextUsername.getText().toString();
-                password=editTextPassword.getText().toString();
-                if(username.isEmpty() || password.isEmpty())
-                {
-                    Toasty.info(MyApp.getContext(),"Please fill the credentials").show();
-                }
-                else {
-                    String up=username+":"+password;
-                    //noinspection deprecation
-                    byte[] encoded_username_password = Base64.encodeBase64(up.getBytes());
-                    String finalEncoded=new String(encoded_username_password);
-
-                    Log.d(TAG, "showDialog: username:"+finalEncoded);
-                    sendLoginDataToServer(finalEncoded);
-                }
-            }
-        });
-        smartCallLoginDialog.setCanceledOnTouchOutside(false);
-        smartCallLoginDialog.show();
-    }
 
     private void sendLoginDataToServer(String finalEncoded) {
 
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
-        progressBar.setMessage("Checking the Login Credentials...");
+        progressBar.setMessage("Please Wait...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
 
@@ -423,10 +463,7 @@ public class ElectricityBundleActivity extends AppCompatActivity {
                     String getSavedToken=sharedPreferences.getString("smartCallToken",null);
                     Log.d(TAG, "onResponse: saved token is:"+getSavedToken);
                     Toasty.success(ElectricityBundleActivity.this,message).show();
-                    if(smartCallLoginDialog.isShowing())
-                    {
-                        smartCallLoginDialog.dismiss();
-                    }
+
                     progressBar.dismiss();
 
 
@@ -457,13 +494,31 @@ public class ElectricityBundleActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: called");
+        merlin.bind();
+    }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        merlin.unbind();
+        Log.d(TAG, "onDestroy: called");
+    }
+
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.signout_smartcall, menu);
         return true;
-    }
+    }*/
 
 }

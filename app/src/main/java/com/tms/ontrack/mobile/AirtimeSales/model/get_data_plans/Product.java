@@ -34,7 +34,7 @@ private Double discountPercentage;
 private Double retailValue;
 @SerializedName("pinIndicator")
 @Expose
-private Boolean pinIndicator;
+private String pinIndicator;
 @SerializedName("smsIndicator")
 @Expose
 private String smsIndicator;
@@ -111,11 +111,11 @@ public void setRetailValue(Double retailValue) {
 this.retailValue = retailValue;
 }
 
-public Boolean getPinIndicator() {
+public String getPinIndicator() {
 return pinIndicator;
 }
 
-public void setPinIndicator(Boolean pinIndicator) {
+public void setPinIndicator(String pinIndicator) {
 this.pinIndicator = pinIndicator;
 }
 

@@ -44,8 +44,15 @@ public class InfoView {
     @Resolve
     public void onResolved() {
         Log.d("AirtimeSales", "onResolved: called ");
+        Double rv=99999.99;
         titlePack.setText(mInfo.getDescription());
-        titleRetail.setText("R"+" "+mInfo.getRetailValue()+"");
+        if(mInfo.getRetailValue().equals(rv))
+        {
+            titleRetail.setText("R2-R1000");
+        }
+        else {
+            titleRetail.setText("R" + " " + mInfo.getRetailValue() + "");
+        }
 
     }
 

@@ -25,6 +25,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearNetworks"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginLeft="@dimen/_20sdp"
@@ -81,7 +82,32 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearNoInternet"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="?actionBarSize"
+            android:orientation="vertical"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/networkerror"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/text"
+                android:textColor="@color/greenontrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Internet may not available!"
+                android:textSize="@dimen/_15sdp"/>
+
+        </LinearLayout>
         <ProgressBar
             android:visibility="gone"
             android:id="@+id/progressBar"

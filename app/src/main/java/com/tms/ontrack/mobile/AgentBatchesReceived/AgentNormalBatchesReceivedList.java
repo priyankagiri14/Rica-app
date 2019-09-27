@@ -1,6 +1,7 @@
 package com.tms.ontrack.mobile.AgentBatchesReceived;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,16 +13,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.OpenCloseBatches.OpenCloseActivity;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.Web_Services.MyApp;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 
@@ -32,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AgentNormalBatchesReceivedList extends AppCompatActivity implements View.OnClickListener,LocationListener{
+public class AgentNormalBatchesReceivedList extends AppCompatActivity implements View.OnClickListener,LocationListener, SearchView.OnQueryTextListener {
 
     private AgentBatchesReceivedListAdapter adapter;
     List<AgentBatchesReceivedResponse> list1 = new ArrayList<>();
@@ -46,6 +50,7 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
     LocationManager locationManager;
     double latitude, longitude;
     int count = 0;
+    SearchView searchView;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
     {
@@ -55,6 +60,7 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
         adapter = new AgentBatchesReceivedListAdapter(this,bodyArrayList1);
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
+        searchView.setVisibility(View.VISIBLE);
         progressBar.cancel();
         listviewclick();
     }
@@ -84,12 +90,20 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent_normal_batches_received_list);
 
+        searchView = (SearchView) findViewById(R.id.agentnormalbatchsearch);
+        searchView.onActionViewExpanded();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search Batches");
+        searchView.requestFocusFromTouch();
+        searchView.setVisibility(View.INVISIBLE);
+
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
         progressBar.setMessage("Please Wait...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
         listView = (ListView) findViewById(R.id.agent_batches_received_listview);
+        listView.setTextFilterEnabled(true);
         agentbatchesreceived = (TextView) findViewById(R.id.agent_received_batches);
         noagentbatchesreceived = (TextView) findViewById(R.id.noagentbatchesreceived);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -136,6 +150,13 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
                         agentbatchesreceived.setVisibility(View.VISIBLE);
                     }
                 }
+
+                String[] batches = new String[bodyArrayList1.size()];
+                if(bodyArrayList1.size()>0) {
+                    for (int j = 0; j < bodyArrayList1.size(); j++) {
+                        batches[j] = bodyArrayList1.get(j).getBatchNo();
+                    }
+                }
                 batchid = new String[bodyArrayList1.size()];
                 for(int i = 0; i<bodyArrayList1.size();i++)
                 {
@@ -146,6 +167,7 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
                 if(listView.getCount() == 0)
                 {
                     noagentbatchesreceived.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
                     progressBar.cancel();
                     // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
@@ -166,9 +188,8 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
                 Toast.makeText(AgentNormalBatchesReceivedList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
 
     @Override
     public void onClick(View v) {
@@ -323,6 +344,21 @@ public class AgentNormalBatchesReceivedList extends AppCompatActivity implements
             });
             alertDialog.show();
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (TextUtils.isEmpty(newText)) {
+            listView.clearTextFilter();
+        } else {
+            listView.setFilterText(newText);
+        }
+        return true;
     }
 }
 

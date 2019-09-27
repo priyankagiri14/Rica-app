@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">On Track Mobile</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -154,6 +154,53 @@
         <item>Western Cape</item>
         <item>Johannesburg</item>
     </array>
+
+    <array name="authority_spinner">
+        <item>Authority</item>
+        <item>AGENT</item>
+    </array>
+
+    <array name="warehouse_spinner">
+        <item>Warehouse</item>
+        <item>JHB1</item>
+        <item>DBN</item>
+        <item>DBN2</item>
+        <item>DBN1</item>
+        <item>JHB</item>
+    </array>
+
+    <array name="stts_spinner">
+        <item>Enabled</item>
+        <item>Disabled</item>
+    </array>
+
+    <array name="title_spinner">
+        <item>Title</item>
+        <item>Mr.</item>
+        <item>Miss.</item>
+        <item>Mrs.</item>
+        <item>Dr.</item>
+        <item>Prof.</item>
+    </array>
+
+    <array name="id_spinner" tools:ignore="MissingDefaultResource">
+        <item>ID Type</item>
+        <item>ID</item>
+        <item>PASSPORT</item>
+
+    </array>
+
+    <array name="doctype_spinner" tools:ignore="MissingDefaultResource">
+        <item>Choose DOC_TYPE</item>
+        <item>PHOTO</item>
+        <item>ID_PROOF</item>
+        <item>PASSPORT</item>
+        <item>ASYLUM_PERMIT</item>
+        <item>PROOF OF RESIDENCE</item>
+        <item>CONTRACT</item>
+
+    </array>
+
     <array name="select_Status">
         <item>Select Status</item>
         <item>Active</item>

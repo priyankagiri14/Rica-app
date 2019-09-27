@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tms.ontrack.mobile.AboutActivity;
 import com.tms.ontrack.mobile.R;
 
 public class Address_Ontrack extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +43,10 @@ Toolbar toolbar;
             startActivity(i1);
 
         } else if (id == R.id.nav_address) {
+
+        }else if (id == R.id.aboutdrawer) {
+            Intent i1=new Intent(this, AboutActivity.class);
+            startActivity(i1);
 
         }
 

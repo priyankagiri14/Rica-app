@@ -2,7 +2,11 @@ package com.tms.ontrack.mobile.Agent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.tms.ontrack.mobile.AgentBatchesGet.AgentBatchesGet;
 import com.tms.ontrack.mobile.AgentBatchesGet.AppDatabase;
 import com.tms.ontrack.mobile.AgentBatchesGet.Batches;
@@ -40,9 +45,11 @@ import org.json.JSONObject;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import info.androidhive.fontawesome.FontTextView;
 import me.sudar.zxingorient.ZxingOrient;
 import me.sudar.zxingorient.ZxingOrientResult;
 import retrofit2.Call;
@@ -52,7 +59,8 @@ import retrofit2.Response;
 public class ScanBatch extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, RadioGroup.OnCheckedChangeListener {
 
 
-    public EditText fname, lname, address, pincode, subhurb, simserial, idnum, city;
+    public EditText fname, lname, address, pincode, subhurb, idnum, city,passport,expirydate;
+    public TextInputLayout idnumtext,passporttext,expirydatetext;
     public RadioGroup networkrg;
     RadioButton vodacom, telkom, cellc, mtn;
     String network, citystring;
@@ -62,8 +70,8 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
     private String mResult=null;
     ArrayList< String > ListElementsArrayList;
     ArrayAdapter< String > adapter;
-    Spinner regionspinner1;
-    String region;
+    Spinner regionspinner1,idspinner;
+    String region,idtype;
     ArrayAdapter arrayAdapter;
     String arraylist;
     private SearchView searchView;
@@ -74,6 +82,8 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
     List<Batches> batcheslist = new ArrayList<>();
     TextView textbatches,nobatches;
     Batches batchesdata = new Batches();
+    FontTextView calender;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
 
     @Override
@@ -91,6 +101,38 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
         subhurb = findViewById(R.id.subhurb);
         idnum = findViewById(R.id.idnum);
         city = findViewById(R.id.city);
+        passport = findViewById(R.id.passport);
+        expirydate = findViewById(R.id.expirydate);
+        expirydate.setClickable(false);
+        expirydate.setFocusable(false);
+
+        idnumtext = findViewById(R.id.idnumtext);
+        passporttext = findViewById(R.id.passporttext);
+        expirydatetext = findViewById(R.id.expirydatetext);
+
+        calender = findViewById(R.id.calender);
+        calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ScanBatch.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,dateSetListener,year,month,day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String date = dayOfMonth+"/"+month+"/"+year;
+                expirydate.setText(date);
+            }
+        };
+        idspinner = findViewById(R.id.idspinner);
         networkrg = findViewById(R.id.netwrokrg);
         networkrg.setOnCheckedChangeListener(this);
         vodacom = findViewById(R.id.vodacom);
@@ -146,6 +188,40 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
             public void onNothingSelected(AdapterView<?> parent) {
 
             }});
+
+        idspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0)
+                {
+                    idnumtext.setVisibility(View.GONE);
+                    passporttext.setVisibility(View.GONE);
+                    expirydatetext.setVisibility(View.GONE);
+                    calender.setVisibility(View.GONE);
+                }
+                else if(position == 1)
+                {
+                    idtype = idspinner.getSelectedItem().toString();
+                    idnumtext.setVisibility(View.VISIBLE);
+                    passporttext.setVisibility(View.GONE);
+                    expirydatetext.setVisibility(View.GONE);
+                    calender.setVisibility(View.GONE);
+                }
+                else if(position == 2)
+                {
+                    idtype = idspinner.getSelectedItem().toString();
+                    idnumtext.setVisibility(View.GONE);
+                    passporttext.setVisibility(View.VISIBLE);
+                    expirydatetext.setVisibility(View.VISIBLE);
+                    calender.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         ListElementsArrayList = new ArrayList< String >();
 
 
@@ -226,14 +302,34 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
                 batches[j] = ListElementsArrayList.get(j);
             }
 
-            if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+            if(idspinner.getSelectedItem().toString().equals("ID")) {
+                if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                        pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                        || regionspinner1.getSelectedItemPosition() == 0 || listViewScannedBatches.getCount() == 0 || idnum.getText().length() == 0 || idspinner.getSelectedItem().toString() == "ID Type") {
+                    Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    BatchesScanAPI(batches,network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
+                            address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString(),idspinner.getSelectedItem().toString());
+                }
+            }
+            else if(idspinner.getSelectedItem().toString().equals("PASSPORT")) {
+                if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                        pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                        || regionspinner1.getSelectedItemPosition() == 0 || listViewScannedBatches.getCount() == 0 || passport.getText().length() == 0 || expirydate.getText().length() == 0 || idspinner.getSelectedItem().toString() == "ID Type") {
+                    Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    BatchesScanAPI1(batches,network, fname.getText().toString(), lname.getText().toString(),
+                            address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString(),idspinner.getSelectedItem().toString(),passport.getText().toString(),expirydate.getText().toString());
+                }
+            }
+/*            if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
                     pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
                     || listViewScannedBatches.getCount() == 0 || idnum.getText().length() == 0) {
                 Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
             } else {
                 BatchesScanAPI(batches,network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
                         address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString());
-            }
+            }*/
 //            else if(regionspinner1.getSelectedItemPosition() == 0 && batches != null)
 //                {
 //                    Toast.makeText(ScanBatch.this,"Please Select the Region",Toast.LENGTH_SHORT).show();
@@ -244,7 +340,60 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void BatchesScanAPI(String[] batch,String network, String idnum, String fname, String lname, String address, String postalcode, String suburb, String funcity) {
+    private void BatchesScanAPI1(String[] batch, String network, String fname, String lname, String address, String postalcode, String suburb, String funcity, String idtype, String passport,String expiryDate) {
+
+
+        ScanPojo scanPojo = new ScanPojo();
+        scanPojo.setBatches(batch);
+        scanPojo.setNetwork(network);
+        scanPojo.setFname(fname);
+        scanPojo.setLname(lname);
+        scanPojo.setAddress(address);
+        scanPojo.setPostalcode(postalcode);
+        scanPojo.setSuburb(suburb);
+        scanPojo.setFuncity(funcity);
+        scanPojo.setRegion(region);
+        scanPojo.setIdtype(idtype);
+        scanPojo.setPassport(passport);
+        scanPojo.setExpiryDate(expiryDate);
+
+
+        Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
+
+        Call<ScanBatchesResponse> scanBatchesResponseCall = web_interface.requestScanBatches(scanPojo);
+        scanBatchesResponseCall.enqueue(new Callback<ScanBatchesResponse>() {
+            @Override
+            public void onResponse(Call<ScanBatchesResponse> call, Response<ScanBatchesResponse> response) {
+                String status = response.body().getSuccess().toString();
+                Log.d(TAG, "onResponse: "+status);
+                if(status.equals("true"))
+                {
+                    String message = response.body().getMessage();
+                    for(int i=0;i<batch.length;i++)
+                    {
+                        db.batchesInterface().deleteBatches(batch[i]);
+                    }
+                    Toast.makeText(ScanBatch.this, message, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ScanBatch.this, Agent_Mainactivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    String message = response.body().getMessage();
+                    Toast.makeText(ScanBatch.this, message, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ScanBatchesResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void BatchesScanAPI(String[] batch, String network, String idnum, String fname, String lname, String address, String postalcode, String suburb, String funcity, String idtype) {
 
 
         ScanPojo scanPojo = new ScanPojo();
@@ -258,6 +407,7 @@ public class ScanBatch extends AppCompatActivity implements View.OnClickListener
         scanPojo.setSuburb(suburb);
         scanPojo.setFuncity(funcity);
         scanPojo.setRegion(region);
+        scanPojo.setIdtype(idtype);
 
         Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
 

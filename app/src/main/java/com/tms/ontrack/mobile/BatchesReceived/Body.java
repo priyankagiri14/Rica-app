@@ -43,6 +43,8 @@ public class Body {
         return valueSim;
     }
 
+    private long checkboxid;
+
     public void setValueSim(boolean valueSim) {
         this.valueSim = valueSim;
     }
@@ -148,4 +150,8 @@ public class Body {
     }
 
     public boolean ischecked = false;
+
+    public long getCheckboxid() {
+        return checkboxid;
+    }
 }

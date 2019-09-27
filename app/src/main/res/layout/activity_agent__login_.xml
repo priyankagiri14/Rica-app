@@ -19,13 +19,13 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/loginlogo"
-        android:src="@drawable/ontracklogo"/>
+        android:layout_width="279dp"
+        android:layout_height="109dp"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/ontracklogotran" />
 
     <TextView
         android:layout_below="@id/loginlogo"
@@ -95,6 +95,7 @@
                 android:paddingRight="30dp"
                 android:text="@string/btn_login"
                 android:textColor="@color/white" />
+
 
 
             <!-- Link to Login Screen -->

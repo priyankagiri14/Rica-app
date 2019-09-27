@@ -2,20 +2,26 @@ package com.tms.ontrack.mobile.BatchesReceived;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.tms.ontrack.mobile.AgentsList.AgentsList;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.Web_Services.MyApp;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 
@@ -26,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BatchesReceivedList extends AppCompatActivity implements View.OnClickListener{
+public class BatchesReceivedList extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
     private BatchesReceivedListAdapter adapter;
     List<BatchesReceivedResponse> list1 = new ArrayList<>();
@@ -35,19 +41,20 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
     ArrayList<String> bodyArrayListbatches = new ArrayList<String>();
     String bodybatchesstring[];
     public ListView listView;
-    TextView batchesreceivedtext,nobatchesreceived;
+    TextView batchesreceivedtext, nobatchesreceived;
     Button btnstts;
     ProgressDialog progressBar;
-    int count =0;
+    int count = 0;
+    SearchView searchView;
 
-    private void populateListView(List<Body> batchesReceivedResponseList)
-    {
+    private void populateListView(List<Body> batchesReceivedResponseList) {
         Log.d("PNK", "POPULATELIST");
         Log.d("PNK", list1.toString());
         bodyArrayList1 = batchesReceivedResponseList;
-        adapter = new BatchesReceivedListAdapter(this,bodyArrayList1);
+        adapter = new BatchesReceivedListAdapter(this, bodyArrayList1);
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
+        searchView.setVisibility(View.VISIBLE);
         progressBar.cancel();
     }
 
@@ -56,6 +63,14 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batches_received_list);
 
+        searchView = (SearchView) findViewById(R.id.driverbatchsearch);
+        searchView.onActionViewExpanded();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search Batches");
+        searchView.requestFocusFromTouch();
+        searchView.setVisibility(View.INVISIBLE);
+
+
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
         progressBar.setMessage("Please Wait...");
@@ -63,15 +78,17 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
         progressBar.show();
 
         listView = (ListView) findViewById(R.id.batches_received_listview);
-        batchesreceivedtext = (TextView)findViewById(R.id.driver_batches_received);
-        nobatchesreceived = (TextView)findViewById(R.id.nobatchesrc);
+        listView.setTextFilterEnabled(true);
+        batchesreceivedtext = (TextView) findViewById(R.id.driver_batches_received);
+        nobatchesreceived = (TextView) findViewById(R.id.nobatchesrc);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        btnstts = (Button)findViewById(R.id.btnreceive);
+        btnstts = (Button) findViewById(R.id.btnreceive);
         btnstts.setVisibility(View.INVISIBLE);
         batchesreceivedtext.setVisibility(View.INVISIBLE);
         batchesGet();
         btnstts.setOnClickListener(this);
     }
+
     private void batchesGet() {
 
         Log.d("PNK", "BATCHES Received");
@@ -85,12 +102,10 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                 assert response.body() != null;
                 list = response.body().getBody();
 
-                for(int i=0;i<list.size();i++)
-                {
+                for (int i = 0; i < list.size(); i++) {
                     String status = response.body().getBody().get(i).getStatus();
                     String valueSim = String.valueOf(response.body().getBody().get(i).isValueSim());
-                    if(status.equals("RECEIVED") && valueSim.equals("true"))
-                    {
+                    if (status.equals("RECEIVED") && valueSim.equals("true")) {
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);
                         btnstts.setVisibility(View.VISIBLE);
@@ -98,18 +113,25 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                     }
                 }
 
-                if(listView.getCount() == 0)
-                {
+                String[] batches = new String[bodyArrayList1.size()];
+                if (bodyArrayList1.size() > 0) {
+                    for (int j = 0; j < bodyArrayList1.size(); j++) {
+                        batches[j] = bodyArrayList1.get(j).getBatchNo();
+                    }
+                }
+
+                if (listView.getCount() == 0) {
                     nobatchesreceived.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
                     progressBar.cancel();
-                   // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
 //                for (int i =0; i <list.size(); i++) {
 //                    list1.add(response.body());
 //                }
 
                 Log.d("PNK", "LIST1");
-                Log.d("PNK",  list1.toString());
+                Log.d("PNK", list1.toString());
 
 //                populateListView(list1.get(0).getBody());
 
@@ -128,7 +150,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         Log.d("PNK", "ONCLICK");
-        Log.d("PNK", ""+v.getId());
+        Log.d("PNK", "" + v.getId());
 
         AlertDialog alertDialog = new AlertDialog.Builder(BatchesReceivedList.this).create();
         alertDialog.setMessage("Do you want to allocate the stock to Agent");
@@ -148,6 +170,7 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                         count++;
                         //batches[j] = bodyArrayList1.get(j).getBatchNo();
                     }
+
                 }
                 if (count == 0) {
                     progressBar.cancel();
@@ -158,24 +181,6 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
                     for (int j = 0; j < bodyArrayListbatches.size(); j++) {
                         batches[j] = bodyArrayListbatches.get(j);
                     }
-//                Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-//                pojo.setStatus(status);
-//                pojo.setBatches(batches);
-//                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
-//                //exeuting the service
-//                call.enqueue(new Callback<AllocationStatusResponse>() {
-//                    @Override
-//                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
-//
-//                        String message = response.body().getMessage();
-//                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-//                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
                     progressBar.cancel();
                     Intent intent = new Intent(BatchesReceivedList.this, AgentsList.class);
@@ -190,48 +195,25 @@ public class BatchesReceivedList extends AppCompatActivity implements View.OnCli
 
                 alertDialog.cancel();
                 progressBar.cancel();
-
-//                String reason = "These Batches are assigned mistakenly";
-//                String status = "DECLINED";
-//                Log.d("PNK", "Here I am");
-//                int size = listView.getCount();
-//
-//                for (int j = 0; j <bodyArrayList1.size(); j++) {
-//
-//                    if (bodyArrayList1.get(j).isIschecked()) {
-//                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-//                        batches[j] = bodyArrayList1.get(j).getBatchNo();
-//                    }
-//                }
-//                Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-//                pojo.setStatus(status);
-//                pojo.setBatches(batches);
-//                pojo.setReason(reason);
-//                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
-//                //exeuting the service
-//                Log.d("agentlogin: ",call.toString());
-//                call.enqueue(new Callback<AllocationStatusResponse>() {
-//                    @Override
-//                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
-//
-//                        String message = response.body().getMessage();
-//                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-//                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-//                Intent intent=new Intent(BatchesGetList.this, MainActivity.class);
-//                intent.putExtra("batcheslist",bodyArrayList);
-//                startActivity(intent);
-//
             }
         });
 
         alertDialog.show();
     }
-}
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (TextUtils.isEmpty(newText)) {
+            listView.clearTextFilter();
+        } else {
+            listView.setFilterText(newText);
+        }
+        return true;
+    }
+}

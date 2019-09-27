@@ -9,18 +9,17 @@ public class HeaderIntercepter implements Interceptor {
     private String getSavedToken;
 
     @Override
-public Response intercept(Chain chain) throws IOException {
-    Request request = chain.request();
-    SharedPreferences sharedPreferences=MyApp.getContext().getSharedPreferences("smartCallLogin", 0);
-    getSavedToken= sharedPreferences.getString("smartCallToken",null);
+    public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
+        SharedPreferences sharedPreferences=MyApp.getContext().getSharedPreferences("smartCallLogin", 0);
+        getSavedToken= sharedPreferences.getString("smartCallToken",null);
+        Request tokenRequest = request.newBuilder()
+                .addHeader("Authorization", "Bearer " + getSavedToken)
+                .addHeader("Content-Type", "application/json")
+                .method(request.method(), request.body())
+                .build();
 
-    Request tokenRequest = request.newBuilder()
-            .addHeader("Authorization", "Bearer " + getSavedToken)
-            .addHeader("Content-Type", "application/json")
-            .method(request.method(), request.body())
-            .build();
-
-    return chain
-            .proceed(tokenRequest);
-}
+        return chain
+                .proceed(tokenRequest);
+    }
 }

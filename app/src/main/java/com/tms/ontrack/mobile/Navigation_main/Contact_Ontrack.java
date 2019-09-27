@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tms.ontrack.mobile.AboutActivity;
 import com.tms.ontrack.mobile.R;
 
 public class Contact_Ontrack  extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -41,6 +42,10 @@ public class Contact_Ontrack  extends AppCompatActivity implements NavigationVie
 
         } else if (id == R.id.nav_address) {
             Intent i2=new Intent(this, Address_Ontrack.class);
+            startActivity(i2);
+        }
+        else if (id == R.id.aboutdrawer) {
+            Intent i2=new Intent(this, AboutActivity.class);
             startActivity(i2);
         }
 

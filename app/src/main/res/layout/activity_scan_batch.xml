@@ -184,11 +184,36 @@
                     </LinearLayout>
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="15dp">
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Choose ID Type:"
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/greenontrack"/>
+                    <Spinner
+                        android:id="@+id/idspinner"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/id_spinner">
+
+                    </Spinner>
+                </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvCustomerEmail"
-                    android:visibility="visible"
+                    android:id="@+id/idnumtext"
+                    android:visibility="gone"
                     android:textColorHint="@color/greenontrack">
 
                     <EditText
@@ -199,8 +224,59 @@
                         android:textColor="#000"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <!-- Age Group -->
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/passporttext"
+                    android:visibility="gone"
+                    android:textColorHint="@color/greenontrack">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Passport"
+                        android:id="@+id/passport"
+                        android:textColor="#000"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/expirydatetext"
+                        android:layout_weight="3"
+                        android:textColorHint="@color/greenontrack">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Expiry Date"
+                            android:clickable="false"
+                            android:id="@+id/expirydate"
+                            android:textColor="#000"
+                            android:inputType="number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <info.androidhive.fontawesome.FontTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/calender"
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/fa_calendar_alt_solid"
+                        android:textColor="@color/greenontrack"
+                        android:textSize="32dp"
+                        app:solid_icon="true" />
+                </LinearLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -217,19 +293,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RadioGroup
+                    android:orientation="horizontal"
+                    android:weightSum="4"
                     style="@style/MyRadioButton"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/netwrokrg"
                     android:layout_gravity="center_horizontal">
 
-                    <LinearLayout
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4"
-                        >
                         <RadioButton
                             android:layout_weight="1"
                             android:id="@+id/vodacom"
@@ -257,7 +328,6 @@
                             android:layout_height="wrap_content"
                             android:text="MTN" />
 
-                    </LinearLayout>
                 </RadioGroup>
 
 
@@ -307,6 +377,7 @@
                     android:id="@+id/tvpostalcode"
                     android:textColorHint="@color/greenontrack">
                     <EditText
+                        android:inputType="number"
                         android:hint="Postal Code"
                         android:id="@+id/postal_code"
                         android:textColor="@color/greenontrack"

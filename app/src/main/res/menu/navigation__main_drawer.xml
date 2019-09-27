@@ -16,6 +16,11 @@
             android:id="@+id/nav_address"
             android:icon="@drawable/ic_business_black_24dp"
             android:title="Address" />
+
+        <item
+            android:id="@+id/aboutdrawer"
+            android:icon="@drawable/ic_business_black_24dp"
+            android:title="About" />
     </group>
 
 

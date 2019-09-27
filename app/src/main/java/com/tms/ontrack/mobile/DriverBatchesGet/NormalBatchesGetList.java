@@ -160,15 +160,16 @@ public class NormalBatchesGetList extends AppCompatActivity implements View.OnCl
             @Override
             public void onResponse(Call<BatchesGetResponse> call, Response<BatchesGetResponse> response) {
                 List<Body> list1 = new ArrayList<>();
-                assert response.body() != null;
-                list1 = response.body().getBody();
 
-                for(int i=0;i<list1.size();i++)
-                {
+                if (response.body() != null) {
+                    progressBar.dismiss();
+                    list1 = response.body().getBody();
+
+
+                for (int i = 0; i < list1.size(); i++) {
                     String status = list1.get(i).getStatus();
                     String valuesim = String.valueOf(list1.get(i).isValueSim());
-                    if(status.equals("PENDING") && valuesim.equals("false"))
-                    {
+                    if (status.equals("PENDING") && valuesim.equals("false")) {
                         bodyArrayList1.add(list1.get(i));
                         populateListView(bodyArrayList1);
                         btnstatus.setVisibility(View.VISIBLE);
@@ -179,8 +180,7 @@ public class NormalBatchesGetList extends AppCompatActivity implements View.OnCl
 //                            Toast.makeText(BatchesGetList.this, "No Data is Assigned to You!", Toast.LENGTH_SHORT).show();
 //                        }
                 }
-                if(listView.getCount() == 0)
-                {
+                if (listView.getCount() == 0) {
                     nobatchesget.setVisibility(View.VISIBLE);
                     progressBar.cancel();
                     //Toast.makeText(BatchesGetList.this, "No Data is Assigned to You..!", Toast.LENGTH_SHORT).show();
@@ -190,11 +190,12 @@ public class NormalBatchesGetList extends AppCompatActivity implements View.OnCl
 //                }
 
                 Log.d("PNK", "LIST1");
-                Log.d("PNK",  list2.toString());
+                Log.d("PNK", list2.toString());
 
 //                populateListView(list1.get(0).getBody());
 
                 Log.d("Batches", "onResponse: " + list2);
+            }
             }
 
             @Override

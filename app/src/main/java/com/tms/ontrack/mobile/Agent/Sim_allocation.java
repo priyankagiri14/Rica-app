@@ -1,12 +1,16 @@
 package com.tms.ontrack.mobile.Agent;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.location.aravind.getlocation.GeoLocator;
 import com.tms.ontrack.mobile.Agent.model.Simallocatemodel;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.AppDatabaseSerials;
@@ -36,9 +41,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import info.androidhive.fontawesome.FontTextView;
 import me.sudar.zxingorient.ZxingOrient;
 import me.sudar.zxingorient.ZxingOrientResult;
 import okhttp3.MediaType;
@@ -49,7 +56,8 @@ import retrofit2.Response;
 
 public class Sim_allocation extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
-    public EditText fname, lname, address, pincode, subhurb, simserial, idnum, city;
+    public EditText fname, lname, address, pincode, subhurb, idnum, city,passport,expirydate;
+    public TextInputLayout idnumtext,passporttext,expirydatetext;
     public RadioGroup networkrg;
     ListView listViewsearchserials;
     private String mResult = null;
@@ -57,11 +65,11 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
     ArrayAdapter<String> adapter;
     String[] batches;
     RadioButton vodacom, telkom, cellc, mtn;
-    String network, citystring;
+    String  network,citystring;
     String simcard = "";
     Button simallocate, agentscanbtn;
-    Spinner regionspinner;
-    String region;
+    Spinner regionspinner,idspinner;
+    String region,idtype;
     String type = "ONLINE";
     private SearchView searchView;
     AppDatabaseSerials db;
@@ -69,6 +77,8 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
     SerialsAdapter serialsAdapter;
     List<Serials> serialsList = new ArrayList<>();
     TextView textserials;
+    FontTextView calender;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     public void onCreate(Bundle savedInstancestate) {
 
@@ -90,6 +100,38 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
         subhurb = findViewById(R.id.subhurb);
         idnum = findViewById(R.id.idnum);
         city = findViewById(R.id.city);
+        passport = findViewById(R.id.passport);
+        expirydate = findViewById(R.id.expirydate);
+        expirydate.setClickable(false);
+        expirydate.setFocusable(false);
+
+        idnumtext = findViewById(R.id.idnumtext);
+        passporttext = findViewById(R.id.passporttext);
+        expirydatetext = findViewById(R.id.expirydatetext);
+
+        calender = findViewById(R.id.calender);
+        calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Sim_allocation.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,dateSetListener,year,month,day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String date = dayOfMonth+"/"+month+"/"+year;
+                expirydate.setText(date);
+            }
+        };
+        idspinner = findViewById(R.id.idspinner);
         networkrg = findViewById(R.id.netwrokrg);
         networkrg.setOnCheckedChangeListener(this);
         vodacom = findViewById(R.id.vodacom);
@@ -135,6 +177,39 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
 
             }
         });
+        idspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0)
+                {
+                    idnumtext.setVisibility(View.GONE);
+                    passporttext.setVisibility(View.GONE);
+                    expirydatetext.setVisibility(View.GONE);
+                    calender.setVisibility(View.GONE);
+                }
+                else if(position == 1)
+                {
+                    idtype = idspinner.getSelectedItem().toString();
+                    idnumtext.setVisibility(View.VISIBLE);
+                    passporttext.setVisibility(View.GONE);
+                    expirydatetext.setVisibility(View.GONE);
+                    calender.setVisibility(View.GONE);
+                }
+                else if(position == 2)
+                {
+                    idtype = idspinner.getSelectedItem().toString();
+                    idnumtext.setVisibility(View.GONE);
+                    passporttext.setVisibility(View.VISIBLE);
+                    expirydatetext.setVisibility(View.VISIBLE);
+                    calender.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initiateScan() {
@@ -158,17 +233,104 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
             initiateScan();
         }
         if (v.getId() == R.id.activate_sim) {
-        if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+       /* if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
                 pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
                 || searchView.getQuery().length() == 0 || idnum.getText().length() == 0) {
             Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
-        } else {
-            simallocation(searchView.getQuery().toString(), network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
-                    address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString());
+        }*/
+            if(idspinner.getSelectedItem().toString().equals("ID")) {
+                if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                        pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                        || regionspinner.getSelectedItemPosition() == 0 || searchView.getQuery().length() == 0 || idnum.getText().length() == 0 || idspinner.getSelectedItem().toString() == "ID Type") {
+                    Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    simallocation(searchView.getQuery().toString(), network, idnum.getText().toString(), fname.getText().toString(), lname.getText().toString(),
+                            address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString(),idspinner.getSelectedItem().toString());
+                }
+            }
+            else if(idspinner.getSelectedItem().toString().equals("PASSPORT")) {
+                if (fname.getText().toString().length() == 0 || lname.getText().length() == 0 || address.length() == 0 ||
+                        pincode.getText().toString().length() == 0 || subhurb.getText().toString().length() == 0 || network.isEmpty()
+                        || regionspinner.getSelectedItemPosition() == 0 || searchView.getQuery().length() == 0 || passport.getText().length() == 0 || expirydate.getText().length() == 0 || idspinner.getSelectedItem().toString() == "ID Type") {
+                    Toast.makeText(this, "Enter required fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    simallocation1(searchView.getQuery().toString(), network, fname.getText().toString(), lname.getText().toString(),
+                            address.getText().toString(), pincode.getText().toString(), subhurb.getText().toString(), city.getText().toString(), idspinner.getSelectedItem().toString(),passport.getText().toString(),expirydate.getText().toString());
+                }
+            }
         }
-    }
+
 
 }
+
+    private void simallocation1(String serial, String network, String fname, String lname, String address, String postalcode, String subhurb, String city, String idtype, String passport, String expirydate) {
+
+        Web_Interface webInterface = RetrofitToken.getClient().create(Web_Interface.class);
+        try {
+            JSONObject paramObject = new JSONObject();
+            paramObject.put("serial",serial );
+            paramObject.put("network", network);
+            paramObject.put("name", fname);
+            paramObject.put("surname",lname);
+            paramObject.put("address",address );
+            paramObject.put("postalCode", postalcode);
+            paramObject.put("suburb", subhurb);
+            paramObject.put("city", city);
+            paramObject.put("region",region);
+            paramObject.put("type",type);
+            paramObject.put("idType",idtype);
+            paramObject.put("passportNo",passport);
+            paramObject.put("passportExpiryDate",expirydate);
+            Log.d("simalloacte data",serial+"\n"+network +"\n" +idnum+"\n"+fname+"\n"+lname +"\n" +address +"\n" +postalcode +"\n" +subhurb +"\n" +city);
+            RequestBody body = RequestBody.create(MediaType.parse("application/json"),(paramObject).toString());
+            Call<Simallocatemodel> call= webInterface.simallocate(body);
+            //exeuting the service
+            call.enqueue(new Callback<Simallocatemodel>() {
+                @Override
+                public void onResponse(Call<Simallocatemodel> call, Response<Simallocatemodel> response) {
+                    if(response.isSuccessful()||response.code()==200){
+                        String message=response.body().getMessage();
+                        String success = response.body().getSuccess().toString();
+                        if(success.equals("true"))
+                        {
+                            db.serialsInterface().deleteSerials(serial) ;
+                            Toasty.success(getApplicationContext(),message).show();
+                            Pref.setCity(MyApp.getContext(),city);
+                            Intent intent = new Intent(Sim_allocation.this, Agent_Mainactivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            Toasty.warning(getApplicationContext(),message).show();
+                        }
+                    }
+                    else{
+                        try {
+                            JSONObject jObjError = new JSONObject(response.errorBody().toString());
+                            Log.d("AgentLoginActivity", jObjError.getString("message"));
+                            Toasty.info(getApplicationContext(), jObjError.getString("message")).show();
+
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage() , Toast.LENGTH_LONG).show();
+                            //stopping progress
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Simallocatemodel> call, Throwable t) {
+                    Log.d("simallocate",t.getLocalizedMessage());
+                    Toasty.info(getApplicationContext(),t.getLocalizedMessage()).show();
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private void addBatchValue() {
 
@@ -188,7 +350,7 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private void simallocation(String serial, String network, String idnum, String fname, String lname, String address, String postalcode, String subhurb, String city) {
+    private void simallocation(String serial, String network, String idnum, String fname, String lname, String address, String postalcode, String subhurb, String city, String idtype) {
 
         Web_Interface webInterface = RetrofitToken.getClient().create(Web_Interface.class);
         try {
@@ -204,6 +366,7 @@ public class Sim_allocation extends AppCompatActivity implements View.OnClickLis
             paramObject.put("city", city);
             paramObject.put("region",region);
             paramObject.put("type",type);
+            paramObject.put("idType",idtype);
             Log.d("simalloacte data",serial+"\n"+network +"\n" +idnum+"\n"+fname+"\n"+lname +"\n" +address +"\n" +postalcode +"\n" +subhurb +"\n" +city);
             RequestBody body = RequestBody.create(MediaType.parse("application/json"),(paramObject).toString());
             Call<Simallocatemodel> call= webInterface.simallocate(body);

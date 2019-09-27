@@ -20,8 +20,8 @@ android {
         applicationId "com.tms.ontrack.mobile"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10
-        versionName "2.1.6"
+        versionCode 20
+        versionName "2.2.1"
     }
     buildTypes {
         release {
@@ -52,7 +52,6 @@ dependencies {
     }
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'org.apache.commons:commons-io:1.3.2'
-    implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.github.maayyaannkk:ImagePicker:1.0.0'
     implementation 'com.jakewharton:butterknife:10.0.0'
     implementation 'info.androidhive:fontawesome:0.0.5'
@@ -64,7 +63,7 @@ dependencies {
     implementation 'net.alhazmy13.MediaPicker:libary:2.4.4'
     implementation 'com.github.maayyaannkk:ImagePicker:1.0.2'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.github.AravindVijay7:GeoLocator-Android:1.0.2'
     implementation 'com.github.GrenderG:Toasty:1.4.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -90,7 +89,8 @@ dependencies {
     // If you are using the support libraries other than 25.x in the project
     implementation 'com.android.support:recyclerview-v7:28.0.0' // example: 27.1.0
     implementation 'com.veyo:autorefreshnetworkconnection:1.0.6'
-    implementation 'com.google.android.play:core:1.6.0'
+    implementation 'com.google.android.play:core:1.6.1'
+    implementation 'com.kyanogen.signatureview:signature-view:1.2'
     implementation 'com.novoda:merlin:1.2.0'
 
 

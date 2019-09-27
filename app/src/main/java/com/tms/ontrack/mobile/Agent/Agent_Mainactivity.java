@@ -20,6 +20,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+
+import com.tms.ontrack.mobile.AboutActivity;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceConfirmResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.AttendanceGetResponse;
 import com.tms.ontrack.mobile.Agent.AttendanceGetResponse.Body;
@@ -169,6 +171,11 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                     Intent intent = new Intent(Agent_Mainactivity.this, OfflineRica.class);
                     startActivity(intent);
                 }
+
+                if (menuItem.getItemId() == R.id.about) {
+                    Intent intent = new Intent(Agent_Mainactivity.this, AboutActivity.class);
+                    startActivity(intent);
+                }
                 return false;
             }
         });
@@ -207,6 +214,11 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 finish();
                 break;
+            case R.id.about:
+                Intent intent1 = new Intent(this,AboutActivity.class);
+                startActivity(intent1);
+                finish();
+                break;
                 default:
                     break;
         }
@@ -237,7 +249,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         }
         else if(v.getId() == R.id.airtimeSales)
         {
-           /* Intent intent = new Intent(this, AirtimeSalesActivity.class);
+/*            Intent intent = new Intent(this, AirtimeSalesActivity.class);
             startActivity(intent);*/
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
 
@@ -254,7 +266,7 @@ public class Agent_Mainactivity extends AppCompatActivity implements View.OnClic
         }
         else if(v.getId() == R.id.payUtility)
         {
-          /*  Intent intent = new Intent(this, ElectricityBundleActivity.class);
+/*            Intent intent = new Intent(this, ElectricityBundleActivity.class);
             startActivity(intent);*/
             Toast.makeText(Agent_Mainactivity.this, "Coming Soon....", Toast.LENGTH_SHORT).show();
         }

@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NormalBatchesReceivedList extends AppCompatActivity implements View.OnClickListener {
+public class NormalBatchesReceivedList extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener{
 
     private BatchesReceivedListAdapter adapter;
     List<BatchesReceivedResponse> list1 = new ArrayList<>();
@@ -40,6 +42,7 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
     Button btnstts;
     ProgressDialog progressBar;
     int count =0;
+    SearchView searchView;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
     {
@@ -49,6 +52,7 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
         adapter = new BatchesReceivedListAdapter(this,bodyArrayList1);
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
+        searchView.setVisibility(View.VISIBLE);
         progressBar.cancel();
     }
 
@@ -57,6 +61,13 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batches_received_list);
 
+        searchView = (SearchView) findViewById(R.id.driverbatchsearch);
+        searchView.onActionViewExpanded();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search Batches");
+        searchView.requestFocusFromTouch();
+        searchView.setVisibility(View.INVISIBLE);
+
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
         progressBar.setMessage("Please Wait...");
@@ -64,6 +75,7 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
         progressBar.show();
 
         listView = (ListView) findViewById(R.id.batches_received_listview);
+        listView.setTextFilterEnabled(true);
         batchesreceivedtext = (TextView)findViewById(R.id.driver_batches_received);
         nobatchesreceived = (TextView)findViewById(R.id.nobatchesrc);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -87,7 +99,8 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
                 for(int i=0;i<list.size();i++)
                 {
                     String status = response.body().getBody().get(i).getStatus();
-                    if(status.equals("RECEIVED"))
+                    String valueSim = String.valueOf(response.body().getBody().get(i).isValueSim());
+                    if(status.equals("RECEIVED") && valueSim.equals("false"))
                     {
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);
@@ -99,6 +112,7 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
                 if(listView.getCount() == 0)
                 {
                     nobatchesreceived.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
                     progressBar.cancel();
                     // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
@@ -230,5 +244,20 @@ public class NormalBatchesReceivedList extends AppCompatActivity implements View
         });
 
         alertDialog.show();
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (TextUtils.isEmpty(newText)) {
+            listView.clearTextFilter();
+        } else {
+            listView.setFilterText(newText);
+        }
+        return true;
     }
 }

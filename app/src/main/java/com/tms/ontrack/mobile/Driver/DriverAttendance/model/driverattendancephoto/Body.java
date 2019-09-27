@@ -7,6 +7,16 @@ public class Body {
 
     private Integer id;
     private String name;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    private String filename;
     private String path;
     private String createdAt;
     private String updatedAt;

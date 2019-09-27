@@ -39,7 +39,7 @@ import retrofit2.Response;
 public class Agent_Login_Activity extends AppCompatActivity implements Callback<AgentLoginResponse> {
 
     EditText cellid,password;
-    String accessToken = "null";
+    String accessToken = "null",expirytime = "null";
     Button login;
     ProgressDialog progressBar;
     private ProgressDialog progressDialog;
@@ -143,7 +143,7 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
         if (response.isSuccessful() && response.code() == 200) {
             accessToken = response.body().getAccessToken();
             if (response.body().getAccessToken() != null) {
-                String expirytime = response.body().getExpiresIn().toString();
+                 expirytime = response.body().getExpiresIn().toString();
                 String token = "Bearer " + accessToken;
                 Pref.putToken(MyApp.getContext(), token);
                 Log.d("onResponse: ", token);
@@ -206,7 +206,6 @@ public class Agent_Login_Activity extends AppCompatActivity implements Callback<
                         else if(authority.equals("DRIVER"))
                         {
                             progressBar.cancel();
-
 
                             SharedPreferences.Editor mEditor = mSharedPreferences.edit();
                             mEditor.putString(DRIVER,"Driver");

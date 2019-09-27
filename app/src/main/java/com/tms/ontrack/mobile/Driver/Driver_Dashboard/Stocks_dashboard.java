@@ -14,10 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+
+import com.tms.ontrack.mobile.AboutActivity;
 import com.tms.ontrack.mobile.Agent.NetworkError;
 import com.tms.ontrack.mobile.Agent.OfflineRica;
 import com.tms.ontrack.mobile.Agent_Login.Agent_Login_Activity;
 import com.tms.ontrack.mobile.AssignBatchTab;
+import com.tms.ontrack.mobile.Driver.SignUpAgent.SignUpAgent;
 import com.tms.ontrack.mobile.OpenCloseBatches.CashHistory.CashUpStatement;
 import com.tms.ontrack.mobile.Driver.DriverAttendance.DriverAttendance;
 import com.tms.ontrack.mobile.Navigation_main.Navigation_Main;
@@ -31,6 +34,8 @@ import com.veyo.autorefreshnetworkconnection.CheckNetworkConnectionHelper;
 import com.veyo.autorefreshnetworkconnection.listener.StopReceiveDisconnectedListener;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 import info.androidhive.fontawesome.FontTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -175,6 +180,19 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
                         startActivity(intent);
                     }
 
+                if(menuItem.getItemId() == R.id.about)
+                {
+                    Log.d("StocksDash", "onOptionsItemSelected:bulk ");
+                    Intent intent = new Intent(Stocks_dashboard.this, AboutActivity.class);
+                    startActivity(intent);
+                }
+                if(menuItem.getItemId() == R.id.addagent)
+                {
+                    Log.d("StocksDash", "onOptionsItemSelected:bulk ");
+                    Intent intent = new Intent(Stocks_dashboard.this, SignUpAgent.class);
+                    startActivity(intent);
+                }
+
                 return false;
             }
         });
@@ -190,8 +208,26 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call<ValueWalletResponse> call, Response<ValueWalletResponse> response) {
 
-                int body = response.body().getBody();
-                activeliabilitiesvalue.setText(String.valueOf(body));
+
+                if(response.isSuccessful() && response.code() == 200) {
+                    
+                    if (response.body() != null && response.body().getBody() != null) {
+                        int body = response.body().getBody();
+                        activeliabilitiesvalue.setText(String.valueOf(body));
+                    }
+                }
+                else if(response.code() == 401)
+                {
+                    Toast.makeText(Stocks_dashboard.this, "Your Session has Expired.. Please Login again..!", Toast.LENGTH_SHORT).show();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    Intent i = new Intent(Stocks_dashboard.this, Navigation_Main.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finish();
+
+                }
             }
 
             @Override
@@ -203,7 +239,7 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        getMenuInflater().inflate(R.menu.driver_logout_menu, menu);
         return true;
     }
 
@@ -219,6 +255,15 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
             case R.id.bulkrica:
                 Intent intent = new Intent(this, OfflineRica.class);
                 startActivity(intent);
+                finish();
+                break;
+            case R.id.addagent:
+                Intent intent1 = new Intent(this, SignUpAgent.class);
+                startActivity(intent1);
+                break;
+            case R.id.about:
+                Intent intent2 = new Intent(this, AboutActivity.class);
+                startActivity(intent2);
                 finish();
                 break;
             default:

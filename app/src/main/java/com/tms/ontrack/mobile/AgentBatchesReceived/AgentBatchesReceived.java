@@ -1,6 +1,7 @@
 package com.tms.ontrack.mobile.AgentBatchesReceived;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,16 +13,19 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.OpenCloseBatches.OpenCloseActivity;
 import com.tms.ontrack.mobile.R;
+import com.tms.ontrack.mobile.Web_Services.MyApp;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Web_Interface;
 
@@ -32,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AgentBatchesReceived extends AppCompatActivity implements View.OnClickListener,LocationListener{
+public class AgentBatchesReceived extends AppCompatActivity implements View.OnClickListener,LocationListener, SearchView.OnQueryTextListener {
 
     private AgentBatchesReceivedListAdapter adapter;
     List<AgentBatchesReceivedResponse> list1 = new ArrayList<>();
@@ -46,6 +50,7 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
     LocationManager locationManager;
     double latitude, longitude;
     int count = 0;
+    SearchView searchView;
 
     private void populateListView(List<Body> batchesReceivedResponseList)
     {
@@ -56,6 +61,7 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
         adapter.notifyDataSetChanged();
         listView.setAdapter(adapter);
         progressBar.cancel();
+        searchView.setVisibility(View.VISIBLE);
         listviewclick();
     }
 
@@ -84,12 +90,20 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agent_batches_received);
 
+        searchView = (SearchView) findViewById(R.id.agentvaluebatchsearch);
+        searchView.onActionViewExpanded();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search Batches");
+        searchView.requestFocusFromTouch();
+        searchView.setVisibility(View.INVISIBLE);
+
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);
         progressBar.setMessage("Please Wait...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.show();
         listView = (ListView) findViewById(R.id.agent_batches_received_listview);
+        listView.setTextFilterEnabled(true);
         agentbatchesreceived = (TextView) findViewById(R.id.agent_received_batches);
         noagentbatchesreceived = (TextView) findViewById(R.id.noagentbatchesreceived);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -128,12 +142,19 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
                 {
                     String status = response.body().getBody().get(i).getStatus();
                     String valueSim = String.valueOf(response.body().getBody().get(i).isValueSim());
-                    if(status.equals("RECEIVED")&& valueSim.equals("true"))
+                    if(status.equals("RECEIVED") && valueSim.equals("true"))
                     {
 //
                         bodyArrayList1.add(list.get(i));
                         populateListView(bodyArrayList1);
                         agentbatchesreceived.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                String[] batches = new String[bodyArrayList1.size()];
+                if(bodyArrayList1.size()>0) {
+                    for (int j = 0; j < bodyArrayList1.size(); j++) {
+                        batches[j] = bodyArrayList1.get(j).getBatchNo();
                     }
                 }
                 batchid = new String[bodyArrayList1.size()];
@@ -146,6 +167,7 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
                 if(listView.getCount() == 0)
                 {
                     noagentbatchesreceived.setVisibility(View.VISIBLE);
+                    searchView.setVisibility(View.INVISIBLE);
                     progressBar.cancel();
                     // Toast.makeText(BatchesReceivedList.this, "No Data is Received by You..!", Toast.LENGTH_SHORT).show();
                 }
@@ -177,101 +199,6 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
 
 
         Toast.makeText(AgentBatchesReceived.this, "No Functionality here for as of now", Toast.LENGTH_SHORT).show();
-
-//        AlertDialog alertDialog = new AlertDialog.Builder(AgentBatchesReceived.this).create();
-//        alertDialog.setMessage("Do you want to allocate the stock to Agent");
-//
-//        alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int which) {
-//
-//                int size = listView.getCount();
-//                bodybatchesstring = new String[size];
-//
-//                for (int j = 0; j <bodyArrayList1.size(); j++) {
-//
-//                    if (bodyArrayList1.get(j).isIschecked()) {
-//                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-//                        //batches[j] = bodyArrayList1.get(j).getBatchNo();
-//                    }
-//                }
-//                String[] batches = new String[bodyArrayListbatches.size()];
-//
-//                for(int j=0; j<bodyArrayListbatches.size();j++)
-//                {
-//                    batches[j] = bodyArrayListbatches.get(j);
-//                }
-////                Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-////                pojo.setStatus(status);
-////                pojo.setBatches(batches);
-////                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
-////                //exeuting the service
-////                call.enqueue(new Callback<AllocationStatusResponse>() {
-////                    @Override
-////                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
-////
-////                        String message = response.body().getMessage();
-////                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
-////                    }
-////
-////                    @Override
-////                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-////                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-////                    }
-////                });
-//
-//                Intent intent=new Intent(BatchesReceivedList.this, AgentsList.class);
-//                intent.putExtra("allocation_stock",batches);
-//                startActivity(intent);
-//            }
-//        });
-//        alertDialog.setButton(Dialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                alertDialog.cancel();
-//
-////                String reason = "These Batches are assigned mistakenly";
-////                String status = "DECLINED";
-////                Log.d("PNK", "Here I am");
-////                int size = listView.getCount();
-////
-////                for (int j = 0; j <bodyArrayList1.size(); j++) {
-////
-////                    if (bodyArrayList1.get(j).isIschecked()) {
-////                        bodyArrayListbatches.add(bodyArrayList1.get(j).getBatchNo());
-////                        batches[j] = bodyArrayList1.get(j).getBatchNo();
-////                    }
-////                }
-////                Web_Interface web_interface = RetrofitToken.getClient().create(Web_Interface.class);
-////                pojo.setStatus(status);
-////                pojo.setBatches(batches);
-////                pojo.setReason(reason);
-////                Call<AllocationStatusResponse> call= web_interface.requestAllocationStatus(pojo);
-////                //exeuting the service
-////                Log.d("agentlogin: ",call.toString());
-////                call.enqueue(new Callback<AllocationStatusResponse>() {
-////                    @Override
-////                    public void onResponse(Call<AllocationStatusResponse> call, Response<AllocationStatusResponse> response) {
-////
-////                        String message = response.body().getMessage();
-////                        Toast.makeText(BatchesGetList.this, message, Toast.LENGTH_SHORT).show();
-////                    }
-////
-////                    @Override
-////                    public void onFailure(Call<AllocationStatusResponse> call, Throwable t) {
-////                        Toast.makeText(BatchesGetList.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-////                    }
-////                });
-//
-////                Intent intent=new Intent(BatchesGetList.this, MainActivity.class);
-////                intent.putExtra("batcheslist",bodyArrayList);
-////                startActivity(intent);
-////
-//            }
-//        });
-//
-//        alertDialog.show();
     }
 
     @Override
@@ -322,5 +249,21 @@ public class AgentBatchesReceived extends AppCompatActivity implements View.OnCl
             });
             alertDialog.show();
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (TextUtils.isEmpty(newText)) {
+            listView.clearTextFilter();
+        } else {
+            listView.setFilterText(newText);
+        }
+        return true;
     }
 }

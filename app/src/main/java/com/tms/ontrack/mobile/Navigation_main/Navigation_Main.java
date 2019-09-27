@@ -15,14 +15,19 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tms.ontrack.mobile.AboutActivity;
 import com.tms.ontrack.mobile.Agent.Agent_Mainactivity;
 import com.tms.ontrack.mobile.Agent.NetworkError;
 import com.tms.ontrack.mobile.Agent_Login.AgentLoginResponse;
+import com.tms.ontrack.mobile.Agent_Login.Agent_Login_Activity;
+import com.tms.ontrack.mobile.Agent_Login.RefreshToken;
 import com.tms.ontrack.mobile.CredentialsCheck.CredentailsCheckResponse;
 import com.tms.ontrack.mobile.Driver.Driver_Dashboard.Stocks_dashboard;
+import com.tms.ontrack.mobile.Driver.SignUpAgent.SignUpAgent;
 import com.tms.ontrack.mobile.R;
 import com.tms.ontrack.mobile.SharedPreference.SharedPref;
 import com.tms.ontrack.mobile.Web_Services.MyApp;
+import com.tms.ontrack.mobile.Web_Services.RefreshAccessToken;
 import com.tms.ontrack.mobile.Web_Services.RetrofitClient;
 import com.tms.ontrack.mobile.Web_Services.RetrofitToken;
 import com.tms.ontrack.mobile.Web_Services.Utils.Pref;
@@ -53,7 +58,7 @@ public class Navigation_Main extends AppCompatActivity
 
     EditText cellid,password;
     Button login;
-    String accessToken = "null";
+    String accessToken = "null",expirytime = "null";
     ProgressDialog progressBar;
     private ProgressDialog progressDialog;
     public static SharedPreferences mSharedPreferences,aSharedPreferences;
@@ -64,6 +69,12 @@ public class Navigation_Main extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation__main);
+
+        mSharedPreferences = getSharedPreferences("Driver", Context.MODE_PRIVATE);
+        aSharedPreferences = getSharedPreferences("Agent",Context.MODE_PRIVATE);
+
+        // mSharedPreferences = getSharedPreferences("Agent", Context.MODE_PRIVATE);
+
 
         CheckNetworkConnectionHelper
                 .getInstance()
@@ -92,20 +103,7 @@ public class Navigation_Main extends AppCompatActivity
                 });
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mSharedPreferences = getSharedPreferences("Driver", Context.MODE_PRIVATE);
-        aSharedPreferences = getSharedPreferences("Agent",Context.MODE_PRIVATE);
 
-        // mSharedPreferences = getSharedPreferences("Agent", Context.MODE_PRIVATE);
-        if(mSharedPreferences.contains(DRIVER)){
-            Intent intent = new Intent(Navigation_Main.this,Stocks_dashboard.class);
-            startActivity(intent);
-            finish();
-        }
-        else if(aSharedPreferences.contains(AGENT)){
-            Intent intent1 = new Intent(Navigation_Main.this,Agent_Mainactivity.class);
-            startActivity(intent1);
-            finish();
-        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -138,6 +136,7 @@ public class Navigation_Main extends AppCompatActivity
             }
         });
     }
+
     private void agentlogin(String cellid, String password) {
         Web_Interface webInterface= RetrofitClient.getClient().create(Web_Interface.class);
         //creating request body to parse form data
@@ -163,7 +162,7 @@ public class Navigation_Main extends AppCompatActivity
         if (response.isSuccessful() && response.code() == 200) {
             accessToken = response.body().getAccessToken();
             if (response.body().getAccessToken() != null) {
-                String expirytime = response.body().getExpiresIn().toString();
+                expirytime = response.body().getExpiresIn().toString();
                 String token = "Bearer " + accessToken;
                 Pref.putToken(MyApp.getContext(), token);
                 Log.d("onResponse: ", token);
@@ -190,16 +189,21 @@ public class Navigation_Main extends AppCompatActivity
                     if (response.body() != null) {
                         String authority = response.body().getBody().getAuthority().getAuthority();
                         String firstName = response.body().getBody().getFirstName();
+                        String userid = response.body().getBody().getId().toString();
                         if(!firstName.equals("null"))
                         {
                             Pref.putFirstName(MyApp.getContext(),firstName);
+                        }
+                        if (!userid.equals(""))
+                        {
+                            Pref.putUserId(MyApp.getContext(),userid);
                         }
                         if(authority.equals("ADMIN"))
                         {
                             progressBar.cancel();
                             Toast.makeText(Navigation_Main.this, "You are logging in with ADMIN Credentials", Toast.LENGTH_SHORT).show();
                         }
-                        else if(authority.equals("DRIVER"))
+                        else if(authority.equals("DRIVER")||authority.equals("SALES_REP"))
                         {
                             progressBar.cancel();
                             SharedPreferences.Editor mEditor = mSharedPreferences.edit();
@@ -220,7 +224,7 @@ public class Navigation_Main extends AppCompatActivity
 
 
                         }
-                        else{
+                        else if(authority.equals("AGENT")||authority.equals("INDEPENDENT_AGENT")){
                             progressBar.cancel();
                             SharedPreferences.Editor mEditor = aSharedPreferences.edit();
                             mEditor.putString(AGENT,"Agent");
@@ -231,6 +235,8 @@ public class Navigation_Main extends AppCompatActivity
                             Pref.putId(MyApp.getContext(),Id);
                             Intent intent = new Intent(Navigation_Main.this, Agent_Mainactivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
                     }
@@ -292,6 +298,11 @@ public class Navigation_Main extends AppCompatActivity
 
         } else if (id == R.id.nav_address) {
             Intent i2=new Intent(this, Address_Ontrack.class);
+            startActivity(i2);
+        }
+
+        else if (id == R.id.aboutdrawer) {
+            Intent i2=new Intent(this, AboutActivity.class);
             startActivity(i2);
         }
 

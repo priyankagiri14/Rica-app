@@ -19,15 +19,26 @@
     <application
         android:name=".Web_Services.MyApp"
         android:allowBackup="false"
-        android:icon="@mipmap/ontrack_logo2"
+        android:icon="@mipmap/ontracklogopurple"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ontrack_logo2"
+        android:roundIcon="@mipmap/ontracklogopurple"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-        <activity android:name=".Agent.NetworkError"></activity>
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".Driver.SignUpAgent.SignUpAgent"></activity>
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Agent.NetworkError" />
         <activity android:name=".Agent.OfflineRica" />
         <activity android:name=".RicaTab" />
         <activity android:name=".AgentBatchesReceived.AgentNormalBatchesReceivedList" />
@@ -44,13 +55,7 @@
         <activity android:name=".FuelMaintenence.VehicleCharge" />
         <activity android:name=".Navigation_main.Contact_Ontrack" />
         <activity android:name=".Navigation_main.Address_Ontrack" />
-        <activity android:name=".Navigation_main.Navigation_Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Navigation_main.Navigation_Main" />
         <activity android:name=".AgentBatchesReceived.AgentBatchesReceived" />
         <activity android:name=".AgentBatchesGet.AgentBatchesGet" />
         <activity android:name=".BatchesReceived.BatchesReceivedList" />

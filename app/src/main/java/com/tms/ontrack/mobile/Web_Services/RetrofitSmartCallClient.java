@@ -19,7 +19,7 @@ public class RetrofitSmartCallClient {
 
 
         httpClient .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build();
+                .build();
         OkHttpClient client = httpClient.build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(SMARTCALL_BASE_URL)
@@ -31,3 +31,4 @@ public class RetrofitSmartCallClient {
         return retrofit;
     }
 }
+

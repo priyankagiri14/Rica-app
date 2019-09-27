@@ -5,17 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.tms.ontrack.mobile.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AgentBatchesReceivedListAdapter extends BaseAdapter {
+public class AgentBatchesReceivedListAdapter extends BaseAdapter implements Filterable{
 
     private List<AgentBatchesReceivedResponse> batchesGetLists;
     private List<Body> bodyList;
     private Context context;
+    public List<Body> orig;
 
 
     public AgentBatchesReceivedListAdapter(Context context, List<Body> bodyList) {
@@ -33,6 +37,41 @@ public class AgentBatchesReceivedListAdapter extends BaseAdapter {
         }
     }
 
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final List<Body> results = new ArrayList<Body>();
+                if (orig == null)
+                    orig = bodyList;
+                if (constraint != null) {
+                    if (orig != null && orig.size() > 0) {
+                        for (final Body g : orig) {
+                            if (g.getBatchNo().toLowerCase()
+                                    .contains(constraint.toString()))
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                bodyList = (ArrayList<Body>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {

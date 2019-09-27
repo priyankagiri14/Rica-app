@@ -9,7 +9,7 @@
         android:layout_weight="8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="@dimen/_13sdp"
         android:padding="10dp"
         android:textColor="#000"
         android:layout_margin="5dp"/>
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:textSize="20dp"
+        android:textSize="@dimen/_13sdp"
         android:padding="10dp"
         android:textColor="#000"
         android:layout_margin="5dp"/>

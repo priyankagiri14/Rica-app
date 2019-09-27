@@ -17,9 +17,10 @@
     <ImageView
         android:layout_marginTop="50dp"
         android:id="@+id/ontrack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ontracklogo"
+        android:layout_width="279dp"
+        android:layout_height="102dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ontracklogotran"
         android:layout_below="@id/toolbar"/>
     <TextView
         android:id="@+id/address"

@@ -20,7 +20,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.levitnudi.legacytableview.LegacyTableView.DESKTOP;
 import static com.levitnudi.legacytableview.LegacyTableView.ECOKENYA;
+import static com.levitnudi.legacytableview.LegacyTableView.GOLDALINE;
+import static com.levitnudi.legacytableview.LegacyTableView.LAVICI;
+import static com.levitnudi.legacytableview.LegacyTableView.LEVICI;
+import static com.levitnudi.legacytableview.LegacyTableView.MAASAI;
+import static com.levitnudi.legacytableview.LegacyTableView.MESH;
+import static com.levitnudi.legacytableview.LegacyTableView.OCEAN;
+import static com.levitnudi.legacytableview.LegacyTableView.ORIO;
+import static com.levitnudi.legacytableview.LegacyTableView.SKELETON;
 
 public class CashUpStatement extends AppCompatActivity {
 

@@ -16,7 +16,7 @@
         android:gravity="center"
         >
         <TextView
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:id="@+id/agent_received_batches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,6 +34,19 @@
             android:textColor="#000000"
             android:textSize="@dimen/_15sdp"
             android:gravity="center"/>
+
+        <SearchView
+
+            android:id="@+id/agentvaluebatchsearch"
+            android:layout_width="match_parent"
+            android:clickable="true"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/white">
+            <requestFocus/>
+        </SearchView>
 
         <LinearLayout
             android:layout_marginTop="30dp"

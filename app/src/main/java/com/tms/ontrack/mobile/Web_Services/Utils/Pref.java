@@ -15,6 +15,7 @@ public class Pref {
     public static final String ALLOCATION_ID = "allocation_id";
     public static final String CITY = "city";
     public static final String FNAME = "firstName";
+    public static final String USER_ID = "USER_ID";
     public static SharedPreferences getPref(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -81,5 +82,13 @@ public class Pref {
     }
     public static String getFirstName(Context context) {
         return getPref(context).getString(FNAME, null);
+    }
+
+    public static void putUserId(Context context,String userId)
+    {
+        getPref(context).edit().putString(USER_ID,userId).commit();
+    }
+    public static String getUserId(Context context) {
+        return getPref(context).getString(USER_ID, null);
     }
 }

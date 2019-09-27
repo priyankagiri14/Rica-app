@@ -26,15 +26,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:weightSum="4">
+        >
         <TextView
             android:id="@+id/driver_batches_received"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="List of Batches Received"
             android:textSize="25dp"/>
+
+        <SearchView
+
+            android:id="@+id/driverbatchsearch"
+            android:layout_width="match_parent"
+            android:clickable="true"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/white">
+            <requestFocus/>
+        </SearchView>
 
         <TextView
             android:id="@+id/nobatchesrc"

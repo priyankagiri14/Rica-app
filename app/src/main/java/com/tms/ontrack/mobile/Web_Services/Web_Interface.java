@@ -9,6 +9,7 @@ import com.tms.ontrack.mobile.AgentBatchesGet.AgentBatchesGetResponse;
 import com.tms.ontrack.mobile.AgentBatchesGet.MyPojo;
 import com.tms.ontrack.mobile.AgentBatchesReceived.AgentBatchesReceivedResponse;
 import com.tms.ontrack.mobile.Agent_Login.AgentLoginResponse;
+import com.tms.ontrack.mobile.Agent_Login.RefreshToken;
 import com.tms.ontrack.mobile.AgentsGetResponse.AgentsGetResponse;
 import com.tms.ontrack.mobile.AgentsList.AgentsListResponse;
 import com.tms.ontrack.mobile.AirtimeSales.model.SmartCallAgentLogin;
@@ -19,9 +20,13 @@ import com.tms.ontrack.mobile.AllocationCreateResponse.AllocationCreate;
 import com.tms.ontrack.mobile.AllocationGet.AllocationGetResponse;
 import com.tms.ontrack.mobile.AllocationStatus.AgentAllocationStatusResponse;
 import com.tms.ontrack.mobile.AllocationStatus.AllocationStatusResponse;
+import com.tms.ontrack.mobile.Driver.Contract.ContractResponse;
 import com.tms.ontrack.mobile.Driver.DriverAttendance.model.team_attendance.TeamAttendanceResponse_MyPojo;
 import com.tms.ontrack.mobile.Driver.DriverAttendance.model.team_attendance.Team_Attendance_Response;
+import com.tms.ontrack.mobile.Driver.SignUpAgent.ResponseAuthority;
 import com.tms.ontrack.mobile.Driver.Driver_Dashboard.ValueWalletResponse;
+import com.tms.ontrack.mobile.Driver.SignUpAgent.SignUpResponse;
+import com.tms.ontrack.mobile.Driver.SignUpAgent.WarehouseResponse;
 import com.tms.ontrack.mobile.DriverBatchesGet.BatchesGetResponse;
 import com.tms.ontrack.mobile.DriverBatchesGet.Pojo;
 import com.tms.ontrack.mobile.BatchesReceived.BatchesReceivedResponse;
@@ -41,7 +46,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -66,7 +70,7 @@ public interface Web_Interface {
     Call<CredentailsCheckResponse> requestCredentialsCheck();
 
     @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
+    @GET("batches/")
     Call<BatchesGetResponse> requestBatchesGet(@Query("size") int size, @Query("page") int page);
 
     @Headers({"Accept: application/json"})
@@ -74,7 +78,7 @@ public interface Web_Interface {
     Call<AgentsListResponse> requestAgentsList();
 
     @Headers({"Accept: application/json"})
-    @GET("users?size=size&page=page&authorities=authorities/")
+    @GET("users?")
     Call<AgentsGetResponse> requestAgentsGet(@Query("size") int size, @Query("page") int page, @Query("authorities") String authorities);
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
@@ -82,7 +86,7 @@ public interface Web_Interface {
     Call<AllocationCreate> requestAllocationCreate(@Path("userId") String id, @Query("lat")double lat, @Query("long") double longitude,@Body String[] batches);
 
     @Headers("Accept: application/json")
-    @GET("allocations?size=size&page=page/")
+    @GET("allocations/")
     Call<AllocationGetResponse> requestAllocationGet(@Query("size") int size, @Query("page") int page);
 
 
@@ -92,7 +96,7 @@ public interface Web_Interface {
     Call<AllocationStatusResponse> requestAllocationStatus(@Query("lat") double lat,@Query("long") double longitude,@Body Pojo pojo);
 
     @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
+    @GET("batches/")
     Call<BatchesReceivedResponse> requestBatchesReceived(@Query("size") int size, @Query("page") int page);
 
     @Headers("Accept: application/json")
@@ -117,7 +121,7 @@ public interface Web_Interface {
     Call<UploadedFile> requestUpdateProfilePic(@Part MultipartBody.Part[] files, @Header("Authorization") String auth);
 
     @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
+    @GET("batches/")
     Call<AgentBatchesGetResponse> requestAgentBatchesGet(@Query("size") int size, @Query("page") int page);
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
@@ -126,7 +130,7 @@ public interface Web_Interface {
     Call<AgentAllocationStatusResponse> requestAgentAllocationStatus(@Query("lat")double lat, @Query("long") double longitude,@Body MyPojo pojo);
 
     @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
+    @GET("batches/")
     Call<AgentBatchesReceivedResponse> requestAgentBatchesReceived(@Query("size") int size, @Query("page") int page);
 
     @Headers("Accept: application/json")
@@ -139,7 +143,7 @@ public interface Web_Interface {
     Call<Team_Attendance_Response> requestTeamAttendance(@Body TeamAttendanceResponse_MyPojo pojo);
 
     @Headers("Accept: application/json")
-    @GET("attendance?page=page&size=size")
+    @GET("attendance")
     Call<AttendanceGetResponse> requestAttendanceGet(@Query("page") int page, @Query("size") int size);
 
     @Headers({"Accept: application/json", "Content-Type: application/json"})
@@ -152,7 +156,7 @@ public interface Web_Interface {
     Call<OpenCloseResponse> requestOpenClose(@Query("lat")double lat,@Query("long") double longitude,@Query("action") String action, @Body RequestBody body);
 
     @Headers("Accept: application/json")
-    @GET("batches?size=size&page=page/")
+    @GET("batches/")
     Call<OpenedBatchesResponse> requestOpenedBatches(@Query("size") int size, @Query("page") int page);
 
     @Headers("Accept: application/json")
@@ -190,6 +194,26 @@ public interface Web_Interface {
     Call<GetAllDataPlansResponse> requestGetAllDataPlans(@Path("networkId") int network_id);
 
     //smartcall recharge request
-    @POST("smartload/recharges")
+    @POST("smartload/v2/recharges")
     Call<ResponseBody> requestSmartCallRecharge(@Body RequestBody requestRecharge);
+
+    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    @POST("refresh")
+    Call<RefreshToken> requestRefreshToken();
+
+    @Headers({ "Content-Type: application/json"})
+    @GET("authorities")
+    Call<ResponseAuthority> requestResponseAuthority();
+
+    @Headers({ "Content-Type: application/json"})
+    @GET("warehouses")
+    Call<WarehouseResponse> requestWarehouseResponse();
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("users")
+    Call<SignUpResponse> requestSignUpResponse(@Body RequestBody signupBody);
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("users/contract")
+    Call<ContractResponse> requestContractResponse(@Body RequestBody contractbody);
 }

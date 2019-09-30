@@ -2008,21 +2008,24 @@ public class SignUpAgent extends AppCompatActivity {
                                             }
                                             else
                                             {
+                                                // resolved exception
                                                 progressBar.dismiss();
-                                                Toast.makeText(SignUpAgent.this, response.code(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SignUpAgent.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                         else
                                         {
+                                            // resolved exception
                                             progressBar.dismiss();
-                                            Toast.makeText(SignUpAgent.this, response.code(), Toast.LENGTH_SHORT).show();
+                                            assert response.body() != null;
+                                            Toast.makeText(SignUpAgent.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<SignUpResponse> call, Throwable t) {
                                         progressBar.dismiss();
-                                        Toast.makeText(SignUpAgent.this, response.code(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUpAgent.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
                                     }
                                 });

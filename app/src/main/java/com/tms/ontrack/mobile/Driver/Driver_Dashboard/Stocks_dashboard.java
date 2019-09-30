@@ -59,8 +59,10 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stocks_dashboard);
-
-        CheckNetworkConnectionHelper
+        /**
+         comment auto refresh connection code
+         */
+        /*CheckNetworkConnectionHelper
                 .getInstance()
                 .registerNetworkChangeListener(new StopReceiveDisconnectedListener() {
                     @Override
@@ -76,15 +78,15 @@ public class Stocks_dashboard extends AppCompatActivity implements View.OnClickL
                     public void onNetworkConnected() {
                         //Do your task on Network Connected!
                         Log.d("onNetworkConnected: ","Network");
-                       /* Intent intent = new Intent(Agent_Mainactivity.this,Agent_Mainactivity.class);
-                        startActivity(intent);*/
+                       *//* Intent intent = new Intent(Agent_Mainactivity.this,Agent_Mainactivity.class);
+                        startActivity(intent);*//*
                     }
 
                     @Override
                     public Context getContext() {
                         return Stocks_dashboard.this;
                     }
-                });
+                });*/
         activeliabilitiesvalue = (TextView)findViewById(R.id.activeliabilitiesvalue);
 
         CardView stocks_received=(CardView)findViewById(R.id.sim_aloc);
